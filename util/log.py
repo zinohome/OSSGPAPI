@@ -12,7 +12,7 @@
 import os
 from loguru import logger
 
-LOG_FILE_NAME = 'capricornus.log'
+LOG_FILE_NAME = 'OSSGPAPI.log'
 
 
 def singleton(class_):
