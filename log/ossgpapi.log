@@ -1,0 +1,8 @@
+2022-04-26 at 18:09:38 | SUCCESS | [测试log] hello, world
+2022-04-26 at 18:09:38 | INFO | [测试log] hello, world
+2022-04-26 at 18:09:38 | DEBUG | [测试log] hello, world
+2022-04-26 at 18:09:38 | WARNING | [测试log] hello, world
+2022-04-26 at 18:09:38 | ERROR | [测试log] hello, world
+2022-04-26 at 18:09:38 | CRITICAL | [测试log] hello, world
+2022-04-26 at 18:09:38 | ERROR | [测试log] hello, world
+NoneType: None
