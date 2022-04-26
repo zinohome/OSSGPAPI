@@ -11,6 +11,7 @@
 
 import os
 from arango import ArangoClient
+from arango_orm import Database
 
 from env.environment import Environment
 from util import log
@@ -29,7 +30,7 @@ class Systembase:
 
     @property
     def db(self):
-        return self._db
+        return Database(self._db)
 
     def initgovbase(self):
         if not self._db.has_database(os.getenv('ARANGODB_GOVDATABASE')):

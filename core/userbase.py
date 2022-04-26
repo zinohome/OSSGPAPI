@@ -11,6 +11,8 @@
 
 import os
 from arango import ArangoClient
+from arango_orm import Database
+
 
 class Userbase:
     def __init__(self):
@@ -19,4 +21,4 @@ class Userbase:
 
     @property
     def db(self):
-        return self._db
+        return Database(self._db)

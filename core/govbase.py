@@ -11,6 +11,8 @@
 
 import os
 from arango import ArangoClient
+from arango_orm import Database
+
 
 class Govbase:
     def __init__(self):
@@ -19,4 +21,5 @@ class Govbase:
 
     @property
     def db(self):
-        return self._db
+        return Database(self._db)
+
