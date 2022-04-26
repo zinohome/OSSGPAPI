@@ -7,13 +7,15 @@
 #  @Time    : 2021
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
-#  @Software: OSSGPAPI
+#  @Software: Capricornus
+
+import ast
 import collections
 import distutils
 import traceback
 
 import simplejson as json
-from sqlalchemy import func
+from sqlalchemy import func, text
 
 from sqlmodel import Session, select
 
@@ -73,7 +75,9 @@ class ogdbconnectService(object):
         try:
             engine = dbengine.DBEngine().connect()
             with Session(engine) as session:
-                results = session.execute('select count(*) from ogdbconnect')
+                pks = ogdbconnect.getPrimaryKeys(ogdbconnect)
+                stmt = text("select count(" + pks[0] + ") as rowcount from ogdbconnect")
+                results = session.execute(stmt)
                 return results.one()[0]
         except Exception as e:
             log.logger.error('Exception at get_ogdbconnect_count(): %s ' % e)
@@ -89,7 +93,8 @@ class ogdbconnectService(object):
             with Session(engine) as session:
                 session.add(customer)
                 session.commit()
-                session.refresh(customer)
+                if cfg['Schema_Config'].schema_model_refresh:
+                    session.refresh(customer)
                 pks = ogdbconnect.getPrimaryKeys(ogdbconnect)
                 returnjson = {}
                 for pk in pks:
@@ -124,7 +129,7 @@ class ogdbconnectService(object):
         try:
             engine = dbengine.DBEngine().connect()
             with Session(engine) as session:
-                statement = select(ogdbconnect).where(eval(idstr))
+                statement = select(ogdbconnect).where(text(idstr))
                 result = session.exec(statement).one()
                 #log.logger.debug('get_ogdbconnect_byid() result is : %s' % result)
                 return result
@@ -157,7 +162,10 @@ class ogdbconnectService(object):
         pks = ogdbconnect.getPrimaryKeys(ogdbconnect)
         statement = select(ogdbconnect)
         for pk in pks:
-            statement = statement.where(eval("ogdbconnect."+ pk + "==" +str(updatejson[pk])))
+            if ogdbconnect.getpkqmneed(ogdbconnect,pk):
+                statement = statement.where(text("ogdbconnect." + pk + "='" + str(updatejson[pk])+"'"))
+            else:
+                statement = statement.where(text("ogdbconnect."+ pk + "=" +str(updatejson[pk])))
         try:
             engine = dbengine.DBEngine().connect()
             with Session(engine) as session:
@@ -167,7 +175,8 @@ class ogdbconnectService(object):
                         modcustomer.__setattr__(field.name, updatejson[field.name])
                 session.add(modcustomer)
                 session.commit()
-                session.refresh(modcustomer)
+                if cfg['Schema_Config'].schema_model_refresh:
+                    session.refresh(modcustomer)
                 return modcustomer
         except Exception as e:
             log.logger.error('Exception at update_ogdbconnect_byjson(): %s ' % e)
@@ -196,7 +205,7 @@ class ogdbconnectService(object):
         try:
             engine = dbengine.DBEngine().connect()
             with Session(engine) as session:
-                statement = select(ogdbconnect).where(eval(idstr))
+                statement = select(ogdbconnect).where(text(idstr))
                 result = session.exec(statement).one()
                 log.logger.debug('delete_ogdbconnect_byid() result is : %s' % result)
                 session.delete(result)
@@ -211,10 +220,11 @@ class ogdbconnectService(object):
             session.close()
 
     def query_ogdbconnect(self,querystr):
+        tablename = "ogdbconnect"
         if toolkit.validQueryJson(querystr):
             queryjson = json.loads(querystr)
             log.logger.debug('The query JSON is: %s' % queryjson)
-            #add querycolumns
+            #queryfields
             fullqueryfields = "ogdbconnect." + ",ogdbconnect.".join(tuple(ogdbconnect.__fields__.keys()))
             queryfields = fullqueryfields
             querystr = queryjson['queryfields'] if 'queryfields' in queryjson else None
@@ -222,41 +232,52 @@ class ogdbconnectService(object):
                 queryfields = querystr.replace(' ','')
                 if "*" in queryfields:
                     queryfields=fullqueryfields
-            if len(queryfields.split(',')) == 1:
-                statement = select(eval(queryfields))
-            else:
-                statement = select(from_obj=ogdbconnect, columns=eval(queryfields))
-            #add distinct
+            textclauststr = "SELECT "
+            #distinct
             bdistinct = queryjson['distinct'] if 'distinct' in queryjson else None
             if bdistinct is not None and distutils.util.strtobool(str(bdistinct)):
-                statement = statement.distinct()
-            # add where
-            wherefields = queryjson['where'] if 'where' in queryjson else None
-            if wherefields is not None:
-                statement = statement.where(eval(wherefields))
-            #add order_by
+                textclauststr = textclauststr + "DISTINCT "
+            # field + from
+            textclauststr = textclauststr + queryfields + " FROM " + tablename
+            #where
+            wherefields = queryjson['where_query'] if 'where_query' in queryjson else None
+            wherebind = queryjson['where_bind'] if 'where_bind' in queryjson else None
+            if ( wherefields is not None ) & ( wherebind is not None ):
+                textclauststr = textclauststr + " WHERE " + wherefields
+            # where bind parameters
+            wherebindjson = {}
+            if wherebind is not None:
+                wherebindstrlist = wherebind.split(',')
+                for wb in wherebindstrlist:
+                    key, val = wb.split('=')
+                    wherebindjson[key] = val
+            #log.logger.debug("where bind params: %s" % wherebindjson)
+            # order_by
             orderfields = queryjson['order_by'] if 'order_by' in queryjson else None
             if orderfields is not None:
-                orderfieldslist = tuple(filter(None,orderfields.replace(' ','').split(',')))
-                for order in orderfieldslist:
-                    statement = statement.order_by(eval(order))
-            #add group_by
-            #add limit & offset
+                textclauststr = textclauststr + " ORDER BY " + orderfields
+            #TODO group_by
+
+            # limit & offset
             dlimit = queryjson['limit'] if 'limit' in queryjson else None
             if dlimit is not None:
-                statement = statement.limit(dlimit)
+                textclauststr = textclauststr + " LIMIT :limitparam"
+                wherebindjson['limitparam'] = dlimit
             doffset = queryjson['offset'] if 'offset' in queryjson else None
             if doffset is not None:
-                statement = statement.offset(doffset)
+                textclauststr = textclauststr + " OFFSET :offsetparam"
+                wherebindjson['offsetparam'] = doffset
+            #log.logger.debug("textclauststr : %s" % textclauststr)
+            statement = text(textclauststr)
             log.logger.debug("The query Statement is: %s" % statement)
             include_count = False
             count_only = False
             record_count = 0
-            # add include_count
+            # include_count
             binclude_count = queryjson['include_count'] if 'include_count' in queryjson else None
             if binclude_count is not None and distutils.util.strtobool(str(binclude_count)):
                 include_count = True
-            # add count_only
+            # count_only
             bcount_only = queryjson['count_only'] if 'count_only' in queryjson else None
             if bcount_only is not None and distutils.util.strtobool(str(bcount_only)):
                 count_only = True
@@ -268,24 +289,26 @@ class ogdbconnectService(object):
                         pks = ogdbconnect.getPrimaryKeys(ogdbconnect)
                         qfields = "ogdbconnect." + ",ogdbconnect.".join(tuple(pks))
                         if len(qfields.split(',')) == 1:
-                            cstate = select([func.count(eval(qfields))])
+                            cqueryfields = "count(" + qfields + ") as rowcount"
                         else:
-                            cstate = select([func.count(eval(qfields.split(',')[0]))])
-                        # add distinct
-                        if "distinct" in queryjson:
-                            if bdistinct is not None and distutils.util.strtobool(str(bdistinct)):
-                                cstate = cstate.distinct()
-                        # add where
-                        if wherefields is not None:
-                            cstate = cstate.where(eval(wherefields))
+                            cqueryfields = "count(" + qfields.split(',')[0] + ") as rowcount"
+                        counttextclauststr = "SELECT "
+                        # distinct
+                        if bdistinct is not None and distutils.util.strtobool(str(bdistinct)):
+                            counttextclauststr = counttextclauststr + "DISTINCT "
+                        # field + from
+                        counttextclauststr = counttextclauststr + cqueryfields + " FROM " + tablename
+                        # where
+                        if (wherefields is not None) & (wherebind is not None):
+                            counttextclauststr = counttextclauststr + " WHERE " + wherefields
+                        cstate = text(counttextclauststr)
                         log.logger.debug("The record count query Statement is: %s" % cstate)
-                        record_count = session.exec(cstate).one()
-                        #log.logger.debug("RecordCount is: %s" % record_count)
+                        record_count = session.execute(cstate,wherebindjson).one()[0]
                     returnjson = {}
                     if count_only:
                         returnjson["record_count"] = record_count
                     else:
-                        result = session.exec(statement)
+                        result = session.execute(statement,wherebindjson)
                         data = []
                         rawdata = []
                         fields = ''
@@ -293,9 +316,8 @@ class ogdbconnectService(object):
                             rawdata.append(row._data)
                             fields = row._fields
                             data.append(row._asdict())
-                        # log.logger.debug('query_ogdbconnect() result is : %s' % result)
+                        log.logger.debug('query_ogdbconnect() result is : %s' % result)
                         if include_count:
-                            #returnjson = {"data": self.dump_model_list(result)}
                             returnjson["record_count"] = record_count
                             returnjson['fields'] = fields
                             returnjson['data'] = data

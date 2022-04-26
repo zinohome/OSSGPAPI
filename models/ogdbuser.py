@@ -7,7 +7,7 @@
 #  @Time    : 2021
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
-#  @Software: OSSGPAPI
+#  @Software: Capricornus
 
 from typing import Optional
 from sqlalchemy import Column, VARCHAR
@@ -29,7 +29,7 @@ log = log.Logger(level=cfg['Application_Config'].app_log_level)
 meta = DBMeta()
 
 class ogdbuser(SQLModel, table=True):
-    ogdbuser_id: str = Field(default=None, primary_key=True)
+    ogdbuser_id: Optional[str] = Field(default=None, primary_key=True)
     ogdbuser_name: str = Field(sa_column=Column("ogdbuser_name", default=None, primary_key=False))
     ogdbuser_password: str = Field(sa_column=Column("ogdbuser_password", default=None, primary_key=False))
     ogdbuser_active: str = Field(sa_column=Column("ogdbuser_active", default=None, primary_key=False))
@@ -43,3 +43,9 @@ class ogdbuser(SQLModel, table=True):
 
     def getPrimaryKeys(self):
         return meta.gettable('ogdbuser').primarykeys
+
+    def getPKType(self,pkname):
+        return meta.get_table_pk_type('ogdbuser',pkname)
+
+    def getpkqmneed(self,pkname):
+        return meta.get_table_pk_qmneed('ogdbuser',pkname)

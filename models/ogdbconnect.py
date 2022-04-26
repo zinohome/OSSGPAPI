@@ -7,7 +7,7 @@
 #  @Time    : 2021
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
-#  @Software: OSSGPAPI
+#  @Software: Capricornus
 
 from typing import Optional
 from sqlalchemy import Column, VARCHAR
@@ -29,7 +29,7 @@ log = log.Logger(level=cfg['Application_Config'].app_log_level)
 meta = DBMeta()
 
 class ogdbconnect(SQLModel, table=True):
-    ogdb_id: str = Field(default=None, primary_key=True)
+    ogdb_id: Optional[str] = Field(default=None, primary_key=True)
     ogdb_name: str = Field(sa_column=Column("ogdb_name", default=None, primary_key=False))
 
     def sortJson(self):
@@ -40,3 +40,9 @@ class ogdbconnect(SQLModel, table=True):
 
     def getPrimaryKeys(self):
         return meta.gettable('ogdbconnect').primarykeys
+
+    def getPKType(self,pkname):
+        return meta.get_table_pk_type('ogdbconnect',pkname)
+
+    def getpkqmneed(self,pkname):
+        return meta.get_table_pk_qmneed('ogdbconnect',pkname)
