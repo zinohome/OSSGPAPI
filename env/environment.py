@@ -20,8 +20,8 @@ class Environment:
     def reload(self):
         basepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
         apppath = os.path.abspath(os.path.join(basepath, os.pardir))
-        envpath = os.path.abspath(os.path.join(apppath, '.env'))
-        load_dotenv(dotenv_path=envpath, override=True)
+        envfilepath = os.path.abspath(os.path.join(apppath, '.env'))
+        load_dotenv(dotenv_path=envfilepath, override=True)
 
 if __name__ == '__main__':
     pass
