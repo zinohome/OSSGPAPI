@@ -6,3 +6,6 @@
 2022-04-26 at 18:09:38 | CRITICAL | [测试log] hello, world
 2022-04-26 at 18:09:38 | ERROR | [测试log] hello, world
 NoneType: None
+2022-04-26 at 18:14:21 | INFO | OSSGPAPI Connect to: http://127.0.0.1:8529
+2022-04-26 at 18:14:36 | INFO | OSSGPAPI Connect to: http://127.0.0.1:8529
+2022-04-26 at 18:15:04 | INFO | OSSGPAPI Connect to: http://127.0.0.1:8529

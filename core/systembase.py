@@ -12,8 +12,16 @@
 import os
 from arango import ArangoClient
 
+from env.environment import Environment
+from util import log
+
+'''logging'''
+env = Environment()
+log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
+
 class Systembase:
     def __init__(self):
+        log.logger.info("OSSGPAPI Connect to: %s" % os.getenv('ARANGODB_HOSTS'))
         self._client = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
         self._db = self._client.db(name=os.getenv('ARANGODB_SYSDATABASE'), username=os.getenv('ARANGODB_SYSUSER'), password=os.getenv('ARANGODB_SYSPASSWORD'))
         self.initgovbase()
