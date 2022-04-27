@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import os
 from datetime import datetime, timedelta
 import jwt
 from fastapi import Depends, HTTPException
@@ -9,19 +9,15 @@ from jwt import PyJWTError
 from passlib.context import CryptContext
 from pydantic import BaseModel
 from starlette.status import HTTP_401_UNAUTHORIZED
-from config import config
-from auth import users
+from env.environment import Environment
+from ossmodels.users import Users
 from util import log
 
-
-'''config'''
-cfg = config.app_config
-
 '''logging'''
-log = log.Logger(level=cfg['Application_Config'].app_log_level)
+env = Environment()
+log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
 '''oauth2 and jwt'''
-
 
 class Token(BaseModel):
     access_token: str
@@ -33,18 +29,12 @@ class TokenData(BaseModel):
 
 
 class User(BaseModel):
-    username: str
+    name: str
     role: str = None
-    full_name: str = None
-    email: str = None
-    disabled: bool = None
+    active: str = None
 
 
-class UserInDB(User):
-    hashed_password: str
-
-
-prefix = cfg['Application_Config'].app_prefix
+prefix = os.getenv('OSSGPAPI_APP_PREFIX')
 if prefix.startswith('/'):
     pass
 else:
@@ -64,21 +54,20 @@ def get_password_hash(password):
 
 
 def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+    guser = db.getUsersbyname(username)
+    if guser is not None:
+        ruser = User(name = guser['name'],role = guser['role'],active = guser['active'])
+        return ruser
 
 
 def authenticate_user(fake_db, username: str, password: str):
-    log.logger.debug('authenticate_user with username: [%s] and password: [%s]' % (username, password))
-    user = get_user(fake_db, username)
-    if not user:
+    log.logger.debug('authenticate_user with username: [%s]' % username)
+    result = fake_db.userlogin(username,password)
+    if result['Authentication'] == True:
+        user = get_user(fake_db, username)
+        return user
+    else:
         return False
-    if user.disabled:
-        return False
-    if not verify_password(password, user.hashed_password):
-        return False
-    return user
 
 
 def create_access_token(*, data: dict, expires_delta: timedelta = None):
@@ -88,7 +77,7 @@ def create_access_token(*, data: dict, expires_delta: timedelta = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, cfg['Security_Config'].security_key, algorithm=cfg['Security_Config'].security_algorithm)
+    encoded_jwt = jwt.encode(to_encode, os.getenv("OSSGPAPI_APP_AUTH_SECURITY_KEY"), algorithm=os.getenv("OSSGPAPI_APP_AUTH_SECURITY_ALGORITHM"))
     log.logger.debug('create_access_token with encoded_jwt: [%s]' % encoded_jwt)
     return encoded_jwt
 
@@ -100,14 +89,15 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, cfg['Security_Config'].security_key, algorithms=[cfg['Security_Config'].security_algorithm])
+        payload = jwt.decode(token, os.getenv("OSSGPAPI_APP_AUTH_SECURITY_KEY"), algorithm=os.getenv("OSSGPAPI_APP_AUTH_SECURITY_ALGORITHM"))
         username: str = payload.get("sub")
         if username is None:
             raise credentials_exception
         token_data = TokenData(username=username)
     except PyJWTError:
         raise credentials_exception
-    user = get_user(users.Users().users, username=token_data.username)
+    apiusers = Users()
+    user = get_user(apiusers, username=token_data.username)
     if user is None:
         raise credentials_exception
     return user
@@ -123,7 +113,7 @@ async def get_write_permission(current_user: User = Depends(get_current_user)):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     else:
-        if current_user.role.strip() == 'Superadmin' or current_user.role.strip() == 'Writer':
+        if current_user.role.strip() == 'admin' or current_user.role.strip() == 'Writer':
             return True
         else:
             raise HTTPException(status_code=400, detail="Permission denied")
@@ -133,7 +123,7 @@ async def get_super_permission(current_user: User = Depends(get_current_user)):
     if current_user.disabled:
         raise HTTPException(status_code=400, detail="Inactive user")
     else:
-        if current_user.role.strip() == 'Superadmin':
+        if current_user.role.strip() == 'admin':
             return True
         else:
             raise HTTPException(status_code=400, detail="Permission denied")

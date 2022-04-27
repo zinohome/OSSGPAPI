@@ -9,13 +9,18 @@
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
 import os
+from datetime import timedelta
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Depends
 from fastapi.openapi.docs import get_swagger_ui_html, get_swagger_ui_oauth2_redirect_html, get_redoc_html
+from fastapi.security import OAuth2PasswordRequestForm
+from starlette import status
 from starlette.middleware.cors import CORSMiddleware
-from starlette.responses import FileResponse
+from starlette.responses import FileResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
+from starlette.status import HTTP_401_UNAUTHORIZED
 
+from core import security
 from env.environment import Environment
 from ossmodels.users import Users
 from util import log
@@ -28,6 +33,9 @@ log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
 '''app_dir'''
 app_dir = os.path.dirname(os.path.abspath(__file__))
+
+'''Users'''
+apiusers = Users()
 
 '''services_model'''
 services_model = 0 #'Standalone'
@@ -61,7 +69,6 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.on_event("startup")
 async def startup_event():
     log.logger.info(os.getenv('OSSGPAPI_APP_NAME') + ' Starting ....')
-    apiusers = Users()
     apiusers.initsysUsers()
     log.logger.info(os.getenv('OSSGPAPI_APP_NAME') + ' Started')
 
@@ -138,17 +145,17 @@ async def redoc_html():
           )
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     log.logger.debug('Access \'/token\' : run in login_for_access_token(), '
-                     'input data username: [%s] and password: [%s]' % (form_data.username, form_data.password))
-    user = security.authenticate_user(users.Users().users, form_data.username, form_data.password)
+                     'input data username: [%s]' % form_data.username)
+    user = security.authenticate_user(apiusers, form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token_expires = timedelta(minutes=cfg['Security_Config'].access_token_expire_minutes)
+    access_token_expires = timedelta(minutes=int(os.getenv("OSSGPAPI_APP_AUTH_TOKEN_EXPIRE_MINUTES")))
     access_token = security.create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.name}, expires_delta=access_token_expires
     )
     # return {"access_token": access_token, "token_type": "bearer"}
     rcontent = {"access_token": access_token, "token_type": "bearer"}

@@ -59,6 +59,27 @@ class Users(Collection):
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
+    def getUsersbyname(self,username):
+        try:
+            ossbase = Ossbase().db
+            if ossbase.has(Users,username):
+                records = ossbase.query(Users).filter("name=='"+username+"'").all()
+                if len(records) >= 1:
+                    authreturn = {}
+                    authreturn['name'] = records[0].name
+                    authreturn['role'] = records[0].role
+                    #authreturn['password'] = records[0].password
+                    authreturn['active'] = records[0].active
+                    return authreturn
+                else:
+                    return None
+            else:
+                return {"Authentication":False}
+        except Exception as exp:
+            log.logger.error('Exception at users.getUsersbyname() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
+
     def updateUsers(self, jsonstr):
         pass
 
@@ -72,7 +93,7 @@ class Users(Collection):
         try:
             ossbase = Ossbase().db
             if ossbase.has(Users,username):
-                records = ossbase.query(Users).filter("name=='"+username+"'").filter("password=='"+password+"'").all()
+                records = ossbase.query(Users).filter("name=='"+username+"'").filter("password=='"+password+"'").filter("active==True").all()
                 if len(records) >= 1:
                     authreturn = {"Authentication":True}
                     authreturn['name'] = records[0].name
@@ -118,4 +139,5 @@ if __name__ == '__main__':
     newuser = '{"role": "[admin]","active": true,"name": "Tony","password": "passw0rd"}'
     au = tu.createUsers(newuser)
     log.logger.debug(tu.userlogin('zhangjun','passw0rd'))
+    log.logger.debug(tu.getUsersbyname('zhangjun'))
     log.logger.debug("Users count: %s" % tu.getUserscount())
