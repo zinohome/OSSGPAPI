@@ -15,3 +15,11 @@ NoneType: None
 2022-04-26 at 18:43:10 | INFO | OSSGPAPI Connect to: http://127.0.0.1:8529
 2022-04-27 at 10:03:57 | INFO | OSSGPAPI Connect to: http://127.0.0.1:8529
 2022-04-27 at 12:08:34 | INFO | OSSGPAPI Connect to: http://127.0.0.1:8529
+2022-04-27 at 16:31:44 | ERROR | Exception at users.createUsers() type object 'Users' has no attribute 'load' 
+2022-04-27 at 16:34:26 | ERROR | Exception at users.createUsers() 'str' object has no attribute 'load' 
+2022-04-27 at 16:37:28 | ERROR | Exception at users.createUsers() {'_key': ['Missing data for required field.']} 
+2022-04-27 at 16:44:13 | ERROR | Exception at users.createUsers() local variable 'addobj' referenced before assignment 
+2022-04-27 at 16:44:20 | ERROR | Exception at users.createUsers() local variable 'addobj' referenced before assignment 
+2022-04-27 at 17:09:29 | ERROR | Exception at users.userlogin() name 'db' is not defined 
+2022-04-27 at 17:11:59 | ERROR | Exception at users.userlogin() count() takes exactly one argument (0 given) 
+2022-04-27 at 17:14:31 | ERROR | Exception at users.userlogin() 'Users' object is not subscriptable 
