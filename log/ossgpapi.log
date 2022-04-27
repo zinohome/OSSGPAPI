@@ -23,3 +23,7 @@ NoneType: None
 2022-04-27 at 17:09:29 | ERROR | Exception at users.userlogin() name 'db' is not defined 
 2022-04-27 at 17:11:59 | ERROR | Exception at users.userlogin() count() takes exactly one argument (0 given) 
 2022-04-27 at 17:14:31 | ERROR | Exception at users.userlogin() 'Users' object is not subscriptable 
+2022-04-27 at 17:47:33 | INFO | Scorpius Start Up ....
+2022-04-27 at 17:47:33 | INFO | API prefix is: [ /api/v2 ]
+2022-04-27 at 17:47:33 | INFO | Scorpius Starting ....
+2022-04-27 at 17:47:33 | INFO | Scorpius Started
