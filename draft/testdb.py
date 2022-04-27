@@ -13,13 +13,13 @@ import os
 from env.environment import Environment
 from core.systembase import Systembase
 from core.govbase import Govbase
-from core.userbase import Userbase
+from core.ossbase import Ossbase
 
 if __name__ == '__main__':
     sysbase = Systembase()
     print(sysbase.db)
     govbase = Govbase()
     print(govbase.db)
-    userbase = Userbase()
-    print(userbase.db)
+    ossbase = Ossbase()
+    print(ossbase.db)
 

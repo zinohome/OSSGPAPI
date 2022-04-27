@@ -9,9 +9,10 @@
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
 
-
-'''logging'''
+import simplejson as json
 import os
+from datetime import date
+
 from arango_orm import Collection
 from arango_orm.fields import String, Date
 
@@ -36,4 +37,21 @@ if __name__ == '__main__':
     govbase = Govbase().db
     if not govbase.has_collection(Coldef):
         govbase.create_collection(Coldef)
+    userscoldefjson = {"__collection__":"users",
+                    "_index":"[{'type':'hash', 'fields':['name'], 'unique':True}]",
+                    "_key":"String(required=True)",
+                    "name":"String(required=True, allow_none=False)",
+                    "password":"String(required=True, allow_none=False)",
+                    "role":"String(required=True, allow_none=False)",
+                    "active":"Bool(required=True, allow_none=False)"}
+    log.logger.debug("userscoldef: %s" % userscoldefjson)
+    log.logger.debug("userscoldefjson: %s" % json.dumps(userscoldefjson))
+    log.logger.debug("date.today(): %s" % date.today())
+
+    userscoldef = Coldef(_key="users",
+                         name='users',
+                         coltype="document",
+                         coldef=json.dumps(userscoldefjson),
+                         createdate=date.today())
+    govbase.add(userscoldef)
 
