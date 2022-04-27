@@ -129,3 +129,27 @@ async def redoc_html():
         redoc_favicon_url="/static/favicon.ico",
         with_google_fonts=False,
     )
+
+@app.post(prefix + "/token",
+          response_model=security.Token,
+          tags=["Security"],
+          summary="Login to get access token.",
+          description="",
+          )
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    log.logger.debug('Access \'/token\' : run in login_for_access_token(), '
+                     'input data username: [%s] and password: [%s]' % (form_data.username, form_data.password))
+    user = security.authenticate_user(users.Users().users, form_data.username, form_data.password)
+    if not user:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=cfg['Security_Config'].access_token_expire_minutes)
+    access_token = security.create_access_token(
+        data={"sub": user.username}, expires_delta=access_token_expires
+    )
+    # return {"access_token": access_token, "token_type": "bearer"}
+    rcontent = {"access_token": access_token, "token_type": "bearer"}
+    return JSONResponse(status_code=status.HTTP_200_OK, content=rcontent)
