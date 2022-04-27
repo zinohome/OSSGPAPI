@@ -10,6 +10,8 @@
 #  @Software: OSSGPAPI
 
 import os
+import traceback
+
 from arango_orm import Collection
 from arango_orm.fields import String, Date
 from marshmallow.fields import Bool
