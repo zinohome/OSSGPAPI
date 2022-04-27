@@ -11,6 +11,9 @@
 import os
 
 from fastapi import FastAPI
+from fastapi.openapi.docs import get_swagger_ui_html
+from starlette.middleware.cors import CORSMiddleware
+from starlette.responses import FileResponse
 from starlette.staticfiles import StaticFiles
 
 from env.environment import Environment
@@ -82,3 +85,33 @@ if os.getenv('OSSGPAPI_APP_CORS_ORIGINS'):
         allow_headers=["*"],
     )
 
+'''app route'''
+
+@app.get("/",
+         tags=["Default"],
+         summary="Get information for this application.",
+         description="Return application information",
+         include_in_schema=False)
+async def app_root():
+    log.logger.debug('Access \'/\' : run in app_root()')
+    return {
+        "Application_Name": os.getenv('OSSGPAPI_APP_NAME'),
+        "Version": os.getenv('OSSGPAPI_APP_VERSION'),
+        "Author": "ibmzhangjun@139.com",
+        "Description": os.getenv('OSSGPAPI_APP_DESCRIPTION')
+    }
+
+@app.get('/favicon.ico', include_in_schema=False)
+async def favicon():
+    return FileResponse(os.path.join(app_dir, 'static/favicon.ico'))
+
+@app.get("/apidocs", include_in_schema=False)
+async def custom_swagger_ui_html():
+    return get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=app.title + " - Swagger UI",
+        oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
+        swagger_js_url="/static/swagger-ui-bundle.js",
+        swagger_favicon_url="/static/favicon.ico",
+        swagger_css_url="/static/swagger-ui.css",
+    )
