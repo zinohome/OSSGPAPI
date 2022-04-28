@@ -115,7 +115,8 @@ async def get_write_permission(current_user: User = Depends(get_current_user)):
     if not distutils.util.strtobool(current_user.active):
         raise HTTPException(status_code=400, detail="Inactive user")
     else:
-        if current_user.role.strip() == 'admin' or current_user.role.strip() == 'Writer':
+        rolelist = current_user.role.strip().replace('[','').replace(']','').split(',')
+        if ('admin' in set(rolelist)) or ('writer' in set(rolelist)):
             return True
         else:
             raise HTTPException(status_code=400, detail="Permission denied")
@@ -125,7 +126,8 @@ async def get_super_permission(current_user: User = Depends(get_current_user)):
     if not distutils.util.strtobool(current_user.active):
         raise HTTPException(status_code=400, detail="Inactive user")
     else:
-        if current_user.role.strip() == 'admin':
+        rolelist = current_user.role.strip().replace('[', '').replace(']', '').split(',')
+        if 'admin' in set(rolelist):
             return True
         else:
             raise HTTPException(status_code=400, detail="Permission denied")

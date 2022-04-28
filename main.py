@@ -197,7 +197,7 @@ if services_model >= 1:
                                 - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
         """
         log.logger.debug(
-            'Access \'/_table/{table_name}\' : run in get_data(), input data table_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
         queryjson['filter'] = filter
         queryjson['filteror'] = filteror
@@ -234,7 +234,7 @@ if services_model >= 1:
                         ```
                     """
         log.logger.debug(
-            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data table_name: [%s]' % collection_name)
+            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('querybody: [%s]' % querybody.json())
         ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
@@ -278,7 +278,7 @@ else:
                         - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
         """
         log.logger.debug(
-            'Access \'/_table/{collection_name}\' : run in get_data(), input data table_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
         queryjson['filter'] = filter
         queryjson['filteror'] = filteror
@@ -349,7 +349,146 @@ else:
 '''Write API'''
 
 if services_model >= 2:
-    pass
+    @app.post(prefix + "/_collection/{collection_name}",
+              tags=["Data - Collection Level"],
+              summary="Create one document.",
+              description="",
+              )
+    async def post_data(collection_name: str, docpost: apimodel.DocumentBody):
+        """
+                    Parameters
+                    - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **request body: Required**
+                    ```
+                        {
+                         "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                         }
+                    ```
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in post_data(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('body data: [%s]' % docpost.json())
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        log.logger.debug(json.loads(docpost.json())['data'])
+        return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
+
+    @app.put(prefix + "/_collection/{collection_name}",
+             tags=["Data - Collection Level"],
+             summary="Update one document.",
+             description="",
+             deprecated=False
+             )
+    async def put_data(collection_name: str, docput: apimodel.DocumentBody):
+        """
+                Parameters
+                - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in put_data(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('body: [%s]' % docput.json())
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(json.loads(docput.json())['data'])
+
+    @app.delete(prefix + "/_collection/{collection_name}",
+                tags=["Data - Collection Level"],
+                summary="Delete one document.",
+                description="",
+                )
+    async def delete_data(collection_name: str,
+                          keystr: str = Header(None),
+                          current_user_role: bool = Depends(security.get_write_permission)):
+        """
+            Parameters
+            - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+            - **keystr** (header): Optional - Key of the document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in delete_data(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('keystr: [%s]' % keystr)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(keystr)
+
+    @app.put(prefix + "/_collection/{collection_name}/{key}",
+             tags=["Data - Document Level"],
+             summary="Replace the content of one document by key.",
+             description="",
+             )
+    async def put_data_by_id(collection_name: str, key: str,
+                             docput: apimodel.DocumentBody):
+        """
+                Parameters
+                - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                - **key** (path): **Required** - The key of document
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}/{key}\' : run in put_data_by_id(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('body: [%s]' % docput)
+        log.logger.debug('key: [%s]' % key)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        upjson = json.loads(docput.json())['data']
+        upjson['_key'] = key
+        return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(upjson)
+
+    @app.delete(prefix + "/_collection/{collection_name}/{key}",
+                tags=["Data - Document Level"],
+                summary="Delete one document by key.",
+                description="",
+                )
+    async def delete_data_by_id(collection_name: str, key: str):
+
+        """
+                    Parameters
+                    - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **key** (header): Optional - Key of the document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}/{key}\' : run in delete_data_by_id(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('key: [%s]' % key)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(key)
+
 else:
     @app.post(prefix + "/_collection/{collection_name}",
               tags=["Data - Collection Level"],
@@ -369,7 +508,7 @@ else:
                     ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in post_data(), input data table_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in post_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body data: [%s]' % docpost.json())
         if not coldef.check_col_schema(collection_name):
             raise HTTPException(
@@ -378,8 +517,135 @@ else:
             )
         ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
-        return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(docpost)
+        log.logger.debug(json.loads(docpost.json())['data'])
+        return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
 
+    @app.put(prefix + "/_collection/{collection_name}",
+             tags=["Data - Collection Level"],
+             summary="Update one document.",
+             description="",
+             deprecated=False
+             )
+    async def put_data(collection_name: str, docput: apimodel.DocumentBody,
+                       current_user_role: bool = Depends(security.get_write_permission)):
+        """
+                Parameters
+                - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in put_data(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('body: [%s]' % docput.json())
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(json.loads(docput.json())['data'])
 
+    @app.delete(prefix + "/_collection/{collection_name}",
+                tags=["Data - Collection Level"],
+                summary="Delete one document.",
+                description="",
+                )
+    async def delete_data(collection_name: str,
+                          keystr: str = Header(None),
+                          current_user_role: bool = Depends(security.get_write_permission)):
+        """
+            Parameters
+            - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+            - **keystr** (header): Optional - Key of the document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in delete_data(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('keystr: [%s]' % keystr)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(keystr)
+
+    @app.put(prefix + "/_collection/{collection_name}/{key}",
+             tags=["Data - Document Level"],
+             summary="Replace the content of one document by key.",
+             description="",
+             )
+    async def put_data_by_id(collection_name: str, key: str,
+                             docput: apimodel.DocumentBody,
+                             current_user_role: bool = Depends(security.get_write_permission)):
+        """
+                Parameters
+                - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                - **key** (path): **Required** - The key of document
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}/{key}\' : run in put_data_by_id(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('body: [%s]' % docput)
+        log.logger.debug('key: [%s]' % key)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        upjson = json.loads(docput.json())['data']
+        upjson['_key'] = key
+        return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(upjson)
+
+    @app.delete(prefix + "/_collection/{collection_name}/{key}",
+                tags=["Data - Document Level"],
+                summary="Delete one document by key.",
+                description="",
+                )
+    async def delete_data_by_id(collection_name: str, key: str,
+                                current_user_role: bool = Depends(security.get_write_permission)):
+
+        """
+                    Parameters
+                    - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **key** (header): Optional - Key of the document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}/{key}\' : run in delete_data_by_id(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('key: [%s]' % key)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(key)
+
+@app.get(prefix + "/_sysdef/{collection_name}",
+         tags=["System Define"],
+         summary="Retrieve system define information.",
+         description="",
+         )
+async def get_sysdef(collection_name: str, SecuretKey: str = Header(..., min_length=5),
+                      current_user_role: bool = Depends(security.get_super_permission)):
+    """
+            Please use 'app_confirm_key' as SecuretKey to confirm the operation
+            - **SecuretKey** (header): **Required** - use 'app_confirm_key' default value is 'Confirmed'.
+    """
+    log.logger.debug(
+        'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input data: [ %s ]' % SecuretKey)
 
 

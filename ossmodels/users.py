@@ -45,13 +45,13 @@ class Users(Collection):
     def createUsers(self, jsonstr):
         try:
             ossbase = Ossbase().db
-            addjson = json.loads(jsonstr)
+            addjson = jsonstr
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
             if not ossbase.has(Users, addjson['_key']):
                 addobj = Users._load(addjson)
                 ossbase.add(addobj)
-                return addobj
+                return addobj.json
             else:
                 return None
         except Exception as exp:
@@ -75,13 +75,13 @@ class Users(Collection):
     def updateUsers(self, jsonstr):
         try:
             ossbase = Ossbase().db
-            updatejson = json.loads(jsonstr)
+            updatejson = jsonstr
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
             if ossbase.has(Users, updatejson['_key']):
                 updatejson = Users._load(updatejson)
                 ossbase.update(updatejson)
-                return updatejson
+                return updatejson.json
             else:
                 return None
         except Exception as exp:
@@ -211,16 +211,16 @@ if __name__ == '__main__':
     if not ossbase.has(Users,'admin'):
         ossbase.add(adminuser)
     newuser = '{"role": "[admin]","active": true,"name": "Tony","password": "passw0rd"}'
-    au = tu.createUsers(newuser)
+    au = tu.createUsers(json.loads(newuser))
     log.logger.debug(tu.userlogin('zhangjun','passw0rd'))
     log.logger.debug(tu.getUsersbyname('zhangjun'))
     log.logger.debug("Users count: %s" % tu.getUserscount())
     upduser = '{"role": "[admin,user]","active": true,"name": "Tony","password": "passw0rd"}'
-    uu = tu.updateUsers(upduser)
+    uu = tu.updateUsers(json.loads(upduser))
     log.logger.debug("updated user: %s" % uu)
     log.logger.debug("updated user: %s" % dir(uu))
-    log.logger.debug("updated user: %s" % uu.json)
-    log.logger.debug(tu.deleteUsers('Tony'))
+    log.logger.debug("updated user: %s" % uu)
+    #log.logger.debug(tu.deleteUsers('Tony'))
 
     '''
     filterstr = queryjson['filter'] if 'filter' in queryjson else None
