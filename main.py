@@ -161,10 +161,9 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     access_token_expires = timedelta(minutes=int(os.getenv("OSSGPAPI_APP_AUTH_TOKEN_EXPIRE_MINUTES")))
     name = 'admin'
     role = '[admin]'
-    password = 'password'
     active = 'True'
     access_token = security.create_access_token(
-        data={"name": user.name, "role":user.role, "password":user.password ,"active":user.active}, expires_delta=access_token_expires
+        data={"name": user.name, "role":user.role, "active":user.active}, expires_delta=access_token_expires
     )
     # return {"access_token": access_token, "token_type": "bearer"}
     rcontent = {"access_token": access_token, "token_type": "bearer"}

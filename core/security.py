@@ -31,7 +31,6 @@ class TokenData(BaseModel):
 
 class User(BaseModel):
     name: str
-    password: str
     role: str = None
     active: str = None
 
@@ -58,7 +57,7 @@ def get_password_hash(password):
 def get_user(db, username: str):
     guser = db.getUsersbyname(username)
     if guser is not None:
-        ruser = User(name = guser['name'], password = guser['password'], role = guser['role'],active = guser['active'])
+        ruser = User(name = guser['name'], role = guser['role'],active = guser['active'])
         return ruser
 
 
