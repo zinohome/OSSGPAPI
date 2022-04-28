@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import distutils
 import os
 from datetime import datetime, timedelta
 import jwt
@@ -77,7 +78,7 @@ def create_access_token(*, data: dict, expires_delta: timedelta = None):
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, os.getenv("OSSGPAPI_APP_AUTH_SECURITY_KEY"), algorithm=os.getenv("OSSGPAPI_APP_AUTH_SECURITY_ALGORITHM"))
+    encoded_jwt = jwt.encode(to_encode, os.getenv("OSSGPAPI_APP_AUTH_SECURITY_KEY"), os.getenv("OSSGPAPI_APP_AUTH_SECURITY_ALGORITHM"))
     log.logger.debug('create_access_token with encoded_jwt: [%s]' % encoded_jwt)
     return encoded_jwt
 
@@ -89,8 +90,9 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         headers={"WWW-Authenticate": "Bearer"},
     )
     try:
-        payload = jwt.decode(token, os.getenv("OSSGPAPI_APP_AUTH_SECURITY_KEY"), algorithm=os.getenv("OSSGPAPI_APP_AUTH_SECURITY_ALGORITHM"))
-        username: str = payload.get("sub")
+        payload = jwt.decode(token, os.getenv("OSSGPAPI_APP_AUTH_SECURITY_KEY"), os.getenv("OSSGPAPI_APP_AUTH_SECURITY_ALGORITHM"))
+        username: str = payload.get("name")
+
         if username is None:
             raise credentials_exception
         token_data = TokenData(username=username)
@@ -104,13 +106,13 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 
 
 async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
+    if not distutils.util.strtobool(current_user.active):
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
 
 async def get_write_permission(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
+    if not distutils.util.strtobool(current_user.active):
         raise HTTPException(status_code=400, detail="Inactive user")
     else:
         if current_user.role.strip() == 'admin' or current_user.role.strip() == 'Writer':
@@ -120,7 +122,7 @@ async def get_write_permission(current_user: User = Depends(get_current_user)):
 
 
 async def get_super_permission(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
+    if not distutils.util.strtobool(current_user.active):
         raise HTTPException(status_code=400, detail="Inactive user")
     else:
         if current_user.role.strip() == 'admin':

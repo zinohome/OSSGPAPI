@@ -11,18 +11,19 @@
 import os
 from datetime import timedelta
 
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.openapi.docs import get_swagger_ui_html, get_swagger_ui_oauth2_redirect_html, get_redoc_html
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette import status
 from starlette.middleware.cors import CORSMiddleware
 from starlette.responses import FileResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
-from starlette.status import HTTP_401_UNAUTHORIZED
+from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND
 
 from core import security
 from env.environment import Environment
 from ossmodels.users import Users
+from sysmodels.coldef import Coldef
 from util import log
 import traceback
 import simplejson as json
@@ -36,6 +37,9 @@ app_dir = os.path.dirname(os.path.abspath(__file__))
 
 '''Users'''
 apiusers = Users()
+
+'''Users'''
+coldef = Coldef()
 
 '''services_model'''
 services_model = 0 #'Standalone'
@@ -154,9 +158,74 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
             headers={"WWW-Authenticate": "Bearer"},
         )
     access_token_expires = timedelta(minutes=int(os.getenv("OSSGPAPI_APP_AUTH_TOKEN_EXPIRE_MINUTES")))
+    name = 'admin'
+    role = '[admin]'
+    active = 'True'
     access_token = security.create_access_token(
-        data={"sub": user.name}, expires_delta=access_token_expires
+        data={"name": user.name, "role":user.role, "active":user.active}, expires_delta=access_token_expires
     )
     # return {"access_token": access_token, "token_type": "bearer"}
     rcontent = {"access_token": access_token, "token_type": "bearer"}
     return JSONResponse(status_code=status.HTTP_200_OK, content=rcontent)
+
+@app.get(prefix + "/users",
+         response_model=security.User,
+         tags=["Security"],
+         summary="Retrieve user information.",
+         description="",
+         )
+async def read_users_me(current_user: security.User = Depends(security.get_current_active_user)):
+    log.logger.debug('Access \'/users/\' : run in read_users_me()')
+    return current_user
+
+if services_model >= 1:
+    @app.get(prefix + "/_table/{collection_name}",
+             tags=["Data - Collection Level"],
+             summary="Retrieve one or more documents. ",
+             description="",
+             )
+    async def get_data(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None),limit: int = Header(20, gt=0,le=2000),offset: int = Header(0, gt=-1)):
+        """
+                                Parameters
+                                - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                                - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                                - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                                - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
+                                - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
+                                - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
+        """
+        log.logger.debug(
+            'Access \'/_table/{table_name}\' : run in get_data(), input data table_name: [%s]' % collection_name)
+else:
+    @app.get(prefix + "/_table/{collection_name}",
+             tags=["Data - Collection Level"],
+             summary="Retrieve one or more documents. ",
+             description="",
+             )
+    async def get_data(collection_name: str, filter: str = Header(None), filteror: str = Header(None),
+                       sort: str = Header(None), limit: int = Header(20, gt=0, le=2000),
+                       offset: int = Header(0, gt=-1),
+                       current_user: security.User = Depends(security.get_current_active_user)):
+        """
+                        Parameters
+                        - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
+                        - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
+                        - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
+        """
+        log.logger.debug(
+            'Access \'/_table/{collection_name}\' : run in get_data(), input data table_name: [%s]' % collection_name)
+        queryjson = {}
+        queryjson['filter'] = filter
+        queryjson['filteror'] = filteror
+        queryjson['sort'] = sort
+        queryjson['limit'] = limit
+        queryjson['offset'] = offset
+        log.logger.debug('queryjson: [%s]' % queryjson)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )

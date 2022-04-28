@@ -46,9 +46,9 @@ class Users(Collection):
         try:
             ossbase = Ossbase().db
             addjson = json.loads(jsonstr)
-            if not ossbase.has(Users, addjson['name']):
-                if not addjson.__contains__('_key'):
-                    addjson['_key'] = addjson['name']
+            if not addjson.__contains__('_key'):
+                addjson['_key'] = addjson['name']
+            if not ossbase.has(Users, addjson['_key']):
                 addobj = Users._load(addjson)
                 ossbase.add(addobj)
                 return addobj
@@ -81,13 +81,67 @@ class Users(Collection):
                 traceback.print_exc()
 
     def updateUsers(self, jsonstr):
-        pass
+        try:
+            ossbase = Ossbase().db
+            updatejson = json.loads(jsonstr)
+            if not updatejson.__contains__('_key'):
+                updatejson['_key'] = updatejson['name']
+            if ossbase.has(Users, updatejson['_key']):
+                updatejson = Users._load(updatejson)
+                ossbase.update(updatejson)
+                return updatejson
+            else:
+                return None
+        except Exception as exp:
+            log.logger.error('Exception at users.updateUsers() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
 
     def deleteUsers(self,keystr):
-        pass
+        try:
+            ossbase = Ossbase().db
+            if ossbase.has(Users, keystr):
+                #log.logger.debug(ossbase.delete(ossbase.query(Users).by_key(keystr)))
+                return ossbase.delete(ossbase.query(Users).by_key(keystr))
+            else:
+                return None
+        except Exception as exp:
+            log.logger.error('Exception at users.deleteUsers() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
 
     def queryUsers(self,queryjson):
-        pass
+        try:
+            ossbase = Ossbase().db
+            filter = queryjson['filter'] if 'filter' in queryjson else None
+            filteror = queryjson['filteror'] if 'filteror' in queryjson else None
+            sort = queryjson['sort'] if 'sort' in queryjson else None
+            limit = queryjson['limit'] if 'limit' in queryjson else None
+            offset = queryjson['offset'] if 'offset' in queryjson else None
+
+            query = ossbase.query(Users)
+            if filter is not None:
+                for flstr in filter:
+                    query.filter(flstr)
+            if filteror is not None:
+                for flstr in filteror:
+                    query.filter(flstr, _or=True)
+            if sort is not None:
+                query.sort(sort)
+            if limit is not None:
+                query.limit(limit)
+            if ( limit is not None ) & ( offset is not None ):
+                query.limit(limit, start_from=offset)
+            returnjson = {}
+            returnjson['count'] = query.count()
+            returnjson['data'] = []
+            for obj in query.all():
+                returnjson['data'].append(obj.json)
+            return returnjson
+        except Exception as exp:
+            log.logger.error('Exception at users.queryUsers() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
 
     def userlogin(self,username,password):
         try:
@@ -126,8 +180,15 @@ class Users(Collection):
     def __str__(self):
         return "<Users({},{},{},{})>".format(self._key, self.name, self.role, self.active)
 
-    def __str__(self):
-        return "<Users({},{},{},{})>".format(self._key, self.name, self.role, self.active)
+    @property
+    def json(self):
+        jdict = self.__dict__.copy()
+        del jdict['_dirty']
+        del jdict['_refs_vals']
+        del jdict['_instance_schema']
+        del jdict['_db']
+        del jdict['_key']
+        return jdict
 
 
 if __name__ == '__main__':
@@ -141,3 +202,26 @@ if __name__ == '__main__':
     log.logger.debug(tu.userlogin('zhangjun','passw0rd'))
     log.logger.debug(tu.getUsersbyname('zhangjun'))
     log.logger.debug("Users count: %s" % tu.getUserscount())
+    upduser = '{"role": "[admin,user]","active": true,"name": "Tony","password": "passw0rd"}'
+    uu = tu.updateUsers(upduser)
+    log.logger.debug("updated user: %s" % uu)
+    log.logger.debug("updated user: %s" % dir(uu))
+    log.logger.debug("updated user: %s" % uu.json)
+    log.logger.debug(tu.deleteUsers('Tony'))
+
+    '''
+    filterstr = queryjson['filter'] if 'filter' in queryjson else None
+    filterorstr = queryjson['filteror'] if 'filteror' in queryjson else None
+    sortstr = queryjson['sort'] if 'sort' in queryjson else None
+    limit = queryjson['sort'] if 'sort' in queryjson else None
+    offset = queryjson['offset'] if 'offset' in queryjson else None
+    '''
+    qjson = {
+        'filter': ['name=="zhangjun"', 'name=="zhangjun"'],
+        'filteror': ['name=="admin"'],
+        'sort': 'name ASC',
+        'limit': 1,
+        'offset': 1
+    }
+    log.logger.debug(qjson)
+    log.logger.debug(tu.queryUsers(qjson))

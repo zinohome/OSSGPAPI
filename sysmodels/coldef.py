@@ -8,6 +8,7 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
+import traceback
 
 import simplejson as json
 import os
@@ -32,6 +33,19 @@ class Coldef(Collection):
     coltype = String(required=True, allow_none=False)
     coldef = String(required=True, allow_none=False)
     createdate = Date()
+
+def check_col_schema(colname):
+    try:
+        govbase = Govbase().db
+        if govbase.has(Coldef, colname):
+            return True
+        else:
+            return False
+    except Exception as exp:
+        log.logger.error('Exception at coldef.check_col_schema() %s ' % exp)
+        if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            traceback.print_exc()
+
 
 if __name__ == '__main__':
     govbase = Govbase().db
