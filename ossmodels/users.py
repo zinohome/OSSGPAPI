@@ -164,7 +164,7 @@ class Users(Collection):
                     authreturn = {}
                     authreturn['name'] = records[0].name
                     authreturn['role'] = records[0].role
-                    #authreturn['password'] = records[0].password
+                    authreturn['password'] = records[0].password
                     authreturn['active'] = records[0].active
                     return authreturn
                 else:
