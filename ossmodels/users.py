@@ -63,13 +63,8 @@ class Users(Collection):
         try:
             ossbase = Ossbase().db
             if ossbase.has(Users,keystr):
-                records = ossbase.query(Users).by_key(keystr)
-                returnjson = {}
-                returnjson['count'] = records.count()
-                returnjson['data'] = []
-                for obj in records:
-                    returnjson['data'].append(obj.json)
-                return returnjson
+                record = ossbase.query(Users).by_key(keystr)
+                return record.json
             else:
                 return None
         except Exception as exp:

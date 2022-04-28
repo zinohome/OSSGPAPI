@@ -24,4 +24,9 @@ class CollectionQueryBody(BaseModel):
         title = 'Collection Query Model'
         anystr_strip_whitespace = True
 
+class DocumentBody(BaseModel):
+    data: Dict = None
+    class Config:
+        title = 'Document Model'
+        anystr_strip_whitespace = True
 

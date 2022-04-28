@@ -31,6 +31,7 @@ class Coldef(Collection):
     _key = String(required=True)
     name = String(required=True, allow_none=False)
     coltype = String(required=True, allow_none=False)
+    keyfieldname = String(required=True, allow_none=False)
     coldef = String(required=True, allow_none=False)
     createdate = Date()
 

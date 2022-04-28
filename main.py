@@ -179,6 +179,7 @@ async def read_users_me(current_user: security.User = Depends(security.get_curre
     log.logger.debug('Access \'/users/\' : run in read_users_me()')
     return current_user
 
+''' Read API'''
 if services_model >= 1:
     @app.get(prefix + "/_collection/{collection_name}",
              tags=["Data - Collection Level"],
@@ -239,8 +240,23 @@ if services_model >= 1:
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
 
-
-
+    @app.get(prefix + "/_collection/{collection_name}/{key}",
+             tags=["Data - Document Level"],
+             summary="Retrieve one Document by key.",
+             description="",
+             )
+    async def get_data_by_id(collection_name: str, key: str):
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}/{key}\' : run in get_data_by_id(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('key: [%s]' % key)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
 else:
     @app.get(prefix + "/_collection/{collection_name}",
@@ -300,11 +316,70 @@ else:
                         ```
                     """
         log.logger.debug(
-            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data table_name: [%s]' % collection_name)
+            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('querybody: [%s]' % querybody.json())
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
         ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
+
+    @app.get(prefix + "/_collection/{collection_name}/{key}",
+             tags=["Data - Document Level"],
+             summary="Retrieve one Document by key.",
+             description="",
+             )
+    async def get_data_by_id(collection_name: str, key: str,
+                             current_user: security.User = Depends(security.get_current_active_user)):
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}/{key}\' : run in get_data_by_id(), input data collection_name: [%s]' % collection_name)
+        log.logger.debug('key: [%s]' % key)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
+
+'''Write API'''
+
+if services_model >= 2:
+    pass
+else:
+    @app.post(prefix + "/_collection/{collection_name}",
+              tags=["Data - Collection Level"],
+              summary="Create one document.",
+              description="",
+              )
+    async def post_data(collection_name: str, docpost: apimodel.DocumentBody,
+                        current_user_role: bool = Depends(security.get_write_permission)):
+        """
+                    Parameters
+                    - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **request body: Required**
+                    ```
+                        {
+                         "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                         }
+                    ```
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in post_data(), input data table_name: [%s]' % collection_name)
+        log.logger.debug('body data: [%s]' % docpost.json())
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(docpost)
+
 
 
 
