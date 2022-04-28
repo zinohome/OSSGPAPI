@@ -181,12 +181,34 @@ async def read_users_me(current_user: security.User = Depends(security.get_curre
 
 ''' Read API'''
 if services_model >= 1:
+    @app.get(prefix + "/_collection/documentcount/{collection_name}",
+             tags=["Data - Collection Level"],
+             summary="Retrieve document count. ",
+             description="",
+             )
+    async def get_data(collection_name: str):
+        """
+                        Parameters
+                        - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'count')()
+
     @app.get(prefix + "/_collection/{collection_name}",
              tags=["Data - Collection Level"],
              summary="Retrieve one or more documents. ",
              description="",
              )
-    async def get_data(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None),limit: int = Header(20, gt=0,le=2000),offset: int = Header(0, gt=-1)):
+    async def get_data(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
+                       offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1)):
         """
                                 Parameters
                                 - **collection_name** (path): **Required** - Name of the collection to perform operations on.
@@ -259,14 +281,36 @@ if services_model >= 1:
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
 else:
+    @app.get(prefix + "/_collection/documentcount/{collection_name}",
+             tags=["Data - Collection Level"],
+             summary="Retrieve document count. ",
+             description="",
+             )
+    async def get_data(collection_name: str,
+                       current_user: security.User = Depends(security.get_current_active_user)):
+        """
+                        Parameters
+                        - **collection_name** (path): **Required** - Name of the collection to perform operations on.
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'count')()
+
     @app.get(prefix + "/_collection/{collection_name}",
              tags=["Data - Collection Level"],
              summary="Retrieve one or more documents. ",
              description="",
              )
     async def get_data(collection_name: str, filter: str = Header(None), filteror: str = Header(None),
-                       sort: str = Header(None), limit: int = Header(20, gt=0, le=2000),
-                       offset: int = Header(0, gt=-1),
+                       sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
+                       offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1),
                        current_user: security.User = Depends(security.get_current_active_user)):
         """
                         Parameters
