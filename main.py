@@ -8,6 +8,7 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
+import importlib
 import os
 from datetime import timedelta
 
@@ -20,7 +21,7 @@ from starlette.responses import FileResponse, JSONResponse
 from starlette.staticfiles import StaticFiles
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND
 
-from core import security
+from core import security, apimodel
 from env.environment import Environment
 from ossmodels.users import Users
 from sysmodels.coldef import Coldef
@@ -179,7 +180,7 @@ async def read_users_me(current_user: security.User = Depends(security.get_curre
     return current_user
 
 if services_model >= 1:
-    @app.get(prefix + "/_table/{collection_name}",
+    @app.get(prefix + "/_collection/{collection_name}",
              tags=["Data - Collection Level"],
              summary="Retrieve one or more documents. ",
              description="",
@@ -196,8 +197,53 @@ if services_model >= 1:
         """
         log.logger.debug(
             'Access \'/_table/{table_name}\' : run in get_data(), input data table_name: [%s]' % collection_name)
+        queryjson = {}
+        queryjson['filter'] = filter
+        queryjson['filteror'] = filteror
+        queryjson['sort'] = sort
+        queryjson['limit'] = limit
+        queryjson['offset'] = offset
+        log.logger.debug('queryjson: [%s]' % queryjson)
+        if not coldef.check_col_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(queryjson)
+
+    @app.post(prefix + "/_collection/_query/{collection_name}",
+              tags=["Data - Collection Level"],
+              summary="Retrieve one or more documents. ",
+              description="", )
+    async def query_data(collection_name: str, querybody: apimodel.CollectionQueryBody):
+        """
+                        Parameters
+                        - **collection_name** (path): **Required** - Name of the table to perform operations on.
+                        - **query body: **Required**
+                        ```
+                            {
+                             "filter": "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                             "filteror": 'False',  -- Optional , SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                             "sort": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
+                             "limit": 0,  -- Optional - Set to limit the filter results.
+                             "offset": 0,  -- Optional - Set to offset the filter results to a particular record count.
+                             }
+                        ```
+                    """
+        log.logger.debug(
+            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data table_name: [%s]' % collection_name)
+        log.logger.debug('querybody: [%s]' % querybody.json())
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
+
+
+
+
 else:
-    @app.get(prefix + "/_table/{collection_name}",
+    @app.get(prefix + "/_collection/{collection_name}",
              tags=["Data - Collection Level"],
              summary="Retrieve one or more documents. ",
              description="",
@@ -229,3 +275,36 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(queryjson)
+
+    @app.post(prefix + "/_collection/_query/{collection_name}",
+              tags=["Data - Collection Level"],
+              summary="Retrieve one or more documents. ",
+              description="", )
+    async def query_data(collection_name: str, querybody: apimodel.CollectionQueryBody,
+                         current_user: security.User = Depends(security.get_current_active_user)):
+        """
+                        Parameters
+                        - **collection_name** (path): **Required** - Name of the table to perform operations on.
+                        - **query body: **Required**
+                        ```
+                            {
+                             "filter": "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                             "filteror": 'False',  -- Optional , SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                             "sort": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
+                             "limit": 0,  -- Optional - Set to limit the filter results.
+                             "offset": 0,  -- Optional - Set to offset the filter results to a particular record count.
+                             }
+                        ```
+                    """
+        log.logger.debug(
+            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data table_name: [%s]' % collection_name)
+        log.logger.debug('querybody: [%s]' % querybody.json())
+        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
+        return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
+
+
+

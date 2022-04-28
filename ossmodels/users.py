@@ -59,22 +59,19 @@ class Users(Collection):
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def getUsersbyname(self,username):
+    def getUsersbykey(self,keystr):
         try:
             ossbase = Ossbase().db
-            if ossbase.has(Users,username):
-                records = ossbase.query(Users).filter("name=='"+username+"'").all()
-                if len(records) >= 1:
-                    authreturn = {}
-                    authreturn['name'] = records[0].name
-                    authreturn['role'] = records[0].role
-                    #authreturn['password'] = records[0].password
-                    authreturn['active'] = records[0].active
-                    return authreturn
-                else:
-                    return None
+            if ossbase.has(Users,keystr):
+                records = ossbase.query(Users).by_key(keystr)
+                returnjson = {}
+                returnjson['count'] = records.count()
+                returnjson['data'] = []
+                for obj in records:
+                    returnjson['data'].append(obj.json)
+                return returnjson
             else:
-                return {"Authentication":False}
+                return None
         except Exception as exp:
             log.logger.error('Exception at users.getUsersbyname() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
@@ -160,6 +157,27 @@ class Users(Collection):
                 return {"Authentication":False}
         except Exception as exp:
             log.logger.error('Exception at users.userlogin() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
+
+    def getUsersbyname(self,username):
+        try:
+            ossbase = Ossbase().db
+            if ossbase.has(Users,username):
+                records = ossbase.query(Users).filter("name=='"+username+"'").all()
+                if len(records) >= 1:
+                    authreturn = {}
+                    authreturn['name'] = records[0].name
+                    authreturn['role'] = records[0].role
+                    #authreturn['password'] = records[0].password
+                    authreturn['active'] = records[0].active
+                    return authreturn
+                else:
+                    return None
+            else:
+                return {"Authentication":False}
+        except Exception as exp:
+            log.logger.error('Exception at users.getUsersbyname() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
