@@ -201,6 +201,7 @@ class Users(Collection):
         del jdict['_instance_schema']
         del jdict['_db']
         del jdict['_key']
+        #jdict.update((k, str(v)) for k, v in jdict.items())
         return jdict
 
 
