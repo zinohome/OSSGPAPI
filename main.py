@@ -683,13 +683,11 @@ else:
          summary="Retrieve system define information.",
          description="",
          )
-async def get_sysdef(collection_name: str, SecuretKey: str = Header(..., min_length=5),
-                      current_user_role: bool = Depends(security.get_super_permission)):
+async def get_sysdef(collection_name: str, current_user_role: bool = Depends(security.get_super_permission)):
     """
-            Please use 'app_confirm_key' as SecuretKey to confirm the operation
-            - **SecuretKey** (header): **Required** - use 'app_confirm_key' default value is 'Confirmed'.
+            This describes the collection
     """
     log.logger.debug(
-        'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input data: [ %s ]' % SecuretKey)
+        'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
 
 
