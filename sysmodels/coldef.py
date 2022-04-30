@@ -103,7 +103,7 @@ class Coldef(Collection):
         try:
             govbase = Govbase().db
             if govbase.has(Coldef,name):
-                log.logger.error(name)
+
                 records = govbase.query(Coldef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     getreturn = records[0].json

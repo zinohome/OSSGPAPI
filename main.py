@@ -297,7 +297,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        return coldef.get_Coldef_byname('collection_name')
+        return coldef.get_Coldef_byname(collection_name)
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["Data - Collection Level"],
