@@ -292,7 +292,12 @@ else:
         """
         log.logger.debug(
             'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
-
+        if not coldef.has_Coldef_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        return coldef.get_Coldef_byname('collection_name')
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["Data - Collection Level"],

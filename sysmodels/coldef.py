@@ -193,9 +193,9 @@ class Coldef(Collection):
 
 if __name__ == '__main__':
     govbase = Govbase().db
-    Coldef = Coldef()
-    log.logger.debug("Coldef.get_Coldef_bykey('users'): %s" % Coldef.get_Coldef_bykey('users'))
-    log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % Coldef.get_Coldef_byname('users'))
+    coldef = Coldef()
+    log.logger.debug("Coldef.get_Coldef_bykey('users'): %s" % coldef.get_Coldef_bykey('users'))
+    log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % coldef.get_Coldef_byname('users'))
 
     '''
     if not govbase.has_collection(Coldef):
