@@ -39,7 +39,7 @@ app_dir = os.path.dirname(os.path.abspath(__file__))
 '''Users'''
 apiusers = Users()
 
-'''Users'''
+'''Coldef'''
 coldef = Coldef()
 
 '''services_model'''
@@ -193,7 +193,7 @@ if services_model >= 1:
         """
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -227,7 +227,7 @@ if services_model >= 1:
         queryjson['limit'] = limit
         queryjson['offset'] = offset
         log.logger.debug('queryjson: [%s]' % queryjson)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -271,7 +271,7 @@ if services_model >= 1:
         log.logger.debug(
             'Access \'/_collection/{collection_name}/{key}\' : run in get_data_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -281,6 +281,19 @@ if services_model >= 1:
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
 else:
+    @app.get(prefix + "/_sysdef/{collection_name}",
+             tags=["System Define"],
+             summary="Retrieve system define information.",
+             description="",
+             )
+    async def get_sysdef(collection_name: str, current_user_role: bool = Depends(security.get_super_permission)):
+        """
+                This describes the collection
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
+
+
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["Data - Collection Level"],
              summary="Retrieve document count. ",
@@ -294,7 +307,7 @@ else:
         """
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -330,7 +343,7 @@ else:
         queryjson['limit'] = limit
         queryjson['offset'] = offset
         log.logger.debug('queryjson: [%s]' % queryjson)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -362,7 +375,7 @@ else:
         log.logger.debug(
             'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('querybody: [%s]' % querybody.json())
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -381,7 +394,7 @@ else:
         log.logger.debug(
             'Access \'/_collection/{collection_name}/{key}\' : run in get_data_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -412,7 +425,7 @@ if services_model >= 2:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in post_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body data: [%s]' % docpost.json())
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -442,7 +455,7 @@ if services_model >= 2:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in put_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput.json())
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -467,7 +480,7 @@ if services_model >= 2:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in delete_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('keystr: [%s]' % keystr)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -498,7 +511,7 @@ if services_model >= 2:
             'Access \'/_collection/{collection_name}/{key}\' : run in put_data_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput)
         log.logger.debug('key: [%s]' % key)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -524,7 +537,7 @@ if services_model >= 2:
         log.logger.debug(
             'Access \'/_collection/{collection_name}/{key}\' : run in delete_data_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -554,7 +567,7 @@ else:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in post_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body data: [%s]' % docpost.json())
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -585,7 +598,7 @@ else:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in put_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput.json())
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -610,7 +623,7 @@ else:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in delete_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('keystr: [%s]' % keystr)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -642,7 +655,7 @@ else:
             'Access \'/_collection/{collection_name}/{key}\' : run in put_data_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput)
         log.logger.debug('key: [%s]' % key)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
@@ -669,7 +682,7 @@ else:
         log.logger.debug(
             'Access \'/_collection/{collection_name}/{key}\' : run in delete_data_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
-        if not coldef.check_col_schema(collection_name):
+        if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name

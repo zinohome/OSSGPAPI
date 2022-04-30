@@ -36,10 +36,10 @@ class Coldef(Collection):
     coldef = String(required=True, allow_none=False)
     createdate = Date()
 
-    def has_Coldef_schema(self):
+    def has_Coldef_schema(self, name):
         try:
             govbase = Govbase().db
-            if govbase.has(Coldef, self.name):
+            if govbase.has(Coldef, name):
                 return True
             else:
                 return False
@@ -48,7 +48,7 @@ class Coldef(Collection):
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def col_existed(self):
+    def col_existed(self, name):
         try:
             ossbase = Ossbase().db
             if ossbase.has_collection(self.name):
@@ -217,7 +217,7 @@ if __name__ == '__main__':
                          keyfieldname="name",
                          coldef=userscoldefjson,
                          createdate=date.today())
-    if userscoldef.has_Coldef_schema():
+    if userscoldef.has_Coldef_schema(userscoldef.name):
         if not userscoldef.col_existed():
             govbase.add(userscoldef)
     '''
