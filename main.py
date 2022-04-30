@@ -678,16 +678,5 @@ else:
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(key)
 
-@app.get(prefix + "/_sysdef/{collection_name}",
-         tags=["System Define"],
-         summary="Retrieve system define information.",
-         description="",
-         )
-async def get_sysdef(collection_name: str, current_user_role: bool = Depends(security.get_super_permission)):
-    """
-            This describes the collection
-    """
-    log.logger.debug(
-        'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
 
 
