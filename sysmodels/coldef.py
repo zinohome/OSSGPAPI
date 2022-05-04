@@ -247,7 +247,7 @@ if __name__ == '__main__':
                          name='users',
                          coltype="document",
                          keyfieldname="name",
-                         coldef=userscoldefjson,
+                         coldef=json.dumps(userscoldefjson),  # 必须是string类型的json，不能是json对象
                          createdate=date.today())
     log.logger.debug("userscoldef.has_Coldef_schema(userscoldef.name): %s" % userscoldef.has_Coldef_schema(userscoldef.name))
     log.logger.debug("userscoldef.col_existed(): %s" % userscoldef.col_existed(userscoldef.name))
