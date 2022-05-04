@@ -219,10 +219,10 @@ class Coldef(Collection):
         jdict = self.__dict__.copy()
         del jdict['_dirty']
         del jdict['_refs_vals']
-        #del jdict['_instance_schema']
-        #del jdict['_db']
+        del jdict['_instance_schema']
+        del jdict['_db']
         del jdict['_key']
-        #del jdict['__collection__']
+        del jdict['__collection__']
         # jdict.update((k, str(v)) for k, v in jdict.items())
         return jdict
 
@@ -262,4 +262,6 @@ if __name__ == '__main__':
     log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % coldef.get_Coldef_byname('users'))
     log.logger.debug(coldef.get_all_Coldef())
     log.logger.debug(coldef.get_all_Coldef_names())
+    log.logger.debug(coldef.get_Coldef_byname('users'))
+
 
