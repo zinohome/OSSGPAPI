@@ -219,8 +219,8 @@ class Coldef(Collection):
         jdict = self.__dict__.copy()
         del jdict['_dirty']
         del jdict['_refs_vals']
-        del jdict['_instance_schema']
-        del jdict['_db']
+        #del jdict['_instance_schema']
+        #del jdict['_db']
         del jdict['_key']
         #del jdict['__collection__']
         # jdict.update((k, str(v)) for k, v in jdict.items())
@@ -229,12 +229,7 @@ class Coldef(Collection):
 if __name__ == '__main__':
     govbase = Govbase().db
     coldef = Coldef()
-    log.logger.debug("Coldef.get_Coldef_bykey('users'): %s" % coldef.get_Coldef_bykey('users'))
-    log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % coldef.get_Coldef_byname('users'))
-    log.logger.debug(coldef.get_all_Coldef())
-    log.logger.debug(coldef.get_all_Coldef_names())
 
-    '''
     if not govbase.has_collection(Coldef):
         govbase.create_collection(Coldef)
     userscoldefjson = {"__collection__":"users",
@@ -254,8 +249,17 @@ if __name__ == '__main__':
                          keyfieldname="name",
                          coldef=userscoldefjson,
                          createdate=date.today())
-    if userscoldef.has_Coldef_schema(userscoldef.name):
-        if not userscoldef.col_existed():
+    log.logger.debug("userscoldef.has_Coldef_schema(userscoldef.name): %s" % userscoldef.has_Coldef_schema(userscoldef.name))
+    log.logger.debug("userscoldef.col_existed(): %s" % userscoldef.col_existed(userscoldef.name))
+    if not userscoldef.has_Coldef_schema(userscoldef.name):
+        govbase.add(userscoldef)
+        if not userscoldef.col_existed(userscoldef.name):
             govbase.add(userscoldef)
-    '''
+
+
+
+    log.logger.debug("Coldef.get_Coldef_bykey('users'): %s" % coldef.get_Coldef_bykey('users'))
+    log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % coldef.get_Coldef_byname('users'))
+    log.logger.debug(coldef.get_all_Coldef())
+    log.logger.debug(coldef.get_all_Coldef_names())
 

@@ -191,7 +191,7 @@ if services_model >= 1:
                 This describes the collection count
         """
         log.logger.debug(
-            'Access \'/_sysdef/collection\' : run in get_sysdef_count.')
+            'Access \'/_sysdef/collection\' : run in get_sysdef_count().')
         return coldef.get_Coldef_count()
 
     @app.get(prefix + "/_sysdef/collection",
@@ -217,7 +217,7 @@ if services_model >= 1:
                 This describes the collection
         """
         log.logger.debug(
-            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
+            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef(), input collection_name: [ %s ]' % collection_name)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
@@ -230,13 +230,13 @@ if services_model >= 1:
              summary="Retrieve document count. ",
              description="",
              )
-    async def get_data(collection_name: str):
+    async def get_col_data_by_name(collection_name: str):
         """
                         Parameters
                         - **collection_name** (path): **Required** - Name of the collection to perform operations on.
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in get_col_data_by_name(), input data collection_name: [%s]' % collection_name)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
@@ -251,7 +251,7 @@ if services_model >= 1:
              summary="Retrieve one or more documents. ",
              description="",
              )
-    async def get_data(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
+    async def get_data_by_name(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
                        offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1)):
         """
                                 Parameters
@@ -263,7 +263,7 @@ if services_model >= 1:
                                 - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in get_data_by_name(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
         queryjson['filter'] = filter
         queryjson['filteror'] = filteror
@@ -335,7 +335,7 @@ else:
                 This describes the collection count
         """
         log.logger.debug(
-            'Access \'/_sysdef/collection\' : run in get_sysdef_count.')
+            'Access \'/_sysdef/collection\' : run in get_sysdef_count().')
         return coldef.get_Coldef_count()
 
     @app.get(prefix + "/_sysdef/collection",
@@ -361,7 +361,7 @@ else:
                 This describes the collection
         """
         log.logger.debug(
-            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
+            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef(), input collection_name: [ %s ]' % collection_name)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
@@ -374,14 +374,14 @@ else:
              summary="Retrieve document count. ",
              description="",
              )
-    async def get_data(collection_name: str,
+    async def get_data_by_name(collection_name: str,
                        current_user: security.User = Depends(security.get_current_active_user)):
         """
                         Parameters
                         - **collection_name** (path): **Required** - Name of the collection to perform operations on.
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in get_data_by_name(), input data collection_name: [%s]' % collection_name)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
@@ -396,7 +396,7 @@ else:
              summary="Retrieve one or more documents. ",
              description="",
              )
-    async def get_data(collection_name: str, filter: str = Header(None), filteror: str = Header(None),
+    async def get_data_by_name(collection_name: str, filter: str = Header(None), filteror: str = Header(None),
                        sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
                        offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1),
                        current_user: security.User = Depends(security.get_current_active_user)):
@@ -410,7 +410,7 @@ else:
                         - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in get_data_by_name(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
         queryjson['filter'] = filter
         queryjson['filteror'] = filteror
