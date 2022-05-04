@@ -69,6 +69,38 @@ class Coldef(Collection):
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
+    def get_all_Coldef(self):
+        try:
+            count = self.get_Coldef_count()
+            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            querycount = count if count <= limit else limit
+            govbase = Govbase().db
+            records = govbase.query(Coldef).limit(querycount).all()
+            resultlist = []
+            for record in records:
+                resultlist.append(record.json)
+            return resultlist
+        except Exception as exp:
+            log.logger.error('Exception at Coldef.get_all_Coldef() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
+
+    def get_all_Coldef_names(self):
+        try:
+            count = self.get_Coldef_count()
+            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            querycount = count if count <= limit else limit
+            govbase = Govbase().db
+            records = govbase.query(Coldef).limit(querycount).all()
+            resultlist = []
+            for record in records:
+                resultlist.append(record.name)
+            return resultlist
+        except Exception as exp:
+            log.logger.error('Exception at Coldef.get_all_Coldef_names() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
+
     def create_Coldef(self, jsonstr):
         try:
             govbase = Govbase().db
@@ -88,12 +120,15 @@ class Coldef(Collection):
 
     def get_Coldef_bykey(self,keystr):
         try:
+            returnjson = {}
+            returnjson['count'] = 0
+            returnjson['data'] = []
             govbase = Govbase().db
             if govbase.has(Coldef,keystr):
                 record = govbase.query(Coldef).by_key(keystr)
-                return record.json
-            else:
-                return None
+                returnjson['count'] = 1
+                returnjson['data'].append(record.json)
+            return returnjson
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_Coldef_bykey() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
@@ -101,17 +136,16 @@ class Coldef(Collection):
 
     def get_Coldef_byname(self,name):
         try:
+            returnjson = {}
+            returnjson['count'] = 0
+            returnjson['data'] = []
             govbase = Govbase().db
             if govbase.has(Coldef,name):
-
                 records = govbase.query(Coldef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
-                    getreturn = records[0].json
-                    return getreturn
-                else:
-                    return None
-            else:
-                return None
+                    returnjson['count'] = 1
+                    returnjson['data'].append(records[0].json)
+            return returnjson
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_Coldef_byname() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
@@ -197,6 +231,8 @@ if __name__ == '__main__':
     coldef = Coldef()
     log.logger.debug("Coldef.get_Coldef_bykey('users'): %s" % coldef.get_Coldef_bykey('users'))
     log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % coldef.get_Coldef_byname('users'))
+    log.logger.debug(coldef.get_all_Coldef())
+    log.logger.debug(coldef.get_all_Coldef_names())
 
     '''
     if not govbase.has_collection(Coldef):

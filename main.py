@@ -181,6 +181,50 @@ async def read_users_me(current_user: security.User = Depends(security.get_curre
 
 ''' Read API'''
 if services_model >= 1:
+    @app.get(prefix + "/_sysdef/collectioncount",
+             tags=["System Define"],
+             summary="Retrieve system collection count.",
+             description="",
+             )
+    async def get_sysdef_count():
+        """
+                This describes the collection count
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/collection\' : run in get_sysdef_count.')
+        return coldef.get_Coldef_count()
+
+    @app.get(prefix + "/_sysdef/collection",
+             tags=["System Define"],
+             summary="Retrieve system defines.",
+             description="",
+             )
+    async def get_allsysdef():
+        """
+                This describes all the collection
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/collection\' : run in get_allsysdef.')
+        return coldef.get_all_Coldef_names()
+
+    @app.get(prefix + "/_sysdef/{collection_name}",
+             tags=["System Define"],
+             summary="Retrieve system define information.",
+             description="",
+             )
+    async def get_sysdef(collection_name: str):
+        """
+                This describes the collection
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
+        if not coldef.has_Coldef_schema(collection_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % collection_name
+            )
+        return coldef.get_Coldef_byname(collection_name)
+
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["Data - Collection Level"],
              summary="Retrieve document count. ",
@@ -281,6 +325,32 @@ if services_model >= 1:
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
 else:
+    @app.get(prefix + "/_sysdef/collectioncount",
+             tags=["System Define"],
+             summary="Retrieve system collection count.",
+             description="",
+             )
+    async def get_sysdef_count(current_user_role: bool = Depends(security.get_super_permission)):
+        """
+                This describes the collection count
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/collection\' : run in get_sysdef_count.')
+        return coldef.get_Coldef_count()
+
+    @app.get(prefix + "/_sysdef/collection",
+             tags=["System Define"],
+             summary="Retrieve system collection defines.",
+             description="",
+             )
+    async def get_allsysdef(current_user_role: bool = Depends(security.get_super_permission)):
+        """
+                This describes all the collection
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/collection\' : run in get_allsysdef.')
+        return coldef.get_all_Coldef_names()
+
     @app.get(prefix + "/_sysdef/{collection_name}",
              tags=["System Define"],
              summary="Retrieve system define information.",
