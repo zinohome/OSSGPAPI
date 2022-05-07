@@ -22,6 +22,7 @@ from starlette.staticfiles import StaticFiles
 from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND
 
 from core import security, apimodel
+from core.govbase import Govbase
 from env.environment import Environment
 from ossmodel.users import Users
 from sysmodel.coldef import Coldef
@@ -206,36 +207,62 @@ if services_model >= 1:
             'Access \'/_sysdef/collection\' : run in get_sysdef_count.')
         return coldef.get_Coldef_count()
 
-    @app.get(prefix + "/_sysdef/collection",
-             tags=["System Define"],
-             summary="Retrieve system defines.",
-             description="",
-             )
-    async def get_allsysdef():
-        """
-                This describes all the collection
-        """
-        log.logger.debug(
-            'Access \'/_sysdef/collection\' : run in get_allsysdef.')
-        return coldef.get_all_Coldef_names()
 
-    @app.get(prefix + "/_sysdef/{collection_name}",
+    @app.get(prefix + "/_sysdef/{syscol_name}/document",
              tags=["System Define"],
-             summary="Retrieve system define information.",
+             summary="Retrieve system definitions.",
              description="",
              )
-    async def get_sysdef(collection_name: str):
+    async def get_allsysdef(syscol_name: str):
         """
-                This describes the collection
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
         """
         log.logger.debug(
-            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
-        if not coldef.has_Coldef_schema(collection_name):
+            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef, input syscol_name: [ %s ]' % syscol_name)
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef.')
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
-                detail='Collection [ %s ] not found' % collection_name
+                detail='Collection [ %s ] not found' % syscol_name
             )
-        return coldef.get_Coldef_byname(collection_name)
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'get_all_' + syscol_name.strip().capitalize() + '_names')()
+
+
+    @app.get(prefix + "/_sysdef/{syscol_name}/{sysdoc_name}",
+             tags=["System Define"],
+             summary="Retrieve system definitions information.",
+             description="",
+             )
+    async def get_sysdef(syscol_name: str, sysdoc_name: str):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **sysdoc_name** (path): **Required** - Name of the document to perform operations on.
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input syscol_name: [ %s ]' % syscol_name)
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input sysdoc_name: [ %s ]' % sysdoc_name)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        docexist = getattr(sysmodel, 'existed_' + syscol_name.strip().capitalize())(sysdoc_name)
+        if not docexist:
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Document [ %s ] not found' % sysdoc_name
+            )
+        return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_byname')(sysdoc_name)
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["Data - Collection Level"],
@@ -337,49 +364,83 @@ if services_model >= 1:
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
 else:
-    @app.get(prefix + "/_sysdef/collectioncount",
+    @app.get(prefix + "/_sysdef/{syscol_name}/documentcount",
              tags=["System Define"],
-             summary="Retrieve system collection count.",
+             summary="Retrieve system definitions count.",
              description="",
              )
-    async def get_sysdef_count(current_user_role: bool = Depends(security.get_super_permission)):
+    async def get_sysdef_count(syscol_name: str, current_user_role: bool = Depends(security.get_super_permission)):
         """
-                This describes the collection count
-        """
-        log.logger.debug(
-            'Access \'/_sysdef/collection\' : run in get_sysdef_count.')
-        return coldef.get_Coldef_count()
-
-    @app.get(prefix + "/_sysdef/collection",
-             tags=["System Define"],
-             summary="Retrieve system collection defines.",
-             description="",
-             )
-    async def get_allsysdef(current_user_role: bool = Depends(security.get_super_permission)):
-        """
-                This describes all the collection
+                This describes the document count
         """
         log.logger.debug(
-            'Access \'/_sysdef/collection\' : run in get_allsysdef.')
-        return coldef.get_all_Coldef_names()
-
-    @app.get(prefix + "/_sysdef/{collection_name}",
-             tags=["System Define"],
-             summary="Retrieve system define information.",
-             description="",
-             )
-    async def get_sysdef(collection_name: str, current_user_role: bool = Depends(security.get_super_permission)):
-        """
-                This describes the collection
-        """
+            'Access \'/_sysdef/{syscol_name}/documentcount\' : run in get_sysdef_count, input syscol_name: [ %s ]' % syscol_name)
         log.logger.debug(
-            'Access \'/_sysdef/{collection_name}\' : run in get_sysdef, input collection_name: [ %s ]' % collection_name)
-        if not coldef.has_Coldef_schema(collection_name):
+            'Access \'/_sysdef/{syscol_name}/documentcount\' : run in get_sysdef_count.')
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
             raise HTTPException(
                 status_code=HTTP_404_NOT_FOUND,
-                detail='Collection [ %s ] not found' % collection_name
+                detail='Collection [ %s ] not found' % syscol_name
             )
-        return coldef.get_Coldef_byname(collection_name)
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_count')()
+
+    @app.get(prefix + "/_sysdef/{syscol_name}/document",
+             tags=["System Define"],
+             summary="Retrieve system definitions.",
+             description="",
+             )
+    async def get_allsysdef(syscol_name: str, current_user_role: bool = Depends(security.get_super_permission)):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef, input syscol_name: [ %s ]' % syscol_name)
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef.')
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'get_all_' + syscol_name.strip().capitalize() + '_names')()
+
+    @app.get(prefix + "/_sysdef/{syscol_name}/{sysdoc_name}",
+             tags=["System Define"],
+             summary="Retrieve system definitions information.",
+             description="",
+             )
+    async def get_sysdef(syscol_name: str, sysdoc_name: str, current_user_role: bool = Depends(security.get_super_permission)):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **sysdoc_name** (path): **Required** - Name of the document to perform operations on.
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input syscol_name: [ %s ]' % syscol_name)
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input sysdoc_name: [ %s ]' % sysdoc_name)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        docexist = getattr(sysmodel,'existed_'+ syscol_name.strip().capitalize())(sysdoc_name)
+        if not docexist:
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Document [ %s ] not found' % sysdoc_name
+            )
+        return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_byname')(sysdoc_name)
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["Data - Collection Level"],

@@ -56,10 +56,10 @@ class Adminnav(Collection):
                 traceback.print_exc()
             return False;
 
-    def existed_Adminnav(self, document_name):
+    def existed_Adminnav(self):
         try:
             govbase = Govbase().db
-            if govbase.has(Adminnav,document_name):
+            if govbase.has(Adminnav,self.name):
                 return True
             else:
                 return False
@@ -83,22 +83,6 @@ class Adminnav(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Adminnav.create_Adminnav() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
-                traceback.print_exc()
-
-    def get_all_Adminnav_names(self):
-        try:
-            count = self.get_Adminnav_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
-            querycount = count if count <= limit else limit
-            govbase = Govbase().db
-            records = govbase.query(Adminnav).limit(querycount).all()
-            resultlist = []
-            for record in records:
-                resultlist.append(record.name)
-            return resultlist
-        except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_all_Adminnav_names() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 

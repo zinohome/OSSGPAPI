@@ -16,7 +16,6 @@ from datetime import date
 
 from arango_orm import Collection
 from arango_orm.fields import String, Date
-from marshmallow.fields import Integer
 
 from core.govbase import Govbase
 from core.ossbase import Ossbase
@@ -27,169 +26,164 @@ from util import log
 env = Environment()
 log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
-class Adminnav(Collection):
-    __collection__ = 'adminnav'
+class Coldef(Collection):
+    __collection__ = 'coldef'
     _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
     _key = String(required=True)
     name = String(required=True, allow_none=False)
-    title = String(required=True, allow_none=False)
-    level = Integer(required=True, allow_none=False)
-    order = Integer(required=True, allow_none=False)
-    segment = String(required=False, allow_none=True)
-    liclass = String(required=False, allow_none=True)
-    hrefclass = String(required=False, allow_none=True)
-    navclass = String(required=True, allow_none=False)
-    href = String(required=False, allow_none=True)
-    icon = String(required=False, allow_none=True)
+    coltype = String(required=True, allow_none=False)
+    keyfieldname = String(required=True, allow_none=False)
+    coldef = String(required=True, allow_none=False)
     createdate = Date()
 
-    def has_Adminnav_Collection(self):
+    def has_Coldef_schema(self, coldef_name):
         try:
             govbase = Govbase().db
-            if govbase.has_collection(self.__collection__):
+            if govbase.has(Coldef, coldef_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.has_Adminnav_schema() %s ' % exp)
+            log.logger.error('Exception at coldef.has_Coldef_schema() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False;
 
-    def existed_Adminnav(self, document_name):
+    def existed_Coldef(self, collection_name):
         try:
-            govbase = Govbase().db
-            if govbase.has(Adminnav,document_name):
+            ossbase = Ossbase().db
+            if ossbase.has_collection(collection_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.existed_Adminnav() %s ' % exp)
+            log.logger.error('Exception at coldef.existed_Coldef() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False
 
-    def create_Adminnav(self, jsonobj):
+    def get_Coldef_count(self):
         try:
             govbase = Govbase().db
-            addjson = jsonobj
-            if not addjson.__contains__('_key'):
-                addjson['_key'] = addjson['name']
-            if not govbase.has(Adminnav, addjson['_key']):
-                addobj = Adminnav._load(addjson)
-                govbase.add(addobj)
-                return addobj.json
-            else:
-                return None
+            return govbase.query(Coldef).count()
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.create_Adminnav() %s ' % exp)
+            log.logger.error('Exception at Coldef.get_Coldef_count() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_all_Adminnav_names(self):
+    def get_all_Coldef(self):
         try:
-            count = self.get_Adminnav_count()
+            count = self.get_Coldef_count()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
-            records = govbase.query(Adminnav).limit(querycount).all()
-            resultlist = []
-            for record in records:
-                resultlist.append(record.name)
-            return resultlist
-        except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_all_Adminnav_names() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
-                traceback.print_exc()
-
-    def get_Adminnav_count(self):
-        try:
-            govbase = Govbase().db
-            return govbase.query(Adminnav).count()
-        except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_Adminnav_count() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
-                traceback.print_exc()
-
-    def get_all_Adminnav(self):
-        try:
-            count = self.get_Adminnav_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
-            querycount = count if count <= limit else limit
-            govbase = Govbase().db
-            records = govbase.query(Adminnav).limit(querycount).all()
+            records = govbase.query(Coldef).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.json)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_all_Adminnav() %s ' % exp)
+            log.logger.error('Exception at Coldef.get_all_Coldef() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Adminnav_bykey(self,keystr):
+    def get_all_Coldef_names(self):
+        try:
+            count = self.get_Coldef_count()
+            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            querycount = count if count <= limit else limit
+            govbase = Govbase().db
+            records = govbase.query(Coldef).limit(querycount).all()
+            resultlist = []
+            for record in records:
+                resultlist.append(record.name)
+            return resultlist
+        except Exception as exp:
+            log.logger.error('Exception at Coldef.get_all_Coldef_names() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
+
+    def create_Coldef(self, jsonobj):
+        try:
+            govbase = Govbase().db
+            addjson = jsonobj
+            if not addjson.__contains__('_key'):
+                addjson['_key'] = addjson['name']
+            if not govbase.has(Coldef, addjson['_key']):
+                addobj = Coldef._load(addjson)
+                govbase.add(addobj)
+                return addobj.json
+            else:
+                return None
+        except Exception as exp:
+            log.logger.error('Exception at Coldef.create_Coldef() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
+
+    def get_Coldef_bykey(self,keystr):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Adminnav,keystr):
-                record = govbase.query(Adminnav).by_key(keystr)
+            if govbase.has(Coldef,keystr):
+                record = govbase.query(Coldef).by_key(keystr)
                 returnjson['count'] = 1
                 returnjson['data'].append(record.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)
+            log.logger.error('Exception at Coldef.get_Coldef_bykey() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Adminnav_byname(self,name):
+    def get_Coldef_byname(self,name):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Adminnav,name):
-                records = govbase.query(Adminnav).filter("name=='"+name+"'").all()
+            if govbase.has(Coldef,name):
+                records = govbase.query(Coldef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     returnjson['count'] = 1
                     returnjson['data'].append(records[0].json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)
+            log.logger.error('Exception at Coldef.get_Coldef_byname() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def update_Adminnav(self, jsonobj):
+    def update_Coldef(self, jsonobj):
         try:
             govbase = Govbase().db
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase.has(Adminnav, updatejson['_key']):
-                updobj = Adminnav._load(updatejson)
+            if govbase.has(Coldef, updatejson['_key']):
+                updobj = Coldef._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.update_Adminnav() %s ' % exp)
+            log.logger.error('Exception at Coldef.update_Coldef() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def delete_Adminnav(self,keystr):
+    def delete_Coldef(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase.has(Adminnav, keystr):
-                return govbase.delete(govbase.query(Adminnav).by_key(keystr))
+            if govbase.has(Coldef, keystr):
+                #log.logger.debug(govbase.delete(govbase.query(Coldef).by_key(keystr)))
+                return govbase.delete(govbase.query(Coldef).by_key(keystr))
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.delete_Adminnav() %s ' % exp)
+            log.logger.error('Exception at Coldef.delete_Coldef() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def query_Adminnav(self,queryjson):
+    def query_Coldef(self,queryjson):
         try:
             govbase = Govbase().db
             filter = queryjson['filter'] if 'filter' in queryjson else None
@@ -198,7 +192,7 @@ class Adminnav(Collection):
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
 
-            query = govbase.query(Adminnav)
+            query = govbase.query(Coldef)
             if filter is not None:
                 for flstr in filter:
                     query.filter(flstr)
@@ -218,7 +212,7 @@ class Adminnav(Collection):
                 returnjson['data'].append(obj.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.query_Adminnav() %s ' % exp)
+            log.logger.error('Exception at Coldef.query_Coldef() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
@@ -242,38 +236,40 @@ class Adminnav(Collection):
 
 if __name__ == '__main__':
     govbase = Govbase().db
-    adminav = Adminnav(name = 'home-alt',
-                       title = '首页',
-                       level = '1',
-                       order = '1',
-                       segment = 'index',
-                       liclass = 'nav-item',
-                       hrefclass = 'nav-link',
-                       navclass = '',
-                       href = 'index.html',
-                       icon = 'typcn typcn-chart-area-outline',
-                       createdate = str(date.today())
-                       )
-    #log.logger.debug("adminav.has_Adminnav_Collection(): %s" % adminav.has_Adminnav_Collection())
-    #log.logger.debug("adminav.existed_Adminnav(): %s" % adminav.existed_Adminnav())
-    log.logger.debug('adminav.json: %s' % adminav.json)
-    if not adminav.has_Adminnav_Collection():
-        govbase.create_collection(Adminnav)
-    if not adminav.existed_Adminnav():
-        resultstr = adminav.create_Adminnav(adminav.json)
-        log.logger.debug('resultstr: %s' % resultstr)
-    count = adminav.get_Adminnav_count()
-    log.logger.debug('count: %s' % count)
-    resultstr = adminav.get_all_Adminnav()
-    log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = adminav.get_Adminnav_bykey('home')
-    log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = adminav.get_Adminnav_byname('home-alt')
-    log.logger.debug('resultstr: %s' % resultstr)
-    adminav.title = '首页二'
-    resultstr = adminav.delete_Adminnav(adminav.json)
-    log.logger.debug('resultstr: %s' % resultstr)
-    #resultstr = adminav.update_Adminnav('home-alt')
-    #log.logger.debug('resultstr: %s' % resultstr)
+    coldef = Coldef()
+
+    if not govbase.has_collection(Coldef):
+        govbase.create_collection(Coldef)
+    userscoldefjson = {"__collection__":"users",
+                    "_index":"[{'type':'hash', 'fields':['name'], 'unique':True}]",
+                    "_key":"String(required=True)",
+                    "name":"String(required=True, allow_none=False)",
+                    "password":"String(required=True, allow_none=False)",
+                    "role":"String(required=True, allow_none=False)",
+                    "active":"Bool(required=True, allow_none=False)"}
+    log.logger.debug("userscoldef: %s" % userscoldefjson)
+    log.logger.debug("userscoldefjson: %s" % json.dumps(userscoldefjson))
+    log.logger.debug("date.today(): %s" % date.today())
+
+    userscoldef = Coldef(_key="users",
+                         name='users',
+                         coltype="document",
+                         keyfieldname="name",
+                         coldef=json.dumps(userscoldefjson),  # 必须是string类型的json，不能是json对象
+                         createdate=date.today())
+    log.logger.debug("userscoldef.has_Coldef_schema(userscoldef.name): %s" % userscoldef.has_Coldef_schema(userscoldef.name))
+    log.logger.debug("userscoldef.existed_Coldef(): %s" % userscoldef.existed_Coldef(userscoldef.name))
+    if not userscoldef.has_Coldef_schema(userscoldef.name):
+        govbase.add(userscoldef)
+        if not userscoldef.existed_Coldef(userscoldef.name):
+            govbase.add(userscoldef)
+
+
+
+    log.logger.debug("Coldef.get_Coldef_bykey('users'): %s" % coldef.get_Coldef_bykey('users'))
+    log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % coldef.get_Coldef_byname('users'))
+    log.logger.debug(coldef.get_all_Coldef())
+    log.logger.debug(coldef.get_all_Coldef_names())
+    log.logger.debug(coldef.get_Coldef_byname('users'))
 
 

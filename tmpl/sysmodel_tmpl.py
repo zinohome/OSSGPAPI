@@ -19,7 +19,6 @@ from arango_orm.fields import String, Date
 from marshmallow.fields import Integer
 
 from core.govbase import Govbase
-from core.ossbase import Ossbase
 from env.environment import Environment
 from util import log
 
@@ -27,23 +26,15 @@ from util import log
 env = Environment()
 log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
-class Adminnav(Collection):
-    __collection__ = 'adminnav'
+class {{ name|capitalize }}(Collection):
+    __collection__ = '{{ name }}'
     _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
     _key = String(required=True)
     name = String(required=True, allow_none=False)
-    title = String(required=True, allow_none=False)
     level = Integer(required=True, allow_none=False)
-    order = Integer(required=True, allow_none=False)
-    segment = String(required=False, allow_none=True)
-    liclass = String(required=False, allow_none=True)
-    hrefclass = String(required=False, allow_none=True)
-    navclass = String(required=True, allow_none=False)
-    href = String(required=False, allow_none=True)
-    icon = String(required=False, allow_none=True)
     createdate = Date()
 
-    def has_Adminnav_Collection(self):
+    def has_{{ name|capitalize }}_Collection(self):
         try:
             govbase = Govbase().db
             if govbase.has_collection(self.__collection__):
@@ -51,145 +42,146 @@ class Adminnav(Collection):
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.has_Adminnav_schema() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.has_{{ name|capitalize }}_schema() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False;
 
-    def existed_Adminnav(self, document_name):
+    def existed_{{ name|capitalize }}(self):
         try:
             govbase = Govbase().db
-            if govbase.has(Adminnav,document_name):
+            if govbase.has({{ name|capitalize }},self.name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.existed_Adminnav() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.existed_{{ name|capitalize }}() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False
 
-    def create_Adminnav(self, jsonobj):
+    def create_{{ name|capitalize }}(self, jsonobj):
         try:
             govbase = Govbase().db
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase.has(Adminnav, addjson['_key']):
-                addobj = Adminnav._load(addjson)
+            if not govbase.has({{ name|capitalize }}, addjson['_key']):
+                addobj = {{ name|capitalize }}._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.create_Adminnav() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.create_{{ name|capitalize }}() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_all_Adminnav_names(self):
+
+    def get_all_{{ name|capitalize }}_names(self):
         try:
-            count = self.get_Adminnav_count()
+            count = self.get_{{ name|capitalize }}_count()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
-            records = govbase.query(Adminnav).limit(querycount).all()
+            records = govbase.query({{ name|capitalize }}).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.name)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_all_Adminnav_names() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.get_all_{{ name|capitalize }}_names() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Adminnav_count(self):
+    def get_{{ name|capitalize }}_count(self):
         try:
             govbase = Govbase().db
-            return govbase.query(Adminnav).count()
+            return govbase.query({{ name|capitalize }}).count()
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_Adminnav_count() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_count() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_all_Adminnav(self):
+    def get_all_{{ name|capitalize }}(self):
         try:
-            count = self.get_Adminnav_count()
+            count = self.get_{{ name|capitalize }}_count()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
-            records = govbase.query(Adminnav).limit(querycount).all()
+            records = govbase.query({{ name|capitalize }}).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.json)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_all_Adminnav() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.get_all_{{ name|capitalize }}() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Adminnav_bykey(self,keystr):
+    def get_{{ name|capitalize }}_bykey(self,keystr):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Adminnav,keystr):
-                record = govbase.query(Adminnav).by_key(keystr)
+            if govbase.has({{ name|capitalize }},keystr):
+                record = govbase.query({{ name|capitalize }}).by_key(keystr)
                 returnjson['count'] = 1
                 returnjson['data'].append(record.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_bykey() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Adminnav_byname(self,name):
+    def get_{{ name|capitalize }}_byname(self,name):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Adminnav,name):
-                records = govbase.query(Adminnav).filter("name=='"+name+"'").all()
+            if govbase.has({{ name|capitalize }},name):
+                records = govbase.query({{ name|capitalize }}).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     returnjson['count'] = 1
                     returnjson['data'].append(records[0].json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_bykey() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def update_Adminnav(self, jsonobj):
+    def update_{{ name|capitalize }}(self, jsonobj):
         try:
             govbase = Govbase().db
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase.has(Adminnav, updatejson['_key']):
-                updobj = Adminnav._load(updatejson)
+            if govbase.has({{ name|capitalize }}, updatejson['_key']):
+                updobj = {{ name|capitalize }}._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.update_Adminnav() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.update_{{ name|capitalize }}() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def delete_Adminnav(self,keystr):
+    def delete_{{ name|capitalize }}(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase.has(Adminnav, keystr):
-                return govbase.delete(govbase.query(Adminnav).by_key(keystr))
+            if govbase.has({{ name|capitalize }}, keystr):
+                return govbase.delete(govbase.query({{ name|capitalize }}).by_key(keystr))
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.delete_Adminnav() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.delete_{{ name|capitalize }}() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def query_Adminnav(self,queryjson):
+    def query_{{ name|capitalize }}(self,queryjson):
         try:
             govbase = Govbase().db
             filter = queryjson['filter'] if 'filter' in queryjson else None
@@ -198,7 +190,7 @@ class Adminnav(Collection):
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
 
-            query = govbase.query(Adminnav)
+            query = govbase.query({{ name|capitalize }})
             if filter is not None:
                 for flstr in filter:
                     query.filter(flstr)
@@ -218,7 +210,7 @@ class Adminnav(Collection):
                 returnjson['data'].append(obj.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Adminnav.query_Adminnav() %s ' % exp)
+            log.logger.error('Exception at {{ name|capitalize }}.query_{{ name|capitalize }}() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
@@ -242,7 +234,8 @@ class Adminnav(Collection):
 
 if __name__ == '__main__':
     govbase = Govbase().db
-    adminav = Adminnav(name = 'home-alt',
+    '''
+    to{{ name }}= {{ name|capitalize }}(name = 'home-alt',
                        title = '首页',
                        level = '1',
                        order = '1',
@@ -254,26 +247,25 @@ if __name__ == '__main__':
                        icon = 'typcn typcn-chart-area-outline',
                        createdate = str(date.today())
                        )
-    #log.logger.debug("adminav.has_Adminnav_Collection(): %s" % adminav.has_Adminnav_Collection())
-    #log.logger.debug("adminav.existed_Adminnav(): %s" % adminav.existed_Adminnav())
-    log.logger.debug('adminav.json: %s' % adminav.json)
-    if not adminav.has_Adminnav_Collection():
-        govbase.create_collection(Adminnav)
-    if not adminav.existed_Adminnav():
-        resultstr = adminav.create_Adminnav(adminav.json)
+    #log.logger.debug("to{{ name }}.has_{{ name|capitalize }}_Collection(): %s" % to{{ name }}.has_{{ name|capitalize }}_Collection())
+    #log.logger.debug("to{{ name }}.existed_{{ name|capitalize }}(): %s" % to{{ name }}.existed_{{ name|capitalize }}())
+    log.logger.debug('to{{ name }}.json: %s' % to{{ name }}.json)
+    if not to{{ name }}.has_{{ name|capitalize }}_Collection():
+        govbase.create_collection({{ name|capitalize }})
+    if not to{{ name }}.existed_{{ name|capitalize }}():
+        resultstr = to{{ name }}.create_{{ name|capitalize }}(to{{ name }}.json)
         log.logger.debug('resultstr: %s' % resultstr)
-    count = adminav.get_Adminnav_count()
+    count = to{{ name }}.get_{{ name|capitalize }}_count()
     log.logger.debug('count: %s' % count)
-    resultstr = adminav.get_all_Adminnav()
+    resultstr = to{{ name }}.get_all_{{ name|capitalize }}()
     log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = adminav.get_Adminnav_bykey('home')
+    resultstr = to{{ name }}.get_{{ name|capitalize }}_bykey('home')
     log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = adminav.get_Adminnav_byname('home-alt')
+    resultstr = to{{ name }}.get_{{ name|capitalize }}_byname('home-alt')
     log.logger.debug('resultstr: %s' % resultstr)
-    adminav.title = '首页二'
-    resultstr = adminav.delete_Adminnav(adminav.json)
+    to{{ name }}.title = '首页二'
+    resultstr = to{{ name }}.delete_{{ name|capitalize }}(to{{ name }}.json)
     log.logger.debug('resultstr: %s' % resultstr)
-    #resultstr = adminav.update_Adminnav('home-alt')
+    #resultstr = to{{ name }}.update_{{ name|capitalize }}('home-alt')
     #log.logger.debug('resultstr: %s' % resultstr)
-
-
+    '''

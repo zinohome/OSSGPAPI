@@ -3126,3 +3126,1023 @@ NoneType: None
 2022-05-07 at 17:53:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
 2022-05-07 at 17:53:18 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
 2022-05-07 at 17:53:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:56:02 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 17:56:04 | INFO | Practitioner Start Up ....
+2022-05-07 at 17:56:04 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 17:56:04 | INFO | Practitioner Starting ....
+2022-05-07 at 17:56:04 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 17:56:04 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:56:04 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 17:56:04 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 17:56:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:56:04 | INFO | Practitioner Started
+2022-05-07 at 17:56:50 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 17:56:51 | INFO | Practitioner Start Up ....
+2022-05-07 at 17:56:51 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 17:56:51 | INFO | Practitioner Starting ....
+2022-05-07 at 17:56:51 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 17:56:51 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:56:51 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 17:56:51 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 17:56:51 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:56:51 | INFO | Practitioner Started
+2022-05-07 at 17:56:58 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 17:56:59 | INFO | Practitioner Start Up ....
+2022-05-07 at 17:56:59 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 17:56:59 | INFO | Practitioner Starting ....
+2022-05-07 at 17:56:59 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 17:56:59 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:56:59 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 17:56:59 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 17:56:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:56:59 | INFO | Practitioner Started
+2022-05-07 at 17:59:36 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 17:59:37 | INFO | Practitioner Start Up ....
+2022-05-07 at 17:59:37 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 17:59:37 | INFO | Practitioner Starting ....
+2022-05-07 at 17:59:37 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 17:59:37 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:59:37 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 17:59:37 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 17:59:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 17:59:37 | INFO | Practitioner Started
+2022-05-07 at 18:00:16 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:00:17 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:00:17 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:00:17 | INFO | Practitioner Starting ....
+2022-05-07 at 18:00:17 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:00:17 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:00:17 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:00:17 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:00:17 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:00:17 | INFO | Practitioner Started
+2022-05-07 at 18:00:52 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:00:53 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:00:53 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:00:53 | INFO | Practitioner Starting ....
+2022-05-07 at 18:00:53 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:00:53 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:00:53 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:00:53 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:00:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:00:53 | INFO | Practitioner Started
+2022-05-07 at 18:01:37 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:01:38 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:01:38 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:01:38 | INFO | Practitioner Starting ....
+2022-05-07 at 18:01:38 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:01:38 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:01:38 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:01:38 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:01:38 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:01:38 | INFO | Practitioner Started
+2022-05-07 at 18:02:11 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:02:11 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:02:11 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:02:11 | INFO | Practitioner Starting ....
+2022-05-07 at 18:02:11 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:02:11 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:02:11 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:02:11 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:02:11 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:02:11 | INFO | Practitioner Started
+2022-05-07 at 18:03:08 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:03:08 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:03:08 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:03:08 | INFO | Practitioner Starting ....
+2022-05-07 at 18:03:08 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:03:08 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:03:08 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:03:08 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:03:08 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:03:08 | INFO | Practitioner Started
+2022-05-07 at 18:04:09 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:04:10 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:04:10 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:04:10 | INFO | Practitioner Starting ....
+2022-05-07 at 18:04:10 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:04:10 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:04:10 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:04:10 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:04:10 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:04:10 | INFO | Practitioner Started
+2022-05-07 at 18:04:58 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:04:59 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:04:59 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:04:59 | INFO | Practitioner Starting ....
+2022-05-07 at 18:04:59 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:04:59 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:04:59 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:04:59 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:04:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:04:59 | INFO | Practitioner Started
+2022-05-07 at 18:06:13 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:06:14 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:06:14 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:06:14 | INFO | Practitioner Starting ....
+2022-05-07 at 18:06:14 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:06:14 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:06:14 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:06:14 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:06:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:06:14 | INFO | Practitioner Started
+2022-05-07 at 18:07:28 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:07:29 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:07:29 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:07:29 | INFO | Practitioner Starting ....
+2022-05-07 at 18:07:29 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:07:29 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:07:29 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:07:29 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:07:29 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:07:29 | INFO | Practitioner Started
+2022-05-07 at 18:09:30 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:09:31 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:09:31 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:09:31 | INFO | Practitioner Starting ....
+2022-05-07 at 18:09:31 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:09:31 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:09:31 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:09:31 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:09:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:09:31 | INFO | Practitioner Started
+2022-05-07 at 18:11:35 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:11:36 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:11:36 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:11:36 | INFO | Practitioner Starting ....
+2022-05-07 at 18:11:36 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:11:36 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:11:36 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:11:36 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:11:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:11:36 | INFO | Practitioner Started
+2022-05-07 at 18:14:06 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:14:07 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:14:07 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:14:07 | INFO | Practitioner Starting ....
+2022-05-07 at 18:14:07 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:14:07 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:14:07 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:14:07 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:14:07 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:14:07 | INFO | Practitioner Started
+2022-05-07 at 18:15:22 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:15:22 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:15:22 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:15:22 | INFO | Practitioner Starting ....
+2022-05-07 at 18:15:22 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:15:22 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:15:22 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:15:22 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:15:22 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:15:22 | INFO | Practitioner Started
+2022-05-07 at 18:17:51 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:17:53 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:17:53 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:17:53 | INFO | Practitioner Starting ....
+2022-05-07 at 18:17:53 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:17:53 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:17:53 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:17:53 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:17:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:17:53 | INFO | Practitioner Started
+2022-05-07 at 18:20:20 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:20:21 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:20:21 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:20:21 | INFO | Practitioner Starting ....
+2022-05-07 at 18:20:21 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:20:21 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:20:21 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:20:21 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:20:21 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:20:21 | INFO | Practitioner Started
+2022-05-07 at 18:27:45 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:27:46 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:27:46 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:27:46 | INFO | Practitioner Starting ....
+2022-05-07 at 18:27:46 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:27:46 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:27:46 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:27:46 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:27:46 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:27:46 | INFO | Practitioner Started
+2022-05-07 at 18:27:47 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:27:47 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:28:50 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:28:51 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:28:51 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:28:51 | INFO | Practitioner Starting ....
+2022-05-07 at 18:28:51 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:28:51 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:28:51 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:28:51 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:28:51 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:28:51 | INFO | Practitioner Started
+2022-05-07 at 18:29:10 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:29:11 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:29:11 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:29:11 | INFO | Practitioner Starting ....
+2022-05-07 at 18:29:11 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:29:11 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:29:11 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:29:11 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:29:11 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:29:11 | INFO | Practitioner Started
+2022-05-07 at 18:29:47 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:29:47 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:29:52 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:29:52 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:29:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:29:55 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:30:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:30:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:30:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:30:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:30:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:30:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:31:33 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:31:34 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:31:34 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:31:34 | INFO | Practitioner Starting ....
+2022-05-07 at 18:31:34 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:31:34 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:31:34 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:31:34 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:31:34 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:31:34 | INFO | Practitioner Started
+2022-05-07 at 18:32:39 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:32:40 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:32:40 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:32:40 | INFO | Practitioner Starting ....
+2022-05-07 at 18:32:40 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:32:40 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:32:40 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:32:40 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:32:40 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:32:40 | INFO | Practitioner Started
+2022-05-07 at 18:33:26 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:33:27 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:33:27 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:33:27 | INFO | Practitioner Starting ....
+2022-05-07 at 18:33:27 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:33:27 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:33:27 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:33:27 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:33:27 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:33:27 | INFO | Practitioner Started
+2022-05-07 at 18:36:01 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:36:02 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:36:02 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:36:02 | INFO | Practitioner Starting ....
+2022-05-07 at 18:36:02 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:36:02 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:02 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:36:02 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:36:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:02 | INFO | Practitioner Started
+2022-05-07 at 18:36:05 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:36:06 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:36:06 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:36:06 | INFO | Practitioner Starting ....
+2022-05-07 at 18:36:06 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:36:06 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:06 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:36:06 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:36:06 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:06 | INFO | Practitioner Started
+2022-05-07 at 18:36:46 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:46 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:56 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:36:56 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:39:06 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:39:07 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:39:07 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:39:07 | INFO | Practitioner Starting ....
+2022-05-07 at 18:39:07 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:39:07 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:39:07 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:39:07 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:39:07 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:39:07 | INFO | Practitioner Started
+2022-05-07 at 18:39:22 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:39:22 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:39:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:39:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:41:20 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:41:21 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:41:21 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:41:21 | INFO | Practitioner Starting ....
+2022-05-07 at 18:41:21 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:41:21 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:41:21 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:41:21 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:41:21 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:41:21 | INFO | Practitioner Started
+2022-05-07 at 18:43:39 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:43:40 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:43:40 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:43:40 | INFO | Practitioner Starting ....
+2022-05-07 at 18:43:40 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:43:40 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:43:40 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:43:40 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:43:40 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:43:40 | INFO | Practitioner Started
+2022-05-07 at 18:43:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:43:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:44:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:44:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:44:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:44:28 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:44:28 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:48:16 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:48:17 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:48:17 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:48:17 | INFO | Practitioner Starting ....
+2022-05-07 at 18:48:17 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:48:17 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:48:17 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:48:17 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:48:17 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:48:17 | INFO | Practitioner Started
+2022-05-07 at 18:50:29 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:50:30 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:50:30 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:50:30 | INFO | Practitioner Starting ....
+2022-05-07 at 18:50:30 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:50:30 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:50:30 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:50:30 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:50:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:50:30 | INFO | Practitioner Started
+2022-05-07 at 18:50:50 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:50:50 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:50:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:50:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:50:53 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:51:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:51:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:51:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:52:53 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:52:53 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:52:53 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:52:53 | INFO | Practitioner Starting ....
+2022-05-07 at 18:52:53 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:52:53 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:52:53 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:52:53 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:52:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:52:53 | INFO | Practitioner Started
+2022-05-07 at 18:53:29 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:53:29 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:53:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:54:19 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:54:20 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:54:20 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:54:20 | INFO | Practitioner Starting ....
+2022-05-07 at 18:54:20 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:54:20 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:54:20 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:54:20 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:54:20 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:54:20 | INFO | Practitioner Started
+2022-05-07 at 18:54:46 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:54:47 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:54:47 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:54:47 | INFO | Practitioner Starting ....
+2022-05-07 at 18:54:47 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:54:47 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:54:47 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:54:47 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:54:47 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:54:47 | INFO | Practitioner Started
+2022-05-07 at 18:55:36 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:55:37 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:55:37 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:55:37 | INFO | Practitioner Starting ....
+2022-05-07 at 18:55:37 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:55:37 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:55:37 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:55:37 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:55:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:55:37 | INFO | Practitioner Started
+2022-05-07 at 18:56:12 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:56:13 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:56:13 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:56:13 | INFO | Practitioner Starting ....
+2022-05-07 at 18:56:13 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:56:13 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:56:13 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:56:13 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:56:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:56:13 | INFO | Practitioner Started
+2022-05-07 at 18:56:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:56:16 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:56:22 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:56:28 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:56:28 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:57:23 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 18:57:24 | INFO | Practitioner Start Up ....
+2022-05-07 at 18:57:24 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 18:57:24 | INFO | Practitioner Starting ....
+2022-05-07 at 18:57:24 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 18:57:24 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:57:24 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 18:57:24 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 18:57:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:57:24 | INFO | Practitioner Started
+2022-05-07 at 18:57:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:57:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:58:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:58:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:58:17 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:58:17 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:58:17 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 18:58:20 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:02:05 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 19:02:48 | INFO | Practitioner Start Up ....
+2022-05-07 at 19:02:48 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 19:02:48 | INFO | Practitioner Starting ....
+2022-05-07 at 19:02:48 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 19:02:48 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:02:48 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 19:02:48 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 19:02:48 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:02:48 | INFO | Practitioner Started
+2022-05-07 at 19:03:06 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:03:06 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:03:10 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:03:10 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:14 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 19:04:15 | INFO | Practitioner Start Up ....
+2022-05-07 at 19:04:15 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 19:04:15 | INFO | Practitioner Starting ....
+2022-05-07 at 19:04:15 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 19:04:15 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:15 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 19:04:15 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 19:04:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:15 | INFO | Practitioner Started
+2022-05-07 at 19:04:28 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:28 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:40 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:40 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:40 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:40 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:51 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:51 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:51 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:04:51 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:05:32 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 19:05:33 | INFO | Practitioner Start Up ....
+2022-05-07 at 19:05:33 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 19:05:33 | INFO | Practitioner Starting ....
+2022-05-07 at 19:05:33 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 19:05:33 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:05:33 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 19:05:33 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 19:05:33 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:05:33 | INFO | Practitioner Started
+2022-05-07 at 19:06:02 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 19:06:03 | INFO | Practitioner Start Up ....
+2022-05-07 at 19:06:03 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 19:06:03 | INFO | Practitioner Starting ....
+2022-05-07 at 19:06:03 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 19:06:03 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:03 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 19:06:03 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 19:06:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:03 | INFO | Practitioner Started
+2022-05-07 at 19:06:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:04 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:06:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:07:05 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 19:07:06 | INFO | Practitioner Start Up ....
+2022-05-07 at 19:07:06 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 19:07:06 | INFO | Practitioner Starting ....
+2022-05-07 at 19:07:06 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 19:07:06 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:07:06 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 19:07:06 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 19:07:06 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:07:06 | INFO | Practitioner Started
+2022-05-07 at 19:07:18 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 19:07:20 | INFO | Practitioner Start Up ....
+2022-05-07 at 19:07:20 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 19:07:20 | INFO | Practitioner Starting ....
+2022-05-07 at 19:07:20 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 19:07:20 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:07:20 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 19:07:20 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 19:07:20 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:07:20 | INFO | Practitioner Started
+2022-05-07 at 19:07:50 | INFO | Practitioner Shutting Down ....
+2022-05-07 at 19:07:50 | INFO | Practitioner Start Up ....
+2022-05-07 at 19:07:50 | INFO | API prefix is: [ /api/v2 ]
+2022-05-07 at 19:07:50 | INFO | Practitioner Starting ....
+2022-05-07 at 19:07:50 | INFO | Practitioner Check and Init databases ....
+2022-05-07 at 19:07:50 | INFO | OSSGPAPI - SysBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:07:50 | INFO | Practitioner Check and Init system define ....
+2022-05-07 at 19:07:50 | INFO | Practitioner Check and Init system users ....
+2022-05-07 at 19:07:50 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:07:50 | INFO | Practitioner Started
+2022-05-07 at 19:08:08 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:08 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:12 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:12 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:18 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:18 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:23 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:08:23 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:53 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:53 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:54 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:55 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:10:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:01 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:08 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:08 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:08 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:08 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:08 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:09 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:23 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:26 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:26 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:11:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:56 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:57 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:58 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:14:59 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:00 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:01 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:02 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:02 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:03 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:15:04 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:13 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:14 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:15 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:17 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:17 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:17 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:17 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:17 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:18 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:24 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:24 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:25 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:30 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:31 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:36 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - GovBase Connect to: http://127.0.0.1:8529
+2022-05-07 at 19:18:37 | INFO | OSSGPAPI - OssBase Connect to: http://127.0.0.1:8529
