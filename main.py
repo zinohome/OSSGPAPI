@@ -23,8 +23,8 @@ from starlette.status import HTTP_401_UNAUTHORIZED, HTTP_404_NOT_FOUND
 
 from core import security, apimodel
 from env.environment import Environment
-from ossmodels.users import Users
-from sysmodels.coldef import Coldef
+from ossmodel.users import Users
+from sysmodel.coldef import Coldef
 from util import log
 import traceback
 import simplejson as json
@@ -254,7 +254,7 @@ if services_model >= 1:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'count')()
 
@@ -288,7 +288,7 @@ if services_model >= 1:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(queryjson)
 
@@ -314,7 +314,7 @@ if services_model >= 1:
         log.logger.debug(
             'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('querybody: [%s]' % querybody.json())
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
 
@@ -332,7 +332,7 @@ if services_model >= 1:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
@@ -399,7 +399,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'count')()
 
@@ -435,7 +435,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(queryjson)
 
@@ -467,7 +467,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
 
@@ -486,7 +486,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
@@ -517,7 +517,7 @@ if services_model >= 2:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         log.logger.debug(json.loads(docpost.json())['data'])
         return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
@@ -547,7 +547,7 @@ if services_model >= 2:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(json.loads(docput.json())['data'])
 
@@ -572,7 +572,7 @@ if services_model >= 2:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(keystr)
 
@@ -603,7 +603,7 @@ if services_model >= 2:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         upjson = json.loads(docput.json())['data']
         upjson['_key'] = key
@@ -629,7 +629,7 @@ if services_model >= 2:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(key)
 
@@ -659,7 +659,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         log.logger.debug(json.loads(docpost.json())['data'])
         return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
@@ -690,7 +690,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(json.loads(docput.json())['data'])
 
@@ -715,7 +715,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(keystr)
 
@@ -747,7 +747,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         upjson = json.loads(docput.json())['data']
         upjson['_key'] = key
@@ -774,7 +774,7 @@ else:
                 status_code=HTTP_404_NOT_FOUND,
                 detail='Collection [ %s ] not found' % collection_name
             )
-        ossmodelcls = importlib.import_module('ossmodels.' + collection_name.strip().lower())
+        ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(key)
 

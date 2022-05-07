@@ -11,7 +11,7 @@ from passlib.context import CryptContext
 from pydantic import BaseModel
 from starlette.status import HTTP_401_UNAUTHORIZED
 from env.environment import Environment
-from ossmodels.users import Users
+from ossmodel.users import Users
 from util import log
 
 '''logging'''
