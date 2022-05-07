@@ -265,7 +265,7 @@ if services_model >= 1:
         return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_byname')(sysdoc_name)
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
-             tags=["Data - Collection Level"],
+             tags=["OSS Data - Collection Level"],
              summary="Retrieve document count. ",
              description="",
              )
@@ -286,7 +286,7 @@ if services_model >= 1:
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'count')()
 
     @app.get(prefix + "/_collection/{collection_name}",
-             tags=["Data - Collection Level"],
+             tags=["OSS Data - Collection Level"],
              summary="Retrieve one or more documents. ",
              description="",
              )
@@ -320,7 +320,7 @@ if services_model >= 1:
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(queryjson)
 
     @app.post(prefix + "/_collection/_query/{collection_name}",
-              tags=["Data - Collection Level"],
+              tags=["OSS Data - Collection Level"],
               summary="Retrieve one or more documents. ",
               description="", )
     async def query_data(collection_name: str, querybody: apimodel.CollectionQueryBody):
@@ -346,7 +346,7 @@ if services_model >= 1:
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
 
     @app.get(prefix + "/_collection/{collection_name}/{key}",
-             tags=["Data - Document Level"],
+             tags=["OSS Data - Document Level"],
              summary="Retrieve one Document by key.",
              description="",
              )
@@ -443,7 +443,7 @@ else:
         return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_byname')(sysdoc_name)
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
-             tags=["Data - Collection Level"],
+             tags=["OSS Data - Collection Level"],
              summary="Retrieve document count. ",
              description="",
              )
@@ -465,7 +465,7 @@ else:
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'count')()
 
     @app.get(prefix + "/_collection/{collection_name}",
-             tags=["Data - Collection Level"],
+             tags=["OSS Data - Collection Level"],
              summary="Retrieve one or more documents. ",
              description="",
              )
@@ -501,7 +501,7 @@ else:
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(queryjson)
 
     @app.post(prefix + "/_collection/_query/{collection_name}",
-              tags=["Data - Collection Level"],
+              tags=["OSS Data - Collection Level"],
               summary="Retrieve one or more documents. ",
               description="", )
     async def query_data(collection_name: str, querybody: apimodel.CollectionQueryBody,
@@ -533,7 +533,7 @@ else:
         return getattr(ossmodel, 'query' + collection_name.strip().capitalize())(querybody)
 
     @app.get(prefix + "/_collection/{collection_name}/{key}",
-             tags=["Data - Document Level"],
+             tags=["OSS Data - Document Level"],
              summary="Retrieve one Document by key.",
              description="",
              )
@@ -555,7 +555,7 @@ else:
 
 if services_model >= 2:
     @app.post(prefix + "/_collection/{collection_name}",
-              tags=["Data - Collection Level"],
+              tags=["OSS Data - Collection Level"],
               summary="Create one document.",
               description="",
               )
@@ -584,7 +584,7 @@ if services_model >= 2:
         return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
 
     @app.put(prefix + "/_collection/{collection_name}",
-             tags=["Data - Collection Level"],
+             tags=["OSS Data - Collection Level"],
              summary="Update one document.",
              description="",
              deprecated=False
@@ -613,7 +613,7 @@ if services_model >= 2:
         return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(json.loads(docput.json())['data'])
 
     @app.delete(prefix + "/_collection/{collection_name}",
-                tags=["Data - Collection Level"],
+                tags=["OSS Data - Collection Level"],
                 summary="Delete one document.",
                 description="",
                 )
@@ -638,7 +638,7 @@ if services_model >= 2:
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(keystr)
 
     @app.put(prefix + "/_collection/{collection_name}/{key}",
-             tags=["Data - Document Level"],
+             tags=["OSS Data - Document Level"],
              summary="Replace the content of one document by key.",
              description="",
              )
@@ -671,7 +671,7 @@ if services_model >= 2:
         return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(upjson)
 
     @app.delete(prefix + "/_collection/{collection_name}/{key}",
-                tags=["Data - Document Level"],
+                tags=["OSS Data - Document Level"],
                 summary="Delete one document by key.",
                 description="",
                 )
@@ -696,7 +696,7 @@ if services_model >= 2:
 
 else:
     @app.post(prefix + "/_collection/{collection_name}",
-              tags=["Data - Collection Level"],
+              tags=["OSS Data - Collection Level"],
               summary="Create one document.",
               description="",
               )
@@ -726,7 +726,7 @@ else:
         return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
 
     @app.put(prefix + "/_collection/{collection_name}",
-             tags=["Data - Collection Level"],
+             tags=["OSS Data - Collection Level"],
              summary="Update one document.",
              description="",
              deprecated=False
@@ -756,7 +756,7 @@ else:
         return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(json.loads(docput.json())['data'])
 
     @app.delete(prefix + "/_collection/{collection_name}",
-                tags=["Data - Collection Level"],
+                tags=["OSS Data - Collection Level"],
                 summary="Delete one document.",
                 description="",
                 )
@@ -781,7 +781,7 @@ else:
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(keystr)
 
     @app.put(prefix + "/_collection/{collection_name}/{key}",
-             tags=["Data - Document Level"],
+             tags=["OSS Data - Document Level"],
              summary="Replace the content of one document by key.",
              description="",
              )
@@ -815,7 +815,7 @@ else:
         return getattr(ossmodel, 'update' + collection_name.strip().capitalize())(upjson)
 
     @app.delete(prefix + "/_collection/{collection_name}/{key}",
-                tags=["Data - Document Level"],
+                tags=["OSS Data - Document Level"],
                 summary="Delete one document by key.",
                 description="",
                 )
