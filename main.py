@@ -28,6 +28,7 @@ from sysmodels.coldef import Coldef
 from util import log
 import traceback
 import simplejson as json
+from core.systembase import Systembase
 
 '''logging'''
 env = Environment()
@@ -74,6 +75,17 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.on_event("startup")
 async def startup_event():
     log.logger.info(os.getenv('OSSGPAPI_APP_NAME') + ' Starting ....')
+    # Init databases
+    log.logger.info(os.getenv('OSSGPAPI_APP_NAME') + ' Check and Init databases ....')
+    sysbase = Systembase()
+    sysbase.initgovbase()
+    sysbase.inituserbase()
+    # Init system define
+    log.logger.info(os.getenv('OSSGPAPI_APP_NAME') + ' Check and Init system define ....')
+    # TODO add govbase define and init
+
+    # Init system User
+    log.logger.info(os.getenv('OSSGPAPI_APP_NAME') + ' Check and Init system users ....')
     apiusers.initsysUsers()
     log.logger.info(os.getenv('OSSGPAPI_APP_NAME') + ' Started')
 
