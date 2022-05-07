@@ -186,7 +186,7 @@ class Users(Collection):
             if not ossbase.has(Users, 'admin'):
                 ossbase.add(adminuser)
         except Exception as exp:
-            log.logger.error('Exception at users.initsyscount() %s ' % exp)
+            log.logger.error('Exception at users.initsysUsers() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
