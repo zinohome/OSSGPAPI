@@ -36,29 +36,31 @@ class Coldef(Collection):
     coldef = String(required=True, allow_none=False)
     createdate = Date()
 
-    def has_Coldef_schema(self, name):
+    def has_Coldef_schema(self, coldef_name):
         try:
             govbase = Govbase().db
-            if govbase.has(Coldef, name):
+            if govbase.has(Coldef, coldef_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at coldef.has_col_schema() %s ' % exp)
+            log.logger.error('Exception at coldef.has_Coldef_schema() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
+            return False;
 
-    def col_existed(self, name):
+    def existed_Coldef(self, collection_name):
         try:
             ossbase = Ossbase().db
-            if ossbase.has_collection(self.name):
+            if ossbase.has_collection(collection_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at coldef.col_existed() %s ' % exp)
+            log.logger.error('Exception at coldef.existed_Coldef() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
+            return False
 
     def get_Coldef_count(self):
         try:
@@ -101,10 +103,10 @@ class Coldef(Collection):
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def create_Coldef(self, jsonstr):
+    def create_Coldef(self, jsonobj):
         try:
             govbase = Govbase().db
-            addjson = jsonstr
+            addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
             if not govbase.has(Coldef, addjson['_key']):
@@ -151,16 +153,16 @@ class Coldef(Collection):
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def update_Coldef(self, jsonstr):
+    def update_Coldef(self, jsonobj):
         try:
             govbase = Govbase().db
-            updatejson = jsonstr
+            updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
             if govbase.has(Coldef, updatejson['_key']):
-                govbase = Coldef._load(updatejson)
-                govbase.update(updatejson)
-                return updatejson.json
+                updobj = Coldef._load(updatejson)
+                govbase.update(updobj)
+                return updobj.json
             else:
                 return None
         except Exception as exp:
@@ -217,12 +219,18 @@ class Coldef(Collection):
     @property
     def json(self):
         jdict = self.__dict__.copy()
-        del jdict['_dirty']
-        del jdict['_refs_vals']
-        del jdict['_instance_schema']
-        del jdict['_db']
-        del jdict['_key']
-        del jdict['__collection__']
+        if jdict.__contains__('_dirty'):
+            del jdict['_dirty']
+        if jdict.__contains__('_refs_vals'):
+            del jdict['_refs_vals']
+        if jdict.__contains__('_instance_schema'):
+            del jdict['_instance_schema']
+        if jdict.__contains__('_db'):
+            del jdict['_db']
+        if jdict.__contains__('_key'):
+            del jdict['_key']
+        if jdict.__contains__('__collection__'):
+            del jdict['__collection__']
         # jdict.update((k, str(v)) for k, v in jdict.items())
         return jdict
 
@@ -250,10 +258,10 @@ if __name__ == '__main__':
                          coldef=json.dumps(userscoldefjson),  # 必须是string类型的json，不能是json对象
                          createdate=date.today())
     log.logger.debug("userscoldef.has_Coldef_schema(userscoldef.name): %s" % userscoldef.has_Coldef_schema(userscoldef.name))
-    log.logger.debug("userscoldef.col_existed(): %s" % userscoldef.col_existed(userscoldef.name))
+    log.logger.debug("userscoldef.existed_Coldef(): %s" % userscoldef.existed_Coldef(userscoldef.name))
     if not userscoldef.has_Coldef_schema(userscoldef.name):
         govbase.add(userscoldef)
-        if not userscoldef.col_existed(userscoldef.name):
+        if not userscoldef.existed_Coldef(userscoldef.name):
             govbase.add(userscoldef)
 
 
