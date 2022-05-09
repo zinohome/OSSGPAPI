@@ -196,7 +196,7 @@ async def read_users_me(current_user: security.User = Depends(security.get_curre
 if services_model >= 1:
     # =========================== sys api ===========================
     @app.get(prefix + "/_sysdef/sysdefcount/{syscol_name}",
-             tags=["System Define"],
+             tags=["System Define - Collection Level"],
              summary="Retrieve system definitions count.",
              description="",
              )
@@ -218,7 +218,7 @@ if services_model >= 1:
 
 
     @app.get(prefix + "/_sysdef/sysdefnames/{syscol_name}",
-             tags=["System Define"],
+             tags=["System Define - Collection Level"],
              summary="Retrieve system definitions name list.",
              description="",
              )
@@ -241,8 +241,8 @@ if services_model >= 1:
 
 
     @app.get(prefix + "/_sysdef/{syscol_name}/{sysdoc_name}",
-             tags=["System Define"],
-             summary="Retrieve system definitions information.",
+             tags=["System Define - Document Level"],
+             summary="Retrieve one system definition document by name.",
              description="",
              )
     async def get_sysdef_byname(syscol_name: str, sysdoc_name: str):
@@ -273,8 +273,8 @@ if services_model >= 1:
 
 
     @app.get(prefix + "/_sysdef/{syscol_name}/{key}",
-             tags=["System Define"],
-             summary="Retrieve system definitions information by key.",
+             tags=["System Define - Document Level"],
+             summary="Retrieve one system definition document by key.",
              description="",
              )
     async def get_sysdef_bykey(syscol_name: str, key: str):
@@ -299,8 +299,8 @@ if services_model >= 1:
 
 
     @app.get(prefix + "/_sysdef/{syscol_name}",
-             tags=["System Define"],
-             summary="Retrieve one or more System Define documents. ",
+             tags=["System Define - Collection Level"],
+             summary="Retrieve one or more system definition documents. ",
              description="",
              )
     async def query_sysdef(syscol_name: str, filter: str = Header(None), filteror: str = Header(None),
@@ -441,7 +441,7 @@ if services_model >= 1:
 else:
     # =========================== sys api ===========================
     @app.get(prefix + "/_sysdef/sysdefcount/{syscol_name}",
-             tags=["System Define"],
+             tags=["System Define - Collection Level"],
              summary="Retrieve system definitions count.",
              description="",
              )
@@ -462,7 +462,7 @@ else:
         return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_count')()
 
     @app.get(prefix + "/_sysdef/sysdefnames/{syscol_name}",
-             tags=["System Define"],
+             tags=["System Define - Collection Level"],
              summary="Retrieve system definitions name list.",
              description="",
              )
@@ -484,8 +484,8 @@ else:
         return getattr(sysmodel, 'get_all_' + syscol_name.strip().capitalize() + '_names')()
 
     @app.get(prefix + "/_sysdef/{syscol_name}/{sysdoc_name}",
-             tags=["System Define"],
-             summary="Retrieve system definitions information.",
+             tags=["System Define - Document Level"],
+             summary="Retrieve one system definition document by name.",
              description="",
              )
     async def get_sysdef_byname(syscol_name: str, sysdoc_name: str, current_user_role: bool = Depends(security.get_super_permission)):
@@ -516,8 +516,8 @@ else:
 
 
     @app.get(prefix + "/_sysdef/{syscol_name}/{key}",
-             tags=["System Define"],
-             summary="Retrieve system definitions information by key.",
+             tags=["System Define - Document Level"],
+             summary="Retrieve one system definition document by key.",
              description="",
              )
     async def get_sysdef_bykey(syscol_name: str, key: str, current_user_role: bool = Depends(security.get_super_permission)):
@@ -542,8 +542,8 @@ else:
 
 
     @app.get(prefix + "/_sysdef/{syscol_name}",
-             tags=["System Define"],
-             summary="Retrieve one or more System Define documents. ",
+             tags=["System Define - Collection Level"],
+             summary="Retrieve one or more system definition documents. ",
              description="",
              )
     async def query_sysdef(syscol_name: str, filter: str = Header(None), filteror: str = Header(None),
@@ -697,8 +697,154 @@ else:
 
 if services_model >= 2:
     # =========================== sysdef api ===========================
+    @app.post(prefix + "/_sysdef/{syscol_name}",
+              tags=["System Define - Collection Level"],
+              summary="Create one system definition document.",
+              description="",
+              )
+    async def post_sysdef(syscol_name: str, docpost: apimodel.DocumentBody):
+        """
+                    Parameters
+                    - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **request body: Required**
+                    ```
+                        {
+                         "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                         }
+                    ```
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}\' : run in post_sysdef(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('body data: [%s]' % docpost.json())
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        # log.logger.debug(json.loads(docpost.json())['data'])
+        return getattr(sysmodel, 'create_' + syscol_name.strip().capitalize())(json.loads(docpost.json())['data'])
 
-    
+
+    @app.put(prefix + "/_sysdef/{syscol_name}",
+             tags=["System Define - Collection Level"],
+             summary="Update one system definition document.",
+             description="",
+             deprecated=False
+             )
+    async def put_sysdef(syscol_name: str, docput: apimodel.DocumentBody):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}\' : run in put_sysdef(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('body: [%s]' % docput.json())
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'update_' + syscol_name.strip().capitalize())(json.loads(docput.json())['data'])
+
+
+    @app.delete(prefix + "/_sysdef/{syscol_name}",
+                tags=["System Define - Collection Level"],
+                summary="Delete one system definition document.",
+                description="",
+                )
+    async def delete_sysdef(syscol_name: str,
+                            keystr: str = Header(None)):
+        """
+            Parameters
+            - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+            - **keystr** (header): - Key of the document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in delete_document(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('keystr: [%s]' % keystr)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'delete_' + syscol_name.strip().capitalize())(keystr)
+
+
+    @app.put(prefix + "/_sysdef/{syscol_name}/{key}",
+             tags=["System Define - Document Level"],
+             summary="Replace the content of one system definition document by key.",
+             description="",
+             )
+    async def put_sysdef_by_key(syscol_name: str, key: str,
+                                docput: apimodel.DocumentBody):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **key** (path): **Required** - The key of document
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in put_sysdef_by_key(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('body: [%s]' % docput)
+        log.logger.debug('key: [%s]' % key)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        upjson = json.loads(docput.json())['data']
+        upjson['_key'] = key
+        return getattr(sysmodel, 'update_' + syscol_name.strip().capitalize())(upjson)
+
+
+    @app.delete(prefix + "/_sysdef/{syscol_name}/{key}",
+                tags=["System Define - Document Level"],
+                summary="Delete one system definition document by key.",
+                description="",
+                )
+    async def delete_sysdef_by_key(syscol_name: str, key: str):
+
+        """
+                    Parameters
+                    - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **key** (path): **Required** - The key of document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in delete_sysdef_by_key(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('key: [%s]' % key)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'delete_' + syscol_name.strip().capitalize())(key)
+
     # =========================== oss api ===========================
 
     @app.post(prefix + "/_collection/{collection_name}",
@@ -727,7 +873,7 @@ if services_model >= 2:
             )
         ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
-        log.logger.debug(json.loads(docpost.json())['data'])
+        #log.logger.debug(json.loads(docpost.json())['data'])
         return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
 
     @app.put(prefix + "/_collection/{collection_name}",
@@ -789,7 +935,7 @@ if services_model >= 2:
              summary="Replace the content of one document by key.",
              description="",
              )
-    async def put_document_by_id(collection_name: str, key: str,
+    async def put_document_by_key(collection_name: str, key: str,
                              docput: apimodel.DocumentBody):
         """
                 Parameters
@@ -803,7 +949,7 @@ if services_model >= 2:
                 ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in put_document_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in put_document_by_key(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
@@ -822,7 +968,7 @@ if services_model >= 2:
                 summary="Delete one document by key.",
                 description="",
                 )
-    async def delete_document_by_id(collection_name: str, key: str):
+    async def delete_document_by_key(collection_name: str, key: str):
 
         """
                     Parameters
@@ -830,7 +976,7 @@ if services_model >= 2:
                     - **key** (header): Optional - Key of the document need to be deleted
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in delete_document_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in delete_document_by_key(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -843,6 +989,159 @@ if services_model >= 2:
 
 else:
     # =========================== sysdef api ===========================
+    @app.post(prefix + "/_sysdef/{syscol_name}",
+              tags=["System Define - Collection Level"],
+              summary="Create one system definition document.",
+              description="",
+              )
+    async def post_sysdef(syscol_name: str, docpost: apimodel.DocumentBody,
+                            current_user_role: bool = Depends(security.get_write_permission)):
+        """
+                    Parameters
+                    - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **request body: Required**
+                    ```
+                        {
+                         "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                         }
+                    ```
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}\' : run in post_sysdef(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('body data: [%s]' % docpost.json())
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        #log.logger.debug(json.loads(docpost.json())['data'])
+        return getattr(sysmodel, 'create_' + syscol_name.strip().capitalize())(json.loads(docpost.json())['data'])
+
+
+    @app.put(prefix + "/_sysdef/{syscol_name}",
+             tags=["System Define - Collection Level"],
+             summary="Update one system definition document.",
+             description="",
+             deprecated=False
+             )
+    async def put_sysdef(syscol_name: str, docput: apimodel.DocumentBody,
+                           current_user_role: bool = Depends(security.get_write_permission)):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}\' : run in put_sysdef(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('body: [%s]' % docput.json())
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'update_' + syscol_name.strip().capitalize())(json.loads(docput.json())['data'])
+
+
+    @app.delete(prefix + "/_sysdef/{syscol_name}",
+                tags=["System Define - Collection Level"],
+                summary="Delete one system definition document.",
+                description="",
+                )
+    async def delete_sysdef(syscol_name: str,
+                              keystr: str = Header(None),
+                              current_user_role: bool = Depends(security.get_write_permission)):
+        """
+            Parameters
+            - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+            - **keystr** (header): - Key of the document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_collection/{collection_name}\' : run in delete_document(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('keystr: [%s]' % keystr)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'delete_' + syscol_name.strip().capitalize())(keystr)
+
+
+    @app.put(prefix + "/_sysdef/{syscol_name}/{key}",
+             tags=["System Define - Document Level"],
+             summary="Replace the content of one system definition document by key.",
+             description="",
+             )
+    async def put_sysdef_by_key(syscol_name: str, key: str,
+                                  docput: apimodel.DocumentBody,
+                                  current_user_role: bool = Depends(security.get_write_permission)):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **key** (path): **Required** - The key of document
+                - **request body: Required**
+                ```
+                    {
+                     "data": [{"name":"jack","phone":"55789"}]  -- **Required** - Json formated fieldname-fieldvalue pair. ex: '[{"name":"jack","phone":"55789"}]'
+                     }
+                ```
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in put_sysdef_by_key(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('body: [%s]' % docput)
+        log.logger.debug('key: [%s]' % key)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        upjson = json.loads(docput.json())['data']
+        upjson['_key'] = key
+        return getattr(sysmodel, 'update_' + syscol_name.strip().capitalize())(upjson)
+
+
+    @app.delete(prefix + "/_sysdef/{syscol_name}/{key}",
+                tags=["System Define - Document Level"],
+                summary="Delete one system definition document by key.",
+                description="",
+                )
+    async def delete_sysdef_by_key(syscol_name: str, key: str,
+                                     current_user_role: bool = Depends(security.get_write_permission)):
+
+        """
+                    Parameters
+                    - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                    - **key** (path): **Required** - The key of document need to be deleted
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in delete_sysdef_by_key(), input data collection_name: [%s]' % syscol_name)
+        log.logger.debug('key: [%s]' % key)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'delete_' + syscol_name.strip().capitalize())(key)
+
 
     # =========================== oss api ===========================
 
@@ -873,7 +1172,7 @@ else:
             )
         ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
-        log.logger.debug(json.loads(docpost.json())['data'])
+        #log.logger.debug(json.loads(docpost.json())['data'])
         return getattr(ossmodel, 'create' + collection_name.strip().capitalize())(json.loads(docpost.json())['data'])
 
     @app.put(prefix + "/_collection/{collection_name}",
@@ -917,7 +1216,7 @@ else:
         """
             Parameters
             - **collection_name** (path): **Required** - Name of the collection to perform operations on.
-            - **keystr** (header): Optional - Key of the document need to be deleted
+            - **keystr** (header): **Required** - Key of the document need to be deleted
         """
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in delete_document(), input data collection_name: [%s]' % collection_name)
@@ -936,7 +1235,7 @@ else:
              summary="Replace the content of one document by key.",
              description="",
              )
-    async def put_document_by_id(collection_name: str, key: str,
+    async def put_document_by_key(collection_name: str, key: str,
                              docput: apimodel.DocumentBody,
                              current_user_role: bool = Depends(security.get_write_permission)):
         """
@@ -951,7 +1250,7 @@ else:
                 ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in put_document_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in put_document_by_key(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
@@ -970,16 +1269,16 @@ else:
                 summary="Delete one document by key.",
                 description="",
                 )
-    async def delete_document_by_id(collection_name: str, key: str,
+    async def delete_document_by_key(collection_name: str, key: str,
                                 current_user_role: bool = Depends(security.get_write_permission)):
 
         """
                     Parameters
                     - **collection_name** (path): **Required** - Name of the collection to perform operations on.
-                    - **key** (header): Optional - Key of the document need to be deleted
+                    - **key** (path): **Required** - The key of document need to be deleted
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in delete_document_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in delete_document_by_key(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(

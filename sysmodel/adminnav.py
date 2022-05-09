@@ -259,7 +259,7 @@ if __name__ == '__main__':
     log.logger.debug('adminav.json: %s' % adminav.json)
     if not adminav.has_Adminnav_Collection():
         govbase.create_collection(Adminnav)
-    if not adminav.existed_Adminnav():
+    if not adminav.existed_Adminnav(adminav.name):
         resultstr = adminav.create_Adminnav(adminav.json)
         log.logger.debug('resultstr: %s' % resultstr)
     count = adminav.get_Adminnav_count()
@@ -271,8 +271,8 @@ if __name__ == '__main__':
     resultstr = adminav.get_Adminnav_byname('home-alt')
     log.logger.debug('resultstr: %s' % resultstr)
     adminav.title = '首页二'
-    resultstr = adminav.delete_Adminnav(adminav.json)
-    log.logger.debug('resultstr: %s' % resultstr)
+    #resultstr = adminav.delete_Adminnav(adminav.name)
+    #log.logger.debug('resultstr: %s' % resultstr)
     #resultstr = adminav.update_Adminnav('home-alt')
     #log.logger.debug('resultstr: %s' % resultstr)
 
