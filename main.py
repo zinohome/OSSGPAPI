@@ -194,34 +194,41 @@ async def read_users_me(current_user: security.User = Depends(security.get_curre
 
 ''' Read API'''
 if services_model >= 1:
-    @app.get(prefix + "/_sysdef/collectioncount",
+    # =========================== sys api ===========================
+    @app.get(prefix + "/_sysdef/sysdefcount/{syscol_name}",
              tags=["System Define"],
-             summary="Retrieve system collection count.",
+             summary="Retrieve system definitions count.",
              description="",
              )
-    async def get_sysdef_count():
+    async def get_sysdef_count(syscol_name: str):
         """
-                This describes the collection count
+                This describes the document count
         """
         log.logger.debug(
-            'Access \'/_sysdef/collection\' : run in get_sysdef_count.')
-        return coldef.get_Coldef_count()
+            'Access \'/_sysdef/sysdefcount/{syscol_name}\' : run in get_sysdef_count, input syscol_name: [ %s ]' % syscol_name)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_count')()
 
 
-    @app.get(prefix + "/_sysdef/{syscol_name}/document",
+    @app.get(prefix + "/_sysdef/sysdefnames/{syscol_name}",
              tags=["System Define"],
-             summary="Retrieve system definitions.",
+             summary="Retrieve system definitions name list.",
              description="",
              )
-    async def get_allsysdef(syscol_name: str):
+    async def get_sysdef_names(syscol_name: str):
         """
                 Parameters
                 - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
         """
         log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef, input syscol_name: [ %s ]' % syscol_name)
-        log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef.')
+            'Access \'/_sysdef/sysdefnames/{syscol_name}\' : run in get_sysdef_names, input syscol_name: [ %s ]' % syscol_name)
         govbase = Govbase().db
         if not govbase.has_collection(syscol_name):
             raise HTTPException(
@@ -238,16 +245,16 @@ if services_model >= 1:
              summary="Retrieve system definitions information.",
              description="",
              )
-    async def get_sysdef(syscol_name: str, sysdoc_name: str):
+    async def get_sysdef_byname(syscol_name: str, sysdoc_name: str):
         """
                 Parameters
                 - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
                 - **sysdoc_name** (path): **Required** - Name of the document to perform operations on.
         """
         log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input syscol_name: [ %s ]' % syscol_name)
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef_byname, input syscol_name: [ %s ]' % syscol_name)
         log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input sysdoc_name: [ %s ]' % sysdoc_name)
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef_byname, input sysdoc_name: [ %s ]' % sysdoc_name)
         govbase = Govbase().db
         if not govbase.has_collection(syscol_name):
             raise HTTPException(
@@ -263,6 +270,74 @@ if services_model >= 1:
                 detail='Document [ %s ] not found' % sysdoc_name
             )
         return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_byname')(sysdoc_name)
+
+
+    @app.get(prefix + "/_sysdef/{syscol_name}/{key}",
+             tags=["System Define"],
+             summary="Retrieve system definitions information by key.",
+             description="",
+             )
+    async def get_sysdef_bykey(syscol_name: str, key: str):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **key** (path): **Required** - key of the document to perform operations on.
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in get_sysdef_bykey, input syscol_name: [ %s ]' % syscol_name)
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in get_sysdef_bykey, input key: [ %s ]' % key)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_bykey')(key)
+
+
+    @app.get(prefix + "/_sysdef/{syscol_name}",
+             tags=["System Define"],
+             summary="Retrieve one or more System Define documents. ",
+             description="",
+             )
+    async def query_sysdef(syscol_name: str, filter: str = Header(None), filteror: str = Header(None),
+                              sort: str = Header(None),
+                              limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0,
+                                                  le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
+                              offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1)):
+        """
+                        Parameters
+                        - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
+                        - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
+                        - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}\' : run in query_sysdef(), input data syscol_name: [%s]' % syscol_name)
+        queryjson = {}
+        queryjson['filter'] = filter
+        queryjson['filteror'] = filteror
+        queryjson['sort'] = sort
+        queryjson['limit'] = limit
+        queryjson['offset'] = offset
+        log.logger.debug('queryjson: [%s]' % queryjson)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'query_' + syscol_name.strip().capitalize())(queryjson)
+
+
+    # =========================== oss api ===========================
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["OSS Data - Collection Level"],
@@ -290,7 +365,7 @@ if services_model >= 1:
              summary="Retrieve one or more documents. ",
              description="",
              )
-    async def get_data(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
+    async def query_document(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
                        offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1)):
         """
                                 Parameters
@@ -302,7 +377,7 @@ if services_model >= 1:
                                 - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in query_document(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
         queryjson['filter'] = filter
         queryjson['filteror'] = filteror
@@ -323,7 +398,7 @@ if services_model >= 1:
               tags=["OSS Data - Collection Level"],
               summary="Retrieve one or more documents. ",
               description="", )
-    async def query_data(collection_name: str, querybody: apimodel.CollectionQueryBody):
+    async def query_document_post(collection_name: str, querybody: apimodel.CollectionQueryBody):
         """
                         Parameters
                         - **collection_name** (path): **Required** - Name of the table to perform operations on.
@@ -339,7 +414,7 @@ if services_model >= 1:
                         ```
                     """
         log.logger.debug(
-            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/_query{collection_name}/\' : run in query_document_post(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('querybody: [%s]' % querybody.json())
         ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
         ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
@@ -350,9 +425,9 @@ if services_model >= 1:
              summary="Retrieve one Document by key.",
              description="",
              )
-    async def get_data_by_id(collection_name: str, key: str):
+    async def get_document_by_key(collection_name: str, key: str):
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in get_data_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in get_document_by_key(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -364,7 +439,8 @@ if services_model >= 1:
         return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
 
 else:
-    @app.get(prefix + "/_sysdef/{syscol_name}/documentcount",
+    # =========================== sys api ===========================
+    @app.get(prefix + "/_sysdef/sysdefcount/{syscol_name}",
              tags=["System Define"],
              summary="Retrieve system definitions count.",
              description="",
@@ -374,9 +450,7 @@ else:
                 This describes the document count
         """
         log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/documentcount\' : run in get_sysdef_count, input syscol_name: [ %s ]' % syscol_name)
-        log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/documentcount\' : run in get_sysdef_count.')
+            'Access \'/_sysdef/sysdefcount/{syscol_name}\' : run in get_sysdef_count, input syscol_name: [ %s ]' % syscol_name)
         govbase = Govbase().db
         if not govbase.has_collection(syscol_name):
             raise HTTPException(
@@ -387,20 +461,18 @@ else:
         sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
         return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_count')()
 
-    @app.get(prefix + "/_sysdef/{syscol_name}/document",
+    @app.get(prefix + "/_sysdef/sysdefnames/{syscol_name}",
              tags=["System Define"],
-             summary="Retrieve system definitions.",
+             summary="Retrieve system definitions name list.",
              description="",
              )
-    async def get_allsysdef(syscol_name: str, current_user_role: bool = Depends(security.get_super_permission)):
+    async def get_sysdef_names(syscol_name: str, current_user_role: bool = Depends(security.get_super_permission)):
         """
                 Parameters
                 - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
         """
         log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef, input syscol_name: [ %s ]' % syscol_name)
-        log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/document\' : run in get_allsysdef.')
+            'Access \'/_sysdef/sysdefnames/{syscol_name}\' : run in get_sysdef_names, input syscol_name: [ %s ]' % syscol_name)
         govbase = Govbase().db
         if not govbase.has_collection(syscol_name):
             raise HTTPException(
@@ -416,16 +488,16 @@ else:
              summary="Retrieve system definitions information.",
              description="",
              )
-    async def get_sysdef(syscol_name: str, sysdoc_name: str, current_user_role: bool = Depends(security.get_super_permission)):
+    async def get_sysdef_byname(syscol_name: str, sysdoc_name: str, current_user_role: bool = Depends(security.get_super_permission)):
         """
                 Parameters
                 - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
                 - **sysdoc_name** (path): **Required** - Name of the document to perform operations on.
         """
         log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input syscol_name: [ %s ]' % syscol_name)
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef_byname, input syscol_name: [ %s ]' % syscol_name)
         log.logger.debug(
-            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef, input sysdoc_name: [ %s ]' % sysdoc_name)
+            'Access \'/_sysdef/{syscol_name}/{sysdoc_name}\' : run in get_sysdef_byname, input sysdoc_name: [ %s ]' % sysdoc_name)
         govbase = Govbase().db
         if not govbase.has_collection(syscol_name):
             raise HTTPException(
@@ -441,6 +513,75 @@ else:
                 detail='Document [ %s ] not found' % sysdoc_name
             )
         return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_byname')(sysdoc_name)
+
+
+    @app.get(prefix + "/_sysdef/{syscol_name}/{key}",
+             tags=["System Define"],
+             summary="Retrieve system definitions information by key.",
+             description="",
+             )
+    async def get_sysdef_bykey(syscol_name: str, key: str, current_user_role: bool = Depends(security.get_super_permission)):
+        """
+                Parameters
+                - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                - **key** (path): **Required** - key of the document to perform operations on.
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in get_sysdef_bykey, input syscol_name: [ %s ]' % syscol_name)
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}/{key}\' : run in get_sysdef_bykey, input key: [ %s ]' % key)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'get_' + syscol_name.strip().capitalize() + '_bykey')(key)
+
+
+    @app.get(prefix + "/_sysdef/{syscol_name}",
+             tags=["System Define"],
+             summary="Retrieve one or more System Define documents. ",
+             description="",
+             )
+    async def query_sysdef(syscol_name: str, filter: str = Header(None), filteror: str = Header(None),
+                       sort: str = Header(None),
+                       limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0,
+                                           le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
+                       offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1),
+                       current_user: security.User = Depends(security.get_current_active_user)):
+        """
+                        Parameters
+                        - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
+                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
+                        - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
+                        - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
+        """
+        log.logger.debug(
+            'Access \'/_sysdef/{syscol_name}\' : run in query_sysdef(), input data syscol_name: [%s]' % syscol_name)
+        queryjson = {}
+        queryjson['filter'] = filter
+        queryjson['filteror'] = filteror
+        queryjson['sort'] = sort
+        queryjson['limit'] = limit
+        queryjson['offset'] = offset
+        log.logger.debug('queryjson: [%s]' % queryjson)
+        govbase = Govbase().db
+        if not govbase.has_collection(syscol_name):
+            raise HTTPException(
+                status_code=HTTP_404_NOT_FOUND,
+                detail='Collection [ %s ] not found' % syscol_name
+            )
+        sysmodelcls = importlib.import_module('sysmodel.' + syscol_name.strip().lower())
+        sysmodel = getattr(sysmodelcls, syscol_name.strip().capitalize())()
+        return getattr(sysmodel, 'query_' + syscol_name.strip().capitalize())(queryjson)
+
+
+    #=========================== oss api ===========================
 
     @app.get(prefix + "/_collection/documentcount/{collection_name}",
              tags=["OSS Data - Collection Level"],
@@ -469,7 +610,7 @@ else:
              summary="Retrieve one or more documents. ",
              description="",
              )
-    async def get_data(collection_name: str, filter: str = Header(None), filteror: str = Header(None),
+    async def query_document(collection_name: str, filter: str = Header(None), filteror: str = Header(None),
                        sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
                        offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1),
                        current_user: security.User = Depends(security.get_current_active_user)):
@@ -483,7 +624,7 @@ else:
                         - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in get_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in query_document(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
         queryjson['filter'] = filter
         queryjson['filteror'] = filteror
@@ -504,7 +645,7 @@ else:
               tags=["OSS Data - Collection Level"],
               summary="Retrieve one or more documents. ",
               description="", )
-    async def query_data(collection_name: str, querybody: apimodel.CollectionQueryBody,
+    async def query_document_post(collection_name: str, querybody: apimodel.CollectionQueryBody,
                          current_user: security.User = Depends(security.get_current_active_user)):
         """
                         Parameters
@@ -521,7 +662,7 @@ else:
                         ```
                     """
         log.logger.debug(
-            'Access \'/_collection/_query{collection_name}/\' : run in query_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/_query{collection_name}/\' : run in query_document_post(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('querybody: [%s]' % querybody.json())
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -537,10 +678,10 @@ else:
              summary="Retrieve one Document by key.",
              description="",
              )
-    async def get_data_by_id(collection_name: str, key: str,
+    async def get_document_by_key(collection_name: str, key: str,
                              current_user: security.User = Depends(security.get_current_active_user)):
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in get_data_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in get_document_by_key(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -553,13 +694,19 @@ else:
 
 '''Write API'''
 
+
 if services_model >= 2:
+    # =========================== sysdef api ===========================
+
+    
+    # =========================== oss api ===========================
+
     @app.post(prefix + "/_collection/{collection_name}",
               tags=["OSS Data - Collection Level"],
               summary="Create one document.",
               description="",
               )
-    async def post_data(collection_name: str, docpost: apimodel.DocumentBody):
+    async def post_document(collection_name: str, docpost: apimodel.DocumentBody):
         """
                     Parameters
                     - **collection_name** (path): **Required** - Name of the collection to perform operations on.
@@ -571,7 +718,7 @@ if services_model >= 2:
                     ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in post_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in post_document(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body data: [%s]' % docpost.json())
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -589,7 +736,7 @@ if services_model >= 2:
              description="",
              deprecated=False
              )
-    async def put_data(collection_name: str, docput: apimodel.DocumentBody):
+    async def put_document(collection_name: str, docput: apimodel.DocumentBody):
         """
                 Parameters
                 - **collection_name** (path): **Required** - Name of the collection to perform operations on.
@@ -601,7 +748,7 @@ if services_model >= 2:
                 ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in put_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in put_document(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput.json())
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -617,7 +764,7 @@ if services_model >= 2:
                 summary="Delete one document.",
                 description="",
                 )
-    async def delete_data(collection_name: str,
+    async def delete_document(collection_name: str,
                           keystr: str = Header(None),
                           current_user_role: bool = Depends(security.get_write_permission)):
         """
@@ -626,7 +773,7 @@ if services_model >= 2:
             - **keystr** (header): Optional - Key of the document need to be deleted
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in delete_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in delete_document(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('keystr: [%s]' % keystr)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -642,7 +789,7 @@ if services_model >= 2:
              summary="Replace the content of one document by key.",
              description="",
              )
-    async def put_data_by_id(collection_name: str, key: str,
+    async def put_document_by_id(collection_name: str, key: str,
                              docput: apimodel.DocumentBody):
         """
                 Parameters
@@ -656,7 +803,7 @@ if services_model >= 2:
                 ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in put_data_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in put_document_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
@@ -675,7 +822,7 @@ if services_model >= 2:
                 summary="Delete one document by key.",
                 description="",
                 )
-    async def delete_data_by_id(collection_name: str, key: str):
+    async def delete_document_by_id(collection_name: str, key: str):
 
         """
                     Parameters
@@ -683,7 +830,7 @@ if services_model >= 2:
                     - **key** (header): Optional - Key of the document need to be deleted
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in delete_data_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in delete_document_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -695,12 +842,16 @@ if services_model >= 2:
         return getattr(ossmodel, 'delete' + collection_name.strip().capitalize())(key)
 
 else:
+    # =========================== sysdef api ===========================
+
+    # =========================== oss api ===========================
+
     @app.post(prefix + "/_collection/{collection_name}",
               tags=["OSS Data - Collection Level"],
               summary="Create one document.",
               description="",
               )
-    async def post_data(collection_name: str, docpost: apimodel.DocumentBody,
+    async def post_document(collection_name: str, docpost: apimodel.DocumentBody,
                         current_user_role: bool = Depends(security.get_write_permission)):
         """
                     Parameters
@@ -713,7 +864,7 @@ else:
                     ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in post_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in post_document(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body data: [%s]' % docpost.json())
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -731,7 +882,7 @@ else:
              description="",
              deprecated=False
              )
-    async def put_data(collection_name: str, docput: apimodel.DocumentBody,
+    async def put_document(collection_name: str, docput: apimodel.DocumentBody,
                        current_user_role: bool = Depends(security.get_write_permission)):
         """
                 Parameters
@@ -744,7 +895,7 @@ else:
                 ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in put_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in put_document(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput.json())
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -760,7 +911,7 @@ else:
                 summary="Delete one document.",
                 description="",
                 )
-    async def delete_data(collection_name: str,
+    async def delete_document(collection_name: str,
                           keystr: str = Header(None),
                           current_user_role: bool = Depends(security.get_write_permission)):
         """
@@ -769,7 +920,7 @@ else:
             - **keystr** (header): Optional - Key of the document need to be deleted
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}\' : run in delete_data(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}\' : run in delete_document(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('keystr: [%s]' % keystr)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
@@ -785,7 +936,7 @@ else:
              summary="Replace the content of one document by key.",
              description="",
              )
-    async def put_data_by_id(collection_name: str, key: str,
+    async def put_document_by_id(collection_name: str, key: str,
                              docput: apimodel.DocumentBody,
                              current_user_role: bool = Depends(security.get_write_permission)):
         """
@@ -800,7 +951,7 @@ else:
                 ```
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in put_data_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in put_document_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('body: [%s]' % docput)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
@@ -819,7 +970,7 @@ else:
                 summary="Delete one document by key.",
                 description="",
                 )
-    async def delete_data_by_id(collection_name: str, key: str,
+    async def delete_document_by_id(collection_name: str, key: str,
                                 current_user_role: bool = Depends(security.get_write_permission)):
 
         """
@@ -828,7 +979,7 @@ else:
                     - **key** (header): Optional - Key of the document need to be deleted
         """
         log.logger.debug(
-            'Access \'/_collection/{collection_name}/{key}\' : run in delete_data_by_id(), input data collection_name: [%s]' % collection_name)
+            'Access \'/_collection/{collection_name}/{key}\' : run in delete_document_by_id(), input data collection_name: [%s]' % collection_name)
         log.logger.debug('key: [%s]' % key)
         if not coldef.has_Coldef_schema(collection_name):
             raise HTTPException(
