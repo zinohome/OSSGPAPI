@@ -24,7 +24,7 @@ def gensysmodel(namelist):
     tmplpath = os.path.abspath(os.path.join(apppath, 'tmpl'))
     sysmodelspath = os.path.abspath(os.path.join(apppath, 'sysmodel'))
     for name in namelist:
-        if name == 'coldef' or name == 'adminnav':
+        if name == 'coldef' or name == 'sysdef' or name == 'adminnav':
             pass
         else:
             log.logger.debug('Generate Model for %s ......' % name)
@@ -39,5 +39,5 @@ def gensysmodel(namelist):
             log.logger.debug('Model file: [ %s ] saved !' % modelfilepath)
 
 if __name__ == '__main__':
-    modelnames = ['test','gov']
+    modelnames = ['sysdef']
     gensysmodel(modelnames)
