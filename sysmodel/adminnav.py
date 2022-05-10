@@ -59,7 +59,7 @@ class Adminnav(Collection):
     def existed_Adminnav(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has(Adminnav,document_name):
+            if govbase.has(Adminnav, document_name):
                 return True
             else:
                 return False

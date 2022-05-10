@@ -49,10 +49,10 @@ class Sysdef(Collection):
                 traceback.print_exc()
             return False;
 
-    def existed_Sysdef(self):
+    def existed_Sysdef(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has(Sysdef,self.name):
+            if govbase.has(Sysdef,document_name):
                 return True
             else:
                 return False
