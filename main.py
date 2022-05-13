@@ -311,8 +311,8 @@ if services_model >= 1:
         """
                         Parameters
                         - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
-                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
-                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: name=="qname1", name=="qname2"
+                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: name=="qname1"', name=="qname2"
                         - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
                         - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
                         - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
@@ -370,8 +370,8 @@ if services_model >= 1:
         """
                                 Parameters
                                 - **collection_name** (path): **Required** - Name of the collection to perform operations on.
-                                - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
-                                - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: name=="qname1", name=="qname2"
+                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: name=="qname1"', name=="qname2"
                                 - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
                                 - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
                                 - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
@@ -555,8 +555,8 @@ else:
         """
                         Parameters
                         - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
-                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
-                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: name=="qname1", name=="qname2"
+                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: name=="qname1"', name=="qname2"
                         - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
                         - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
                         - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
@@ -617,8 +617,8 @@ else:
         """
                         Parameters
                         - **collection_name** (path): **Required** - Name of the collection to perform operations on.
-                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
-                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: ['name=="qname1"', 'name=="qname2"']
+                        - **"filter"** (header): "string",  -- Optional - SQL-like filter to limit the records to retrieve. ex: name=="qname1", name=="qname2"
+                        - **"filteror"** (header): "string",  -- Optional - SQL-like filter Parameter to limit the records to retrieve. ex: name=="qname1"', name=="qname2"
                         - **"sort** (header)": "string",  -- Optional - SQL-like order containing field and direction for filter results. ex: 'phone_number ASC'
                         - **"limit"** (header): 0,  -- Optional - Set to limit the filter results.
                         - **"offset"** (header): 0,  -- Optional - Set to offset the filter results to a particular record count.
