@@ -34,7 +34,7 @@ class Adminnav(Collection):
     name = String(required=True, allow_none=False)
     title = String(required=True, allow_none=False)
     level = Integer(required=True, allow_none=False)
-    order = Integer(required=True, allow_none=False)
+    order = String(required=True, allow_none=False)
     segment = String(required=False, allow_none=True)
     navclass = String(required=True, allow_none=False)
     href = String(required=False, allow_none=True)

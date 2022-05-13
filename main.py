@@ -320,8 +320,8 @@ if services_model >= 1:
         log.logger.debug(
             'Access \'/_sysdef/{syscol_name}\' : run in query_sysdef(), input data syscol_name: [%s]' % syscol_name)
         queryjson = {}
-        queryjson['filter'] = filter
-        queryjson['filteror'] = filteror
+        queryjson['filter'] = filter.split(',') if filter is not None else None
+        queryjson['filteror'] = filteror.split(',') if filteror is not None else None
         queryjson['sort'] = sort
         queryjson['limit'] = limit
         queryjson['offset'] = offset
@@ -379,8 +379,8 @@ if services_model >= 1:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in query_document(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
-        queryjson['filter'] = filter
-        queryjson['filteror'] = filteror
+        queryjson['filter'] = filter.split(',') if filter is not None else None
+        queryjson['filteror'] = filteror.split(',') if filteror is not None else None
         queryjson['sort'] = sort
         queryjson['limit'] = limit
         queryjson['offset'] = offset
@@ -564,8 +564,8 @@ else:
         log.logger.debug(
             'Access \'/_sysdef/{syscol_name}\' : run in query_sysdef(), input data syscol_name: [%s]' % syscol_name)
         queryjson = {}
-        queryjson['filter'] = filter
-        queryjson['filteror'] = filteror
+        queryjson['filter'] = filter.split(',') if filter is not None else None
+        queryjson['filteror'] = filteror.split(',') if filteror is not None else None
         queryjson['sort'] = sort
         queryjson['limit'] = limit
         queryjson['offset'] = offset
@@ -626,8 +626,8 @@ else:
         log.logger.debug(
             'Access \'/_collection/{collection_name}\' : run in query_document(), input data collection_name: [%s]' % collection_name)
         queryjson = {}
-        queryjson['filter'] = filter
-        queryjson['filteror'] = filteror
+        queryjson['filter'] = filter.split(',') if filter is not None else None
+        queryjson['filteror'] = filteror.split(',') if filteror is not None else None
         queryjson['sort'] = sort
         queryjson['limit'] = limit
         queryjson['offset'] = offset

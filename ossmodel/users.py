@@ -232,7 +232,7 @@ if __name__ == '__main__':
     offset = queryjson['offset'] if 'offset' in queryjson else None
     '''
     qjson = {
-        'filter': ['name=="zhangjun"', 'name=="zhangjun"'],
+        'filter': ['name=="zhangjun"'],
         'filteror': ['name=="admin"'],
         'sort': 'name ASC',
         'limit': 1,
