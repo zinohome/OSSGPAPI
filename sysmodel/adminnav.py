@@ -78,7 +78,7 @@ class Adminnav(Collection):
                 govbase.add(addobj)
                 return addobj.json
             else:
-                return None
+                return {"Error":"Key or Name duplicated ！"}
         except Exception as exp:
             log.logger.error('Exception at Adminnav.create_Adminnav() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
