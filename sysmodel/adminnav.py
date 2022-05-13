@@ -36,8 +36,6 @@ class Adminnav(Collection):
     level = Integer(required=True, allow_none=False)
     order = Integer(required=True, allow_none=False)
     segment = String(required=False, allow_none=True)
-    liclass = String(required=False, allow_none=True)
-    hrefclass = String(required=False, allow_none=True)
     navclass = String(required=True, allow_none=False)
     href = String(required=False, allow_none=True)
     icon = String(required=False, allow_none=True)
@@ -247,9 +245,7 @@ if __name__ == '__main__':
                        level = '1',
                        order = '1',
                        segment = 'index',
-                       liclass = 'nav-item',
-                       hrefclass = 'nav-link',
-                       navclass = '',
+                       navclass = 'link',
                        href = 'index.html',
                        icon = 'typcn typcn-chart-area-outline',
                        createdate = str(date.today())
