@@ -88,7 +88,6 @@ class Adminnav(Collection):
         try:
             count = self.get_Adminnav_count()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
-            log.logger.debug(limit)
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Adminnav).limit(querycount).all()
