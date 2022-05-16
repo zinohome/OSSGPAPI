@@ -31,7 +31,8 @@ class Pagedef(Collection):
     _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
     _key = String(required=True)
     name = String(required=True, allow_none=False)
-    level = Integer(required=True, allow_none=False)
+    pagetype = String(required=True, allow_none=False)
+    pagedef = String(required=True, allow_none=False)
     createdate = Date()
 
     def has_Pagedef_Collection(self, document_name):
