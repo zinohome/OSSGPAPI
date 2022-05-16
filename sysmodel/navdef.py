@@ -133,8 +133,9 @@ class Navdef(Collection):
             govbase = Govbase().db
             if govbase.has(Navdef,keystr):
                 record = govbase.query(Navdef).by_key(keystr)
-                returnjson['count'] = 1
-                returnjson['data'].append(record.json)
+                #returnjson['count'] = 1
+                #returnjson['data'].append(record.json)
+                returnjson = record.json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Navdef.get_Navdef_bykey() %s ' % exp)
@@ -150,8 +151,9 @@ class Navdef(Collection):
             if govbase.has(Navdef,name):
                 records = govbase.query(Navdef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
-                    returnjson['count'] = 1
-                    returnjson['data'].append(records[0].json)
+                    #returnjson['count'] = 1
+                    #returnjson['data'].append(records[0].json)
+                    returnjson = records[0].json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Navdef.get_Navdef_bykey() %s ' % exp)

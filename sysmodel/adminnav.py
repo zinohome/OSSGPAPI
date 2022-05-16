@@ -133,8 +133,9 @@ class Adminnav(Collection):
             govbase = Govbase().db
             if govbase.has(Adminnav,keystr):
                 record = govbase.query(Adminnav).by_key(keystr)
-                returnjson['count'] = 1
-                returnjson['data'].append(record.json)
+                #returnjson['count'] = 1
+                #returnjson['data'].append(record.json)
+                returnjson = record.json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)
@@ -150,8 +151,9 @@ class Adminnav(Collection):
             if govbase.has(Adminnav,name):
                 records = govbase.query(Adminnav).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
-                    returnjson['count'] = 1
-                    returnjson['data'].append(records[0].json)
+                    #returnjson['count'] = 1
+                    #returnjson['data'].append(records[0].json)
+                    returnjson = records[0].json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)

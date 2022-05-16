@@ -128,8 +128,9 @@ class Pagedef(Collection):
             govbase = Govbase().db
             if govbase.has(Pagedef,keystr):
                 record = govbase.query(Pagedef).by_key(keystr)
-                returnjson['count'] = 1
-                returnjson['data'].append(record.json)
+                #returnjson['count'] = 1
+                #returnjson['data'].append(record.json)
+                returnjson = record.json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Pagedef.get_Pagedef_bykey() %s ' % exp)
@@ -145,8 +146,9 @@ class Pagedef(Collection):
             if govbase.has(Pagedef,name):
                 records = govbase.query(Pagedef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
-                    returnjson['count'] = 1
-                    returnjson['data'].append(records[0].json)
+                    #returnjson['count'] = 1
+                    #returnjson['data'].append(records[0].json)
+                    returnjson = records[0].json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Pagedef.get_Pagedef_bykey() %s ' % exp)

@@ -127,8 +127,9 @@ class {{ name|capitalize }}(Collection):
             govbase = Govbase().db
             if govbase.has({{ name|capitalize }},keystr):
                 record = govbase.query({{ name|capitalize }}).by_key(keystr)
-                returnjson['count'] = 1
-                returnjson['data'].append(record.json)
+                #returnjson['count'] = 1
+                #returnjson['data'].append(record.json)
+                returnjson = record.json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_bykey() %s ' % exp)
@@ -144,8 +145,9 @@ class {{ name|capitalize }}(Collection):
             if govbase.has({{ name|capitalize }},name):
                 records = govbase.query({{ name|capitalize }}).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
-                    returnjson['count'] = 1
-                    returnjson['data'].append(records[0].json)
+                    #returnjson['count'] = 1
+                    #returnjson['data'].append(records[0].json)
+                    returnjson = records[0].json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_bykey() %s ' % exp)

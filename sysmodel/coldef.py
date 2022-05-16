@@ -128,8 +128,9 @@ class Coldef(Collection):
             govbase = Govbase().db
             if govbase.has(Coldef,keystr):
                 record = govbase.query(Coldef).by_key(keystr)
-                returnjson['count'] = 1
-                returnjson['data'].append(record.json)
+                #returnjson['count'] = 1
+                #returnjson['data'].append(record.json)
+                returnjson = record.json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_Coldef_bykey() %s ' % exp)
@@ -145,8 +146,9 @@ class Coldef(Collection):
             if govbase.has(Coldef,name):
                 records = govbase.query(Coldef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
-                    returnjson['count'] = 1
-                    returnjson['data'].append(records[0].json)
+                    #returnjson['count'] = 1
+                    #returnjson['data'].append(records[0].json)
+                    returnjson = records[0].json
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_Coldef_byname() %s ' % exp)
