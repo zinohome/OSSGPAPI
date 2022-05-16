@@ -39,5 +39,5 @@ def gensysmodel(namelist):
             log.logger.debug('Model file: [ %s ] saved !' % modelfilepath)
 
 if __name__ == '__main__':
-    modelnames = ['sysdef']
+    modelnames = ['pagedef','navdef']
     gensysmodel(modelnames)
