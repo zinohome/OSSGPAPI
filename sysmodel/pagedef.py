@@ -48,10 +48,10 @@ class Pagedef(Collection):
                 traceback.print_exc()
             return False;
 
-    def existed_Pagedef(self):
+    def existed_Pagedef(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has(Pagedef,self.name):
+            if govbase.has(Pagedef, document_name):
                 return True
             else:
                 return False

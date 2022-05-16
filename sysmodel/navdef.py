@@ -53,10 +53,10 @@ class Navdef(Collection):
                 traceback.print_exc()
             return False;
 
-    def existed_Navdef(self):
+    def existed_Navdef(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has(Navdef,self.name):
+            if govbase.has(Navdef, document_name):
                 return True
             else:
                 return False

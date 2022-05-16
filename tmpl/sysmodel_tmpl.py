@@ -47,10 +47,10 @@ class {{ name|capitalize }}(Collection):
                 traceback.print_exc()
             return False;
 
-    def existed_{{ name|capitalize }}(self):
+    def existed_{{ name|capitalize }}(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }},self.name):
+            if govbase.has({{ name|capitalize }}, document_name):
                 return True
             else:
                 return False
