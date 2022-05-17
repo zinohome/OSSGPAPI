@@ -94,7 +94,7 @@ class Users(Collection):
             ossbase = Ossbase().db
             if ossbase._db.has(Users, keystr):
                 #log.logger.debug(ossbase.delete(ossbase.query(Users).by_key(keystr)))
-                return ossbase.delete(ossbase.query(Users).by_key(keystr))
+                return ossbase._db.delete(ossbase.query(Users).by_key(keystr))
             else:
                 return None
         except Exception as exp:
