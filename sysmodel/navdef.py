@@ -56,7 +56,7 @@ class Navdef(Collection):
     def existed_Navdef(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase._db.has(Navdef, document_name):
+            if govbase.has(Navdef, document_name):
                 return True
             else:
                 return False
@@ -72,7 +72,7 @@ class Navdef(Collection):
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase._db.has(Navdef, addjson['_key']):
+            if not govbase.has(Navdef, addjson['_key']):
                 addobj = Navdef._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
@@ -131,7 +131,7 @@ class Navdef(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase._db.has(Navdef,keystr):
+            if govbase.has(Navdef,keystr):
                 record = govbase.query(Navdef).by_key(keystr)
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
@@ -148,7 +148,7 @@ class Navdef(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase._db.has(Navdef,name):
+            if govbase.has(Navdef,name):
                 records = govbase.query(Navdef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     #returnjson['count'] = 1
@@ -166,7 +166,7 @@ class Navdef(Collection):
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase._db.has(Navdef, updatejson['_key']):
+            if govbase.has(Navdef, updatejson['_key']):
                 updobj = Navdef._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
@@ -180,7 +180,7 @@ class Navdef(Collection):
     def delete_Navdef(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase._db.has(Navdef, keystr):
+            if govbase.has(Navdef, keystr):
                 return govbase.delete(govbase.query(Navdef).by_key(keystr))
             else:
                 return None

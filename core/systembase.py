@@ -28,13 +28,13 @@ class Systembase:
         self._client2 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
         self._client3 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
         self._noPooldb = self._client.db(name=os.getenv('ARANGODB_SYSDATABASE'), username=os.getenv('ARANGODB_SYSUSER'), password=os.getenv('ARANGODB_SYSPASSWORD'))
-        self._db = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_SYSDATABASE'), username=os.getenv('ARANGODB_SYSUSER'), password=os.getenv('ARANGODB_SYSPASSWORD'))
+        self._cp = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_SYSDATABASE'), username=os.getenv('ARANGODB_SYSUSER'), password=os.getenv('ARANGODB_SYSPASSWORD'))
         #self.initgovbase()
         #self.inituserbase()
 
     @property
     def db(self):
-        return Database(self._db)
+        return Database(self._cp._db)
 
     def initgovbase(self):
         if not self._noPooldb.has_database(os.getenv('ARANGODB_GOVDATABASE')):

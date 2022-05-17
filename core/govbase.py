@@ -29,11 +29,11 @@ class Govbase:
         self._client1 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
         self._client2 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
         self._client3 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
-        self._db = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_GOVDATABASE'), username=os.getenv('ARANGODB_GOVUSER'), password=os.getenv('ARANGODB_GOVPASSWORD'))
+        self._cp = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_GOVDATABASE'), username=os.getenv('ARANGODB_GOVUSER'), password=os.getenv('ARANGODB_GOVPASSWORD'))
 
     @property
     def db(self):
-        return Database(self._db)
+        return Database(self._cp._db)
 
 
 

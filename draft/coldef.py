@@ -39,7 +39,7 @@ class Coldef(Collection):
     def has_Coldef_schema(self, coldef_name):
         try:
             govbase = Govbase().db
-            if govbase._db.has(Coldef, coldef_name):
+            if govbase.has(Coldef, coldef_name):
                 return True
             else:
                 return False
@@ -109,7 +109,7 @@ class Coldef(Collection):
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase._db.has(Coldef, addjson['_key']):
+            if not govbase.has(Coldef, addjson['_key']):
                 addobj = Coldef._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
@@ -126,7 +126,7 @@ class Coldef(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase._db.has(Coldef,keystr):
+            if govbase.has(Coldef,keystr):
                 record = govbase.query(Coldef).by_key(keystr)
                 returnjson['count'] = 1
                 returnjson['data'].append(record.json)
@@ -142,7 +142,7 @@ class Coldef(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase._db.has(Coldef,name):
+            if govbase.has(Coldef,name):
                 records = govbase.query(Coldef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     returnjson['count'] = 1
@@ -159,7 +159,7 @@ class Coldef(Collection):
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase._db.has(Coldef, updatejson['_key']):
+            if govbase.has(Coldef, updatejson['_key']):
                 updobj = Coldef._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
@@ -173,7 +173,7 @@ class Coldef(Collection):
     def delete_Coldef(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase._db.has(Coldef, keystr):
+            if govbase.has(Coldef, keystr):
                 #log.logger.debug(govbase.delete(govbase.query(Coldef).by_key(keystr)))
                 return govbase.delete(govbase.query(Coldef).by_key(keystr))
             else:

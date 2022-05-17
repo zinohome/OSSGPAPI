@@ -51,7 +51,7 @@ class Pagedef(Collection):
     def existed_Pagedef(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase._db.has(Pagedef, document_name):
+            if govbase.has(Pagedef, document_name):
                 return True
             else:
                 return False
@@ -67,7 +67,7 @@ class Pagedef(Collection):
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase._db.has(Pagedef, addjson['_key']):
+            if not govbase.has(Pagedef, addjson['_key']):
                 addobj = Pagedef._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
@@ -126,7 +126,7 @@ class Pagedef(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase._db.has(Pagedef,keystr):
+            if govbase.has(Pagedef,keystr):
                 record = govbase.query(Pagedef).by_key(keystr)
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
@@ -143,7 +143,7 @@ class Pagedef(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase._db.has(Pagedef,name):
+            if govbase.has(Pagedef,name):
                 records = govbase.query(Pagedef).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     #returnjson['count'] = 1
@@ -161,7 +161,7 @@ class Pagedef(Collection):
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase._db.has(Pagedef, updatejson['_key']):
+            if govbase.has(Pagedef, updatejson['_key']):
                 updobj = Pagedef._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
@@ -175,7 +175,7 @@ class Pagedef(Collection):
     def delete_Pagedef(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase._db.has(Pagedef, keystr):
+            if govbase.has(Pagedef, keystr):
                 return govbase.delete(govbase.query(Pagedef).by_key(keystr))
             else:
                 return None

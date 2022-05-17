@@ -27,8 +27,8 @@ class Ossbase:
         self._client2 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
         self._client3 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
         #self._db = self._client.db(name=os.getenv('ARANGODB_OSSDATABASE'), username=os.getenv('ARANGODB_OSSUSER'), password=os.getenv('ARANGODB_OSSPASSWORD'))
-        self._db = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_OSSDATABASE'), username=os.getenv('ARANGODB_OSSUSER'), password=os.getenv('ARANGODB_OSSPASSWORD'))
+        self._cp = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_OSSDATABASE'), username=os.getenv('ARANGODB_OSSUSER'), password=os.getenv('ARANGODB_OSSPASSWORD'))
 
     @property
     def db(self):
-        return Database(self._db)
+        return Database(self._cp._db)
