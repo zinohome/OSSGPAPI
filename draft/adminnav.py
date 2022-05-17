@@ -59,7 +59,7 @@ class Adminnav(Collection):
     def existed_Adminnav(self):
         try:
             govbase = Govbase().db
-            if govbase.has(Adminnav,self.name):
+            if govbase._db.has(Adminnav,self.name):
                 return True
             else:
                 return False
@@ -75,7 +75,7 @@ class Adminnav(Collection):
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase.has(Adminnav, addjson['_key']):
+            if not govbase._db.has(Adminnav, addjson['_key']):
                 addobj = Adminnav._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
@@ -117,7 +117,7 @@ class Adminnav(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Adminnav,keystr):
+            if govbase._db.has(Adminnav,keystr):
                 record = govbase.query(Adminnav).by_key(keystr)
                 returnjson['count'] = 1
                 returnjson['data'].append(record.json)
@@ -133,7 +133,7 @@ class Adminnav(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Adminnav,name):
+            if govbase._db.has(Adminnav,name):
                 records = govbase.query(Adminnav).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     returnjson['count'] = 1
@@ -150,7 +150,7 @@ class Adminnav(Collection):
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase.has(Adminnav, updatejson['_key']):
+            if govbase._db.has(Adminnav, updatejson['_key']):
                 updobj = Adminnav._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
@@ -164,7 +164,7 @@ class Adminnav(Collection):
     def delete_Adminnav(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase.has(Adminnav, keystr):
+            if govbase._db.has(Adminnav, keystr):
                 return govbase.delete(govbase.query(Adminnav).by_key(keystr))
             else:
                 return None

@@ -11,7 +11,7 @@
 
 import os
 from arango import ArangoClient
-from arango_orm import Database
+from arango_orm import Database, ConnectionPool
 from env.environment import Environment
 from util import log
 
@@ -23,8 +23,11 @@ log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 class Ossbase:
     def __init__(self):
         log.logger.info("OSSGPAPI - OssBase Connect to: %s" % os.getenv('ARANGODB_HOSTS'))
-        self._client = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
-        self._db = self._client.db(name=os.getenv('ARANGODB_OSSDATABASE'), username=os.getenv('ARANGODB_OSSUSER'), password=os.getenv('ARANGODB_OSSPASSWORD'))
+        self._client1 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
+        self._client2 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
+        self._client3 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
+        #self._db = self._client.db(name=os.getenv('ARANGODB_OSSDATABASE'), username=os.getenv('ARANGODB_OSSUSER'), password=os.getenv('ARANGODB_OSSPASSWORD'))
+        self._db = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_OSSDATABASE'), username=os.getenv('ARANGODB_OSSUSER'), password=os.getenv('ARANGODB_OSSPASSWORD'))
 
     @property
     def db(self):

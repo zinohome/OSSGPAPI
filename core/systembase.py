@@ -11,7 +11,7 @@
 
 import os
 from arango import ArangoClient
-from arango_orm import Database
+from arango_orm import Database, ConnectionPool
 
 from env.environment import Environment
 from util import log
@@ -24,7 +24,11 @@ class Systembase:
     def __init__(self):
         log.logger.info("OSSGPAPI - SysBase Connect to: %s" % os.getenv('ARANGODB_HOSTS'))
         self._client = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
-        self._db = self._client.db(name=os.getenv('ARANGODB_SYSDATABASE'), username=os.getenv('ARANGODB_SYSUSER'), password=os.getenv('ARANGODB_SYSPASSWORD'))
+        self._client1 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
+        self._client2 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
+        self._client3 = ArangoClient(hosts = os.getenv('ARANGODB_HOSTS'))
+        self._noPooldb = self._client.db(name=os.getenv('ARANGODB_SYSDATABASE'), username=os.getenv('ARANGODB_SYSUSER'), password=os.getenv('ARANGODB_SYSPASSWORD'))
+        self._db = ConnectionPool([self._client1, self._client2, self._client3], dbname=os.getenv('ARANGODB_SYSDATABASE'), username=os.getenv('ARANGODB_SYSUSER'), password=os.getenv('ARANGODB_SYSPASSWORD'))
         #self.initgovbase()
         #self.inituserbase()
 
@@ -33,8 +37,8 @@ class Systembase:
         return Database(self._db)
 
     def initgovbase(self):
-        if not self._db.has_database(os.getenv('ARANGODB_GOVDATABASE')):
-            self._db.create_database(
+        if not self._noPooldb.has_database(os.getenv('ARANGODB_GOVDATABASE')):
+            self._noPooldb.create_database(
                 name=os.getenv('ARANGODB_GOVDATABASE'),
                 users=[
                     {'username':os.getenv('ARANGODB_GOVUSER'), 'password':os.getenv('ARANGODB_GOVPASSWORD'), 'active':True}
@@ -42,8 +46,8 @@ class Systembase:
             )
 
     def inituserbase(self):
-        if not self._db.has_database(os.getenv('ARANGODB_OSSDATABASE')):
-            self._db.create_database(
+        if not self._noPooldb.has_database(os.getenv('ARANGODB_OSSDATABASE')):
+            self._noPooldb.create_database(
                 name=os.getenv('ARANGODB_OSSDATABASE'),
                 users=[
                     {'username': os.getenv('ARANGODB_OSSUSER'), 'password': os.getenv('ARANGODB_OSSPASSWORD'),

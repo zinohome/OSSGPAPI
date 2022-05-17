@@ -48,7 +48,7 @@ class Users(Collection):
             addjson = jsonstr
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not ossbase.has(Users, addjson['_key']):
+            if not ossbase._db.has(Users, addjson['_key']):
                 addobj = Users._load(addjson)
                 ossbase.add(addobj)
                 return addobj.json
@@ -62,7 +62,7 @@ class Users(Collection):
     def getUsersbykey(self,keystr):
         try:
             ossbase = Ossbase().db
-            if ossbase.has(Users,keystr):
+            if ossbase._db.has(Users,keystr):
                 record = ossbase.query(Users).by_key(keystr)
                 return record.json
             else:
@@ -78,7 +78,7 @@ class Users(Collection):
             updatejson = jsonstr
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if ossbase.has(Users, updatejson['_key']):
+            if ossbase._db.has(Users, updatejson['_key']):
                 updatejson = Users._load(updatejson)
                 ossbase.update(updatejson)
                 return updatejson.json
@@ -92,7 +92,7 @@ class Users(Collection):
     def deleteUsers(self,keystr):
         try:
             ossbase = Ossbase().db
-            if ossbase.has(Users, keystr):
+            if ossbase._db.has(Users, keystr):
                 #log.logger.debug(ossbase.delete(ossbase.query(Users).by_key(keystr)))
                 return ossbase.delete(ossbase.query(Users).by_key(keystr))
             else:
@@ -138,7 +138,7 @@ class Users(Collection):
     def userlogin(self,username,password):
         try:
             ossbase = Ossbase().db
-            if ossbase.has(Users,username):
+            if ossbase._db.has(Users,username):
                 records = ossbase.query(Users).filter("name=='"+username+"'").filter("password=='"+password+"'").filter("active==True").all()
                 if len(records) >= 1:
                     authreturn = {"Authentication":True}
@@ -158,7 +158,7 @@ class Users(Collection):
     def getUsersbyname(self,username):
         try:
             ossbase = Ossbase().db
-            if ossbase.has(Users,username):
+            if ossbase._db.has(Users,username):
                 records = ossbase.query(Users).filter("name=='"+username+"'").all()
                 if len(records) >= 1:
                     authreturn = {}
@@ -183,7 +183,7 @@ class Users(Collection):
             if not ossbase.has_collection(Users):
                 ossbase.create_collection(Users)
             adminuser = Users(_key="admin", name="admin", password="passw0rd", role="[admin]", active=True)
-            if not ossbase.has(Users, 'admin'):
+            if not ossbase._db.has(Users, 'admin'):
                 ossbase.add(adminuser)
         except Exception as exp:
             log.logger.error('Exception at users.initsysUsers() %s ' % exp)
@@ -210,7 +210,7 @@ if __name__ == '__main__':
     ossbase = Ossbase().db
     tu = Users()
     adminuser = Users(_key="admin", name="admin", password="passw0rd", role="[admin]", active=True)
-    if not ossbase.has(Users,'admin'):
+    if not ossbase._db.has(Users,'admin'):
         ossbase.add(adminuser)
     newuser = '{"role": "[admin]","active": true,"name": "Tony","password": "passw0rd"}'
     au = tu.createUsers(json.loads(newuser))

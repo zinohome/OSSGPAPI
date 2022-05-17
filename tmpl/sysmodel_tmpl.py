@@ -50,7 +50,7 @@ class {{ name|capitalize }}(Collection):
     def existed_{{ name|capitalize }}(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }}, document_name):
+            if govbase._db.has({{ name|capitalize }}, document_name):
                 return True
             else:
                 return False
@@ -66,7 +66,7 @@ class {{ name|capitalize }}(Collection):
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase.has({{ name|capitalize }}, addjson['_key']):
+            if not govbase._db.has({{ name|capitalize }}, addjson['_key']):
                 addobj = {{ name|capitalize }}._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
@@ -125,7 +125,7 @@ class {{ name|capitalize }}(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }},keystr):
+            if govbase._db.has({{ name|capitalize }},keystr):
                 record = govbase.query({{ name|capitalize }}).by_key(keystr)
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
@@ -142,7 +142,7 @@ class {{ name|capitalize }}(Collection):
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }},name):
+            if govbase._db.has({{ name|capitalize }},name):
                 records = govbase.query({{ name|capitalize }}).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     #returnjson['count'] = 1
@@ -160,7 +160,7 @@ class {{ name|capitalize }}(Collection):
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase.has({{ name|capitalize }}, updatejson['_key']):
+            if govbase._db.has({{ name|capitalize }}, updatejson['_key']):
                 updobj = {{ name|capitalize }}._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
@@ -174,7 +174,7 @@ class {{ name|capitalize }}(Collection):
     def delete_{{ name|capitalize }}(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }}, keystr):
+            if govbase._db.has({{ name|capitalize }}, keystr):
                 return govbase.delete(govbase.query({{ name|capitalize }}).by_key(keystr))
             else:
                 return None
