@@ -35,7 +35,7 @@ class License(Collection):
     homepage = String(required=False, allow_none=True)
     introduce = String(required=False, allow_none=True)
     content = String(required=False, allow_none=True)
-    content_CN = String(required=False, allow_none=True)
+    contentCN = String(required=False, allow_none=True)
     licenseinclude = Bool(required=False, allow_none=True)
     sourceinclude = Bool(required=False, allow_none=True)
     linked = Bool(required=False, allow_none=True)
@@ -257,7 +257,7 @@ if __name__ == '__main__':
                         homepage = '',
                         introduce = 'Apache许可证',
                         content = 'Apache许可证',
-                        content_CN = 'Apache许可证',
+                        contentCN = 'Apache许可证',
                         licenseinclude = True,
                         sourceinclude = False,
                         linked = False,
