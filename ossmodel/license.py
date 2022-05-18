@@ -16,9 +16,8 @@ from datetime import date
 
 from arango_orm import Collection
 from arango_orm.fields import String, Date
-from marshmallow.fields import Integer
-
-from core.govbase import Govbase
+from marshmallow.fields import Integer, Bool
+from core.ossbase import Ossbase
 from env.environment import Environment
 from util import log
 
@@ -31,168 +30,184 @@ class License(Collection):
     _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
     _key = String(required=True)
     name = String(required=True, allow_none=False)
-    level = Integer(required=True, allow_none=False)
-    createdate = Date()
+    title = String(required=True, allow_none=False)
+    version = String(required=True, allow_none=False)
+    homepage = String(required=False, allow_none=True)
+    introduce = String(required=False, allow_none=True)
+    content = String(required=False, allow_none=True)
+    content_CN = String(required=False, allow_none=True)
+    licenseinclude = Bool(required=False, allow_none=True)
+    sourceinclude = Bool(required=False, allow_none=True)
+    linked = Bool(required=False, allow_none=True)
+    statuschange = Bool(required=False, allow_none=True)
+    businessuse = Bool(required=False, allow_none=True)
+    distribution = Bool(required=False, allow_none=True)
+    modification = Bool(required=False, allow_none=True)
+    patentauth = Bool(required=False, allow_none=True)
+    privateuse = Bool(required=False, allow_none=True)
+    authresell = Bool(required=False, allow_none=True)
+    unsecuredliability = Bool(required=False, allow_none=True)
+    notrademark = Bool(required=False, allow_none=True)
 
-    def has_License_Collection(self, document_name):
+    def hasLicenseCollection(self):
         try:
-            govbase = Govbase().db
-            if govbase.has_collection(License, document_name):
+            ossbase = Ossbase().db
+            if ossbase.has_collection(License):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at License.has_License_schema() %s ' % exp)
+            log.logger.error('Exception at License.hasLicenseCollection() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False;
 
-    def existed_License(self, document_name):
+    def existedLicense(self, document_name):
         try:
-            govbase = Govbase().db
-            if govbase.has(License, document_name):
+            ossbase = Ossbase().db
+            if ossbase.has(License, document_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at License.existed_License() %s ' % exp)
+            log.logger.error('Exception at License.existedLicense() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False
 
-    def create_License(self, jsonobj):
+    def createLicense(self, jsonobj):
         try:
-            govbase = Govbase().db
+            ossbase = Ossbase().db
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase.has(License, addjson['_key']):
+            if not ossbase.has(License, addjson['_key']):
                 addobj = License._load(addjson)
-                govbase.add(addobj)
+                ossbase.add(addobj)
                 return addobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at License.create_License() %s ' % exp)
+            log.logger.error('Exception at License.createLicense() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
 
-    def get_all_License_names(self):
+    def getallLicensenames(self):
         try:
-            count = self.get_License_count()
+            count = self.getLicensecount()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
-            govbase = Govbase().db
-            records = govbase.query(License).limit(querycount).all()
+            ossbase = Ossbase().db
+            records = ossbase.query(License).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.name)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at License.get_all_License_names() %s ' % exp)
+            log.logger.error('Exception at License.getallLicensenames() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_License_count(self):
+    def getLicensecount(self):
         try:
-            govbase = Govbase().db
-            return govbase.query(License).count()
+            ossbase = Ossbase().db
+            return ossbase.query(License).count()
         except Exception as exp:
-            log.logger.error('Exception at License.get_License_count() %s ' % exp)
+            log.logger.error('Exception at License.getLicensecount() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_all_License(self):
+    def getallLicense(self):
         try:
-            count = self.get_License_count()
+            count = self.getLicensecount()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
-            govbase = Govbase().db
-            records = govbase.query(License).limit(querycount).all()
+            ossbase = Ossbase().db
+            records = ossbase.query(License).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.json)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at License.get_all_License() %s ' % exp)
+            log.logger.error('Exception at License.getallLicense() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_License_bykey(self,keystr):
+    def getLicensebykey(self,keystr):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
-            govbase = Govbase().db
-            if govbase.has(License,keystr):
-                record = govbase.query(License).by_key(keystr)
+            ossbase = Ossbase().db
+            if ossbase.has(License,keystr):
+                record = ossbase.query(License).by_key(keystr)
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at License.get_License_bykey() %s ' % exp)
+            log.logger.error('Exception at License.getLicensebykey() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_License_byname(self,name):
+    def getLicensebyname(self,name):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
-            govbase = Govbase().db
-            if govbase.has(License,name):
-                records = govbase.query(License).filter("name=='"+name+"'").all()
+            ossbase = Ossbase().db
+            if ossbase.has(License,name):
+                records = ossbase.query(License).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     #returnjson['count'] = 1
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at License.get_License_bykey() %s ' % exp)
+            log.logger.error('Exception at License.getLicensebyname() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def update_License(self, jsonobj):
+    def updateLicense(self, jsonobj):
         try:
-            govbase = Govbase().db
+            ossbase = Ossbase().db
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase.has(License, updatejson['_key']):
+            if ossbase.has(License, updatejson['_key']):
                 updobj = License._load(updatejson)
-                govbase.update(updobj)
+                ossbase.update(updobj)
                 return updobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at License.update_License() %s ' % exp)
+            log.logger.error('Exception at License.updateLicense() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def delete_License(self,keystr):
+    def deleteLicense(self,keystr):
         try:
-            govbase = Govbase().db
-            if govbase.has(License, keystr):
-                return govbase.delete(govbase.query(License).by_key(keystr))
+            ossbase = Ossbase().db
+            if ossbase.has(License, keystr):
+                return ossbase.delete(ossbase.query(License).by_key(keystr))
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at License.delete_License() %s ' % exp)
+            log.logger.error('Exception at License.deleteLicense() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def query_License(self,queryjson):
+    def queryLicense(self,queryjson):
         try:
-            govbase = Govbase().db
+            ossbase = Ossbase().db
             filter = queryjson['filter'] if 'filter' in queryjson else None
             filteror = queryjson['filteror'] if 'filteror' in queryjson else None
             sort = queryjson['sort'] if 'sort' in queryjson else None
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
 
-            query = govbase.query(License)
+            query = ossbase.query(License)
             if filter is not None:
                 for flstr in filter:
                     query.filter(flstr)
@@ -212,7 +227,7 @@ class License(Collection):
                 returnjson['data'].append(obj.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at License.query_License() %s ' % exp)
+            log.logger.error('Exception at License.queryLicense() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
@@ -235,39 +250,33 @@ class License(Collection):
         return jdict
 
 if __name__ == '__main__':
-    govbase = Govbase().db
-    '''
-    tolicense= License(name = 'home-alt',
-                       title = '首页',
-                       level = '1',
-                       order = '1',
-                       segment = 'index',
-                       liclass = 'nav-item',
-                       hrefclass = 'nav-link',
-                       navclass = '',
-                       href = 'index.html',
-                       icon = 'typcn typcn-chart-area-outline',
-                       createdate = str(date.today())
-                       )
-    #log.logger.debug("tolicense.has_License_Collection(): %s" % tolicense.has_License_Collection())
-    #log.logger.debug("tolicense.existed_License(): %s" % tolicense.existed_License())
-    log.logger.debug('tolicense.json: %s' % tolicense.json)
-    if not tolicense.has_License_Collection():
-        govbase.create_collection(License)
-    if not tolicense.existed_License():
-        resultstr = tolicense.create_License(tolicense.json)
-        log.logger.debug('resultstr: %s' % resultstr)
-    count = tolicense.get_License_count()
-    log.logger.debug('count: %s' % count)
-    resultstr = tolicense.get_all_License()
-    log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = tolicense.get_License_bykey('home')
-    log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = tolicense.get_License_byname('home-alt')
-    log.logger.debug('resultstr: %s' % resultstr)
-    tolicense.title = '首页二'
-    resultstr = tolicense.delete_License(tolicense.json)
-    log.logger.debug('resultstr: %s' % resultstr)
-    #resultstr = tolicense.update_License('home-alt')
-    #log.logger.debug('resultstr: %s' % resultstr)
-    '''
+    ossbase = Ossbase().db
+    tolicense = License(name = 'ApacheLicense-v2',
+                        title = 'Apache许可证',
+                        version = 'v2',
+                        homepage = '',
+                        introduce = 'Apache许可证',
+                        content = 'Apache许可证',
+                        content_CN = 'Apache许可证',
+                        licenseinclude = True,
+                        sourceinclude = False,
+                        linked = False,
+                        statuschange = True,
+                        businessuse = True,
+                        distribution = True,
+                        modification = True,
+                        patentauth = True,
+                        privateuse = True,
+                        authresell = True,
+                        unsecuredliability = True,
+                        notrademark = True)
+    log.logger.debug(tolicense.hasLicenseCollection())
+    tljson = tolicense.json
+    log.logger.debug(tljson)
+    log.logger.debug(json.dumps(tljson))
+    log.logger.debug("================================ create ================================")
+    log.logger.debug(tolicense.createLicense(tljson))
+    log.logger.debug("================================ get_all_License_names ================================")
+    log.logger.debug(tolicense.getallLicensenames())
+
+
