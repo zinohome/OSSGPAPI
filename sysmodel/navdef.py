@@ -40,10 +40,10 @@ class Navdef(Collection):
     icon = String(required=False, allow_none=True)
     createdate = Date()
 
-    def has_Navdef_Collection(self, document_name):
+    def has_Navdef_Collection(self):
         try:
             govbase = Govbase().db
-            if govbase.has_collection(Navdef, document_name):
+            if govbase.has_collection(Navdef):
                 return True
             else:
                 return False

@@ -34,10 +34,10 @@ class {{ name|capitalize }}(Collection):
     level = Integer(required=True, allow_none=False)
     createdate = Date()
 
-    def has_{{ name|capitalize }}_Collection(self, document_name):
+    def has_{{ name|capitalize }}_Collection(self):
         try:
             govbase = Govbase().db
-            if govbase.has_collection({{ name|capitalize }}, document_name):
+            if govbase.has_collection({{ name|capitalize }}):
                 return True
             else:
                 return False

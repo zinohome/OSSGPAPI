@@ -31,7 +31,7 @@ def genossmodel(namelist):
             modelfilepath = os.path.abspath(os.path.join(sysmodelspath, name.lower() + ".py"))
             log.logger.debug('Model will save at file: [ %s ]' % modelfilepath)
             renderenv = Environment(loader=FileSystemLoader(tmplpath), trim_blocks=True, lstrip_blocks=True)
-            template = renderenv.get_template('sysmodel_tmpl.py')
+            template = renderenv.get_template('ossmodel_tmpl.py')
             gencode = template.render({'name':name})
             with open(modelfilepath, 'w', encoding='utf-8') as gencodefile:
                 gencodefile.write(gencode)
@@ -39,5 +39,5 @@ def genossmodel(namelist):
             log.logger.debug('Model file: [ %s ] saved !' % modelfilepath)
 
 if __name__ == '__main__':
-    modelnames = ['pagedef']
+    modelnames = ['license']
     genossmodel(modelnames)

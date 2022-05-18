@@ -26,165 +26,164 @@ from util import log
 env = Environment()
 log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
-class Pagedef(Collection):
-    __collection__ = 'pagedef'
+class License(Collection):
+    __collection__ = 'license'
     _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
     _key = String(required=True)
     name = String(required=True, allow_none=False)
-    pagetype = String(required=True, allow_none=False)
-    pagedef = String(required=True, allow_none=False)
+    level = Integer(required=True, allow_none=False)
     createdate = Date()
 
-    def has_Pagedef_Collection(self):
+    def has_License_Collection(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has_collection(Pagedef):
+            if govbase.has_collection(License, document_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.has_Pagedef_schema() %s ' % exp)
+            log.logger.error('Exception at License.has_License_schema() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False;
 
-    def existed_Pagedef(self, document_name):
+    def existed_License(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has(Pagedef, document_name):
+            if govbase.has(License, document_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.existed_Pagedef() %s ' % exp)
+            log.logger.error('Exception at License.existed_License() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
             return False
 
-    def create_Pagedef(self, jsonobj):
+    def create_License(self, jsonobj):
         try:
             govbase = Govbase().db
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase.has(Pagedef, addjson['_key']):
-                addobj = Pagedef._load(addjson)
+            if not govbase.has(License, addjson['_key']):
+                addobj = License._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.create_Pagedef() %s ' % exp)
+            log.logger.error('Exception at License.create_License() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
 
-    def get_all_Pagedef_names(self):
+    def get_all_License_names(self):
         try:
-            count = self.get_Pagedef_count()
+            count = self.get_License_count()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
-            records = govbase.query(Pagedef).limit(querycount).all()
+            records = govbase.query(License).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.name)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.get_all_Pagedef_names() %s ' % exp)
+            log.logger.error('Exception at License.get_all_License_names() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Pagedef_count(self):
+    def get_License_count(self):
         try:
             govbase = Govbase().db
-            return govbase.query(Pagedef).count()
+            return govbase.query(License).count()
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.get_Pagedef_count() %s ' % exp)
+            log.logger.error('Exception at License.get_License_count() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_all_Pagedef(self):
+    def get_all_License(self):
         try:
-            count = self.get_Pagedef_count()
+            count = self.get_License_count()
             limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
-            records = govbase.query(Pagedef).limit(querycount).all()
+            records = govbase.query(License).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.json)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.get_all_Pagedef() %s ' % exp)
+            log.logger.error('Exception at License.get_all_License() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Pagedef_bykey(self,keystr):
+    def get_License_bykey(self,keystr):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Pagedef,keystr):
-                record = govbase.query(Pagedef).by_key(keystr)
+            if govbase.has(License,keystr):
+                record = govbase.query(License).by_key(keystr)
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.get_Pagedef_bykey() %s ' % exp)
+            log.logger.error('Exception at License.get_License_bykey() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def get_Pagedef_byname(self,name):
+    def get_License_byname(self,name):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has(Pagedef,name):
-                records = govbase.query(Pagedef).filter("name=='"+name+"'").all()
+            if govbase.has(License,name):
+                records = govbase.query(License).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     #returnjson['count'] = 1
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.get_Pagedef_bykey() %s ' % exp)
+            log.logger.error('Exception at License.get_License_bykey() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def update_Pagedef(self, jsonobj):
+    def update_License(self, jsonobj):
         try:
             govbase = Govbase().db
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase.has(Pagedef, updatejson['_key']):
-                updobj = Pagedef._load(updatejson)
+            if govbase.has(License, updatejson['_key']):
+                updobj = License._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.update_Pagedef() %s ' % exp)
+            log.logger.error('Exception at License.update_License() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def delete_Pagedef(self,keystr):
+    def delete_License(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase.has(Pagedef, keystr):
-                return govbase.delete(govbase.query(Pagedef).by_key(keystr))
+            if govbase.has(License, keystr):
+                return govbase.delete(govbase.query(License).by_key(keystr))
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.delete_Pagedef() %s ' % exp)
+            log.logger.error('Exception at License.delete_License() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
-    def query_Pagedef(self,queryjson):
+    def query_License(self,queryjson):
         try:
             govbase = Govbase().db
             filter = queryjson['filter'] if 'filter' in queryjson else None
@@ -193,7 +192,7 @@ class Pagedef(Collection):
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
 
-            query = govbase.query(Pagedef)
+            query = govbase.query(License)
             if filter is not None:
                 for flstr in filter:
                     query.filter(flstr)
@@ -213,7 +212,7 @@ class Pagedef(Collection):
                 returnjson['data'].append(obj.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Pagedef.query_Pagedef() %s ' % exp)
+            log.logger.error('Exception at License.query_License() %s ' % exp)
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
@@ -238,7 +237,7 @@ class Pagedef(Collection):
 if __name__ == '__main__':
     govbase = Govbase().db
     '''
-    topagedef= Pagedef(name = 'home-alt',
+    tolicense= License(name = 'home-alt',
                        title = '首页',
                        level = '1',
                        order = '1',
@@ -250,25 +249,25 @@ if __name__ == '__main__':
                        icon = 'typcn typcn-chart-area-outline',
                        createdate = str(date.today())
                        )
-    #log.logger.debug("topagedef.has_Pagedef_Collection(): %s" % topagedef.has_Pagedef_Collection())
-    #log.logger.debug("topagedef.existed_Pagedef(): %s" % topagedef.existed_Pagedef())
-    log.logger.debug('topagedef.json: %s' % topagedef.json)
-    if not topagedef.has_Pagedef_Collection():
-        govbase.create_collection(Pagedef)
-    if not topagedef.existed_Pagedef():
-        resultstr = topagedef.create_Pagedef(topagedef.json)
+    #log.logger.debug("tolicense.has_License_Collection(): %s" % tolicense.has_License_Collection())
+    #log.logger.debug("tolicense.existed_License(): %s" % tolicense.existed_License())
+    log.logger.debug('tolicense.json: %s' % tolicense.json)
+    if not tolicense.has_License_Collection():
+        govbase.create_collection(License)
+    if not tolicense.existed_License():
+        resultstr = tolicense.create_License(tolicense.json)
         log.logger.debug('resultstr: %s' % resultstr)
-    count = topagedef.get_Pagedef_count()
+    count = tolicense.get_License_count()
     log.logger.debug('count: %s' % count)
-    resultstr = topagedef.get_all_Pagedef()
+    resultstr = tolicense.get_all_License()
     log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = topagedef.get_Pagedef_bykey('home')
+    resultstr = tolicense.get_License_bykey('home')
     log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = topagedef.get_Pagedef_byname('home-alt')
+    resultstr = tolicense.get_License_byname('home-alt')
     log.logger.debug('resultstr: %s' % resultstr)
-    topagedef.title = '首页二'
-    resultstr = topagedef.delete_Pagedef(topagedef.json)
+    tolicense.title = '首页二'
+    resultstr = tolicense.delete_License(tolicense.json)
     log.logger.debug('resultstr: %s' % resultstr)
-    #resultstr = topagedef.update_Pagedef('home-alt')
+    #resultstr = tolicense.update_License('home-alt')
     #log.logger.debug('resultstr: %s' % resultstr)
     '''
