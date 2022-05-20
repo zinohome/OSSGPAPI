@@ -192,8 +192,8 @@ class Coldef(Collection):
             govbase = Govbase().db
             if govbase.has(Coldef, keystr):
                 #log.logger.debug(govbase.delete(govbase.query(Coldef).by_key(keystr)))
-                log.logger.debug('===================== delete coldef [ %s ] =====================' % keystr)
                 if not distutils.util.strtobool(os.getenv("OSSGPAPI_OSSMODEL_SAFETY_DELETE")):
+                    log.logger.debug('===================== delete coldef [ %s ] =====================' % keystr)
                     #delete collection
                     log.logger.debug('===================== delete model [ %s ] =====================' % keystr)
                     ossmodelcls = importlib.import_module('ossmodel.' + keystr.lower())

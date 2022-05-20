@@ -9,6 +9,7 @@
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
 import distutils
+import importlib
 import traceback
 
 import simplejson as json
@@ -18,6 +19,8 @@ from datetime import date
 from arango_orm import Collection
 from arango_orm.fields import String, Date
 from marshmallow.fields import Integer
+from jinja2 import FileSystemLoader
+from jinja2 import Environment as genenv
 
 from core.govbase import Govbase
 from env.environment import Environment
@@ -72,10 +75,13 @@ class Sysdef(Collection):
             if not govbase.has(Sysdef, addjson['_key']):
                 addobj = Sysdef._load(addjson)
                 govbase.add(addobj)
+                log.logger.debug('===================== create sysdef [ %s ] =====================' % addobj.name)
+                self.genmodel(addobj.json)
                 if self.existed_Sysdef(addobj.name) and not govbase.has_collection(addobj.name):
                     log.logger.debug('Create Collection %s in GovBase' % addobj.name)
-
-
+                    sysmodelcls = importlib.import_module('sysmodel.' + addobj.name.lower())
+                    sysmodel = getattr(sysmodelcls, addobj.name.capitalize())()
+                    govbase.create_collection(sysmodel)
                 return addobj.json
             else:
                 return None
@@ -170,6 +176,9 @@ class Sysdef(Collection):
             if govbase.has(Sysdef, updatejson['_key']):
                 updobj = Sysdef._load(updatejson)
                 govbase.update(updobj)
+                log.logger.debug('===================== update sysdef [ %s ] =====================' % updobj.name)
+                if distutils.util.strtobool(os.getenv("OSSGPAPI_SYSMODEL_UPDATE_SYNC")):
+                    self.genmodel(updobj.json)
                 return updobj.json
             else:
                 return None
@@ -182,6 +191,16 @@ class Sysdef(Collection):
         try:
             govbase = Govbase().db
             if govbase.has(Sysdef, keystr):
+                if not distutils.util.strtobool(os.getenv("OSSGPAPI_SYSMODEL_SAFETY_DELETE")):
+                    log.logger.debug('===================== delete sysdef [ %s ] =====================' % keystr)
+                    #delete collection
+                    log.logger.debug('===================== delete sys model [ %s ] =====================' % keystr)
+                    sysmodelcls = importlib.import_module('sysmodel.' + keystr.lower())
+                    sysmodel = getattr(sysmodelcls, keystr.capitalize())()
+                    govbase.drop_collection(sysmodel)
+                    #delete model
+                    log.logger.debug('===================== delete sys model file [ %s ] =====================' % keystr)
+                    self.delmodel(keystr)
                 return govbase.delete(govbase.query(Sysdef).by_key(keystr))
             else:
                 return None
@@ -220,6 +239,49 @@ class Sysdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Sysdef.query_Sysdef() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
+    def genmodel(self,defjson):
+        try:
+            basepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
+            apppath = os.path.abspath(os.path.join(basepath, os.pardir))
+            tmplpath = os.path.abspath(os.path.join(apppath, 'tmpl'))
+            sysmodelspath = os.path.abspath(os.path.join(apppath, 'sysmodel'))
+            osskeeplist = os.getenv("OSSGPAPI_SYSMODEL_UPDATE_KEEP_LIST")
+            defobj = defjson
+            defobj['coldef'] = json.loads(defobj['coldef'])
+            if defobj['name'] not in osskeeplist:
+                log.logger.debug('Generate Model for [ %s ] ......' % defobj['name'])
+                modelfilepath = os.path.abspath(os.path.join(sysmodelspath, defobj['name'].lower() + ".py"))
+                log.logger.debug('Model will save at file: [ %s ]' % modelfilepath)
+                renderenv = genenv(loader=FileSystemLoader(tmplpath), trim_blocks=True, lstrip_blocks=True)
+                template = renderenv.get_template('sysmodel_gen_tmpl.py')
+                gencode = template.render({'defobj':defobj})
+                with open(modelfilepath, 'w', encoding='utf-8') as gencodefile:
+                    gencodefile.write(gencode)
+                    gencodefile.close()
+                    log.logger.debug('Model file: [ %s ] saved !' % modelfilepath)
+        except Exception as exp:
+            log.logger.error('Exception at Sysdef.genmodel() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
+    def delmodel(self,modelname):
+        try:
+            basepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
+            apppath = os.path.abspath(os.path.join(basepath, os.pardir))
+            sysmodelspath = os.path.abspath(os.path.join(apppath, 'sysmodel'))
+            osskeeplist = os.getenv("OSSGPAPI_SYSMODEL_UPDATE_KEEP_LIST")
+            if modelname not in osskeeplist:
+                log.logger.debug('Delete Model for [ %s ] ......' % modelname)
+                modelfilepath = os.path.abspath(os.path.join(sysmodelspath, modelname.lower() + ".py"))
+                if os.path.exists(modelfilepath):
+                    os.remove(modelfilepath)
+                else:
+                    log.logger.error('The file [ %s ] does not exist' % modelfilepath)
+        except Exception as exp:
+            log.logger.error('Exception at Sysdef.delmodel() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 

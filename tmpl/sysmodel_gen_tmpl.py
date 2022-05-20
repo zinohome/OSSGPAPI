@@ -26,164 +26,165 @@ from util import log
 env = Environment()
 log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
-class {{ name|capitalize }}(Collection):
-    __collection__ = '{{ name }}'
-    _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
-    _key = String(required=True)
-    name = String(required=True, allow_none=False)
-    level = Integer(required=True, allow_none=False)
-    createdate = Date()
+class {{ defobj['name']|capitalize }}(Collection):
+    {% for propkey, propvalue  in defobj['coldef'].items() %}
+    {% if propkey == '__collection__' %}
+    {{ propkey }} = '{{ propvalue }}'
+    {% else %}
+    {{ propkey }} = {{ propvalue }}
+    {% endif %}
+    {% endfor %}
 
-    def has_{{ name|capitalize }}_Collection(self):
+    def has_{{ defobj['name']|capitalize }}_Collection(self):
         try:
             govbase = Govbase().db
-            if govbase.has_collection({{ name|capitalize }}):
+            if govbase.has_collection({{ defobj['name']|capitalize }}):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.has_{{ name|capitalize }}_schema() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.has_{{ defobj['name']|capitalize }}_schema() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False;
 
-    def existed_{{ name|capitalize }}(self, document_name):
+    def existed_{{ defobj['name']|capitalize }}(self, document_name):
         try:
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }}, document_name):
+            if govbase.has({{ defobj['name']|capitalize }}, document_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.existed_{{ name|capitalize }}() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.existed_{{ defobj['name']|capitalize }}() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False
 
-    def create_{{ name|capitalize }}(self, jsonobj):
+    def create_{{ defobj['name']|capitalize }}(self, jsonobj):
         try:
             govbase = Govbase().db
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not govbase.has({{ name|capitalize }}, addjson['_key']):
-                addobj = {{ name|capitalize }}._load(addjson)
+            if not govbase.has({{ defobj['name']|capitalize }}, addjson['_key']):
+                addobj = {{ defobj['name']|capitalize }}._load(addjson)
                 govbase.add(addobj)
                 return addobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.create_{{ name|capitalize }}() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.create_{{ defobj['name']|capitalize }}() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
 
-    def get_all_{{ name|capitalize }}_names(self):
+    def get_all_{{ defobj['name']|capitalize }}_names(self):
         try:
-            count = self.get_{{ name|capitalize }}_count()
+            count = self.get_{{ defobj['name']|capitalize }}_count()
             limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
-            records = govbase.query({{ name|capitalize }}).limit(querycount).all()
+            records = govbase.query({{ defobj['name']|capitalize }}).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.name)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.get_all_{{ name|capitalize }}_names() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.get_all_{{ defobj['name']|capitalize }}_names() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def get_{{ name|capitalize }}_count(self):
+    def get_{{ defobj['name']|capitalize }}_count(self):
         try:
             govbase = Govbase().db
-            return govbase.query({{ name|capitalize }}).count()
+            return govbase.query({{ defobj['name']|capitalize }}).count()
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_count() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.get_{{ defobj['name']|capitalize }}_count() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def get_all_{{ name|capitalize }}(self):
+    def get_all_{{ defobj['name']|capitalize }}(self):
         try:
-            count = self.get_{{ name|capitalize }}_count()
+            count = self.get_{{ defobj['name']|capitalize }}_count()
             limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
-            records = govbase.query({{ name|capitalize }}).limit(querycount).all()
+            records = govbase.query({{ defobj['name']|capitalize }}).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.json)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.get_all_{{ name|capitalize }}() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.get_all_{{ defobj['name']|capitalize }}() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def get_{{ name|capitalize }}_bykey(self,keystr):
+    def get_{{ defobj['name']|capitalize }}_bykey(self,keystr):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }},keystr):
-                record = govbase.query({{ name|capitalize }}).by_key(keystr)
+            if govbase.has({{ defobj['name']|capitalize }},keystr):
+                record = govbase.query({{ defobj['name']|capitalize }}).by_key(keystr)
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_bykey() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.get_{{ defobj['name']|capitalize }}_bykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def get_{{ name|capitalize }}_byname(self,name):
+    def get_{{ defobj['name']|capitalize }}_byname(self,name):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }},name):
-                records = govbase.query({{ name|capitalize }}).filter("name=='"+name+"'").all()
+            if govbase.has({{ defobj['name']|capitalize }},name):
+                records = govbase.query({{ defobj['name']|capitalize }}).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     #returnjson['count'] = 1
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.get_{{ name|capitalize }}_bykey() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.get_{{ defobj['name']|capitalize }}_bykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def update_{{ name|capitalize }}(self, jsonobj):
+    def update_{{ defobj['name']|capitalize }}(self, jsonobj):
         try:
             govbase = Govbase().db
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if govbase.has({{ name|capitalize }}, updatejson['_key']):
-                updobj = {{ name|capitalize }}._load(updatejson)
+            if govbase.has({{ defobj['name']|capitalize }}, updatejson['_key']):
+                updobj = {{ defobj['name']|capitalize }}._load(updatejson)
                 govbase.update(updobj)
                 return updobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.update_{{ name|capitalize }}() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.update_{{ defobj['name']|capitalize }}() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def delete_{{ name|capitalize }}(self,keystr):
+    def delete_{{ defobj['name']|capitalize }}(self,keystr):
         try:
             govbase = Govbase().db
-            if govbase.has({{ name|capitalize }}, keystr):
-                return govbase.delete(govbase.query({{ name|capitalize }}).by_key(keystr))
+            if govbase.has({{ defobj['name']|capitalize }}, keystr):
+                return govbase.delete(govbase.query({{ defobj['name']|capitalize }}).by_key(keystr))
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.delete_{{ name|capitalize }}() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.delete_{{ defobj['name']|capitalize }}() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def query_{{ name|capitalize }}(self,queryjson):
+    def query_{{ defobj['name']|capitalize }}(self,queryjson):
         try:
             govbase = Govbase().db
             filter = queryjson['filter'] if 'filter' in queryjson else None
@@ -192,7 +193,7 @@ class {{ name|capitalize }}(Collection):
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
 
-            query = govbase.query({{ name|capitalize }})
+            query = govbase.query({{ defobj['name']|capitalize }})
             if filter is not None:
                 for flstr in filter:
                     query.filter(flstr)
@@ -212,7 +213,7 @@ class {{ name|capitalize }}(Collection):
                 returnjson['data'].append(obj.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at {{ name|capitalize }}.query_{{ name|capitalize }}() %s ' % exp)
+            log.logger.error('Exception at {{ defobj['name']|capitalize }}.query_{{ defobj['name']|capitalize }}() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
@@ -237,7 +238,7 @@ class {{ name|capitalize }}(Collection):
 if __name__ == '__main__':
     govbase = Govbase().db
     '''
-    to{{ name }}= {{ name|capitalize }}(name = 'home-alt',
+    to{{ defobj['name'] }}= {{ defobj['name']|capitalize }}(name = 'home-alt',
                        title = '首页',
                        level = '1',
                        order = '1',
@@ -249,25 +250,25 @@ if __name__ == '__main__':
                        icon = 'typcn typcn-chart-area-outline',
                        createdate = str(date.today())
                        )
-    #log.logger.debug("to{{ name }}.has_{{ name|capitalize }}_Collection(): %s" % to{{ name }}.has_{{ name|capitalize }}_Collection())
-    #log.logger.debug("to{{ name }}.existed_{{ name|capitalize }}(): %s" % to{{ name }}.existed_{{ name|capitalize }}())
-    log.logger.debug('to{{ name }}.json: %s' % to{{ name }}.json)
-    if not to{{ name }}.has_{{ name|capitalize }}_Collection():
-        govbase.create_collection({{ name|capitalize }})
-    if not to{{ name }}.existed_{{ name|capitalize }}():
-        resultstr = to{{ name }}.create_{{ name|capitalize }}(to{{ name }}.json)
+    #log.logger.debug("to{{ defobj['name'] }}.has_{{ defobj['name']|capitalize }}_Collection(): %s" % to{{ defobj['name'] }}.has_{{ defobj['name']|capitalize }}_Collection())
+    #log.logger.debug("to{{ defobj['name'] }}.existed_{{ defobj['name']|capitalize }}(): %s" % to{{ defobj['name'] }}.existed_{{ defobj['name']|capitalize }}())
+    log.logger.debug('to{{ defobj['name'] }}.json: %s' % to{{ defobj['name'] }}.json)
+    if not to{{ defobj['name'] }}.has_{{ defobj['name']|capitalize }}_Collection():
+        govbase.create_collection({{ defobj['name']|capitalize }})
+    if not to{{ defobj['name'] }}.existed_{{ defobj['name']|capitalize }}():
+        resultstr = to{{ defobj['name'] }}.create_{{ defobj['name']|capitalize }}(to{{ defobj['name'] }}.json)
         log.logger.debug('resultstr: %s' % resultstr)
-    count = to{{ name }}.get_{{ name|capitalize }}_count()
+    count = to{{ defobj['name'] }}.get_{{ defobj['name']|capitalize }}_count()
     log.logger.debug('count: %s' % count)
-    resultstr = to{{ name }}.get_all_{{ name|capitalize }}()
+    resultstr = to{{ defobj['name'] }}.get_all_{{ defobj['name']|capitalize }}()
     log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = to{{ name }}.get_{{ name|capitalize }}_bykey('home')
+    resultstr = to{{ defobj['name'] }}.get_{{ defobj['name']|capitalize }}_bykey('home')
     log.logger.debug('resultstr: %s' % resultstr)
-    resultstr = to{{ name }}.get_{{ name|capitalize }}_byname('home-alt')
+    resultstr = to{{ defobj['name'] }}.get_{{ defobj['name']|capitalize }}_byname('home-alt')
     log.logger.debug('resultstr: %s' % resultstr)
-    to{{ name }}.title = '首页二'
-    resultstr = to{{ name }}.delete_{{ name|capitalize }}(to{{ name }}.json)
+    to{{ defobj['name'] }}.title = '首页二'
+    resultstr = to{{ defobj['name'] }}.delete_{{ defobj['name']|capitalize }}(to{{ defobj['name'] }}.json)
     log.logger.debug('resultstr: %s' % resultstr)
-    #resultstr = to{{ name }}.update_{{ name|capitalize }}('home-alt')
+    #resultstr = to{{ defobj['name'] }}.update_{{ defobj['name']|capitalize }}('home-alt')
     #log.logger.debug('resultstr: %s' % resultstr)
     '''
