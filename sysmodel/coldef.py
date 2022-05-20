@@ -111,7 +111,11 @@ class Coldef(Collection):
                 addjson['_key'] = addjson['name']
             if not govbase.has(Coldef, addjson['_key']):
                 addobj = Coldef._load(addjson)
+                log.logger.debug('===================== create coldef =====================')
                 govbase.add(addobj)
+                log.logger.debug(addobj.json)
+                if self.has_Coldef_schema(addobj.name) and not self.existed_Coldef(addobj.name):
+                    log.logger.debug('Create Collection %s in OSSBase' % addobj.name)
                 return addobj.json
             else:
                 return None
@@ -163,6 +167,8 @@ class Coldef(Collection):
                 updatejson['_key'] = updatejson['name']
             if govbase.has(Coldef, updatejson['_key']):
                 updobj = Coldef._load(updatejson)
+                log.logger.debug('===================== update coldef =====================')
+                log.logger.debug(updobj)
                 govbase.update(updobj)
                 return updobj.json
             else:
@@ -177,6 +183,8 @@ class Coldef(Collection):
             govbase = Govbase().db
             if govbase.has(Coldef, keystr):
                 #log.logger.debug(govbase.delete(govbase.query(Coldef).by_key(keystr)))
+                log.logger.debug('===================== delete coldef =====================')
+                log.logger.debug(keystr)
                 return govbase.delete(govbase.query(Coldef).by_key(keystr))
             else:
                 return None

@@ -39,5 +39,5 @@ def genossmodel(namelist):
             log.logger.debug('Model file: [ %s ] saved !' % modelfilepath)
 
 if __name__ == '__main__':
-    modelnames = ['risk']
+    modelnames = ['environment']
     genossmodel(modelnames)
