@@ -71,6 +71,10 @@ class Sysdef(Collection):
             if not govbase.has(Sysdef, addjson['_key']):
                 addobj = Sysdef._load(addjson)
                 govbase.add(addobj)
+                if self.existed_Sysdef(addobj.name) and not govbase.has_collection(addobj.name):
+                    log.logger.debug('Create Collection %s in GovBase' % addobj.name)
+
+
                 return addobj.json
             else:
                 return None
