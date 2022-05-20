@@ -111,8 +111,8 @@ class Coldef(Collection):
                 addjson['_key'] = addjson['name']
             if not govbase.has(Coldef, addjson['_key']):
                 addobj = Coldef._load(addjson)
-                log.logger.debug('===================== create coldef =====================')
                 govbase.add(addobj)
+                log.logger.debug('===================== create coldef =====================')
                 log.logger.debug(addobj.json)
                 if self.has_Coldef_schema(addobj.name) and not self.existed_Coldef(addobj.name):
                     log.logger.debug('Create Collection %s in OSSBase' % addobj.name)
