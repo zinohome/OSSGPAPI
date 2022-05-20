@@ -52,7 +52,7 @@ class Adminnav(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Adminnav.has_Adminnav_schema() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False;
 
@@ -65,7 +65,7 @@ class Adminnav(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Adminnav.existed_Adminnav() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False
 
@@ -83,7 +83,7 @@ class Adminnav(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Adminnav.create_Adminnav() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_Adminnav_count(self):
@@ -92,7 +92,7 @@ class Adminnav(Collection):
             return govbase.query(Adminnav).count()
         except Exception as exp:
             log.logger.error('Exception at Adminnav.get_Adminnav_count() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_all_Adminnav(self):
@@ -108,7 +108,7 @@ class Adminnav(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Adminnav.get_all_Adminnav() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_Adminnav_bykey(self,keystr):
@@ -124,7 +124,7 @@ class Adminnav(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_Adminnav_byname(self,name):
@@ -141,7 +141,7 @@ class Adminnav(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Adminnav.get_Adminnav_bykey() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def update_Adminnav(self, jsonobj):
@@ -158,7 +158,7 @@ class Adminnav(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Adminnav.update_Adminnav() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def delete_Adminnav(self,keystr):
@@ -170,7 +170,7 @@ class Adminnav(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Adminnav.delete_Adminnav() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def query_Adminnav(self,queryjson):
@@ -203,7 +203,7 @@ class Adminnav(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Adminnav.query_Adminnav() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     @property

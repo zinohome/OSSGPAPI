@@ -9,7 +9,7 @@
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
 import traceback
-
+import distutils
 import simplejson as json
 import os
 from datetime import date
@@ -43,7 +43,7 @@ class {{ name|capitalize }}(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.has{{ name|capitalize }}() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False;
 
@@ -56,7 +56,7 @@ class {{ name|capitalize }}(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.existed{{ name|capitalize }}() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False
 
@@ -74,7 +74,7 @@ class {{ name|capitalize }}(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.create{{ name|capitalize }}() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
 
@@ -91,7 +91,7 @@ class {{ name|capitalize }}(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.getall{{ name|capitalize }}names() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get{{ name|capitalize }}count(self):
@@ -100,7 +100,7 @@ class {{ name|capitalize }}(Collection):
             return ossbase.query({{ name|capitalize }}).count()
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.get{{ name|capitalize }}count() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def getall{{ name|capitalize }}(self):
@@ -116,7 +116,7 @@ class {{ name|capitalize }}(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.getall{{ name|capitalize }}() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get{{ name|capitalize }}bykey(self,keystr):
@@ -133,7 +133,7 @@ class {{ name|capitalize }}(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.get{{ name|capitalize }}bykey() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get{{ name|capitalize }}byname(self,name):
@@ -151,7 +151,7 @@ class {{ name|capitalize }}(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.get{{ name|capitalize }}byname() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def update{{ name|capitalize }}(self, jsonobj):
@@ -168,7 +168,7 @@ class {{ name|capitalize }}(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.update{{ name|capitalize }}() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def delete{{ name|capitalize }}(self,keystr):
@@ -180,7 +180,7 @@ class {{ name|capitalize }}(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.delete{{ name|capitalize }}() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def query{{ name|capitalize }}(self,queryjson):
@@ -213,7 +213,7 @@ class {{ name|capitalize }}(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.query{{ name|capitalize }}() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     @property

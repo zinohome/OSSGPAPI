@@ -8,6 +8,7 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
+import distutils
 import traceback
 
 import simplejson as json
@@ -51,7 +52,7 @@ class Risk(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Risk.hasRisk() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False;
 
@@ -64,7 +65,7 @@ class Risk(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Risk.existedRisk() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False
 
@@ -82,7 +83,7 @@ class Risk(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Risk.createRisk() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
 
@@ -99,7 +100,7 @@ class Risk(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Risk.getallRisknames() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def getRiskcount(self):
@@ -108,7 +109,7 @@ class Risk(Collection):
             return ossbase.query(Risk).count()
         except Exception as exp:
             log.logger.error('Exception at Risk.getRiskcount() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def getallRisk(self):
@@ -124,7 +125,7 @@ class Risk(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Risk.getallRisk() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def getRiskbykey(self,keystr):
@@ -141,7 +142,7 @@ class Risk(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Risk.getRiskbykey() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def getRiskbyname(self,name):
@@ -159,7 +160,7 @@ class Risk(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Risk.getRiskbyname() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def updateRisk(self, jsonobj):
@@ -176,7 +177,7 @@ class Risk(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Risk.updateRisk() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def deleteRisk(self,keystr):
@@ -188,7 +189,7 @@ class Risk(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Risk.deleteRisk() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def queryRisk(self,queryjson):
@@ -221,7 +222,7 @@ class Risk(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Risk.queryRisk() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     @property

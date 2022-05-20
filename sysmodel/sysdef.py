@@ -8,6 +8,7 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
+import distutils
 import traceback
 
 import simplejson as json
@@ -45,7 +46,7 @@ class Sysdef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Sysdef.has_Sysdef_schema() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False;
 
@@ -58,7 +59,7 @@ class Sysdef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Sysdef.existed_Sysdef() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False
 
@@ -80,7 +81,7 @@ class Sysdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Sysdef.create_Sysdef() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
 
@@ -97,7 +98,7 @@ class Sysdef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_all_Sysdef_names() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_Sysdef_count(self):
@@ -106,7 +107,7 @@ class Sysdef(Collection):
             return govbase.query(Sysdef).count()
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_Sysdef_count() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_all_Sysdef(self):
@@ -122,7 +123,7 @@ class Sysdef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_all_Sysdef() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_Sysdef_bykey(self,keystr):
@@ -139,7 +140,7 @@ class Sysdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_Sysdef_bykey() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def get_Sysdef_byname(self,name):
@@ -157,7 +158,7 @@ class Sysdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_Sysdef_bykey() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def update_Sysdef(self, jsonobj):
@@ -174,7 +175,7 @@ class Sysdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Sysdef.update_Sysdef() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def delete_Sysdef(self,keystr):
@@ -186,7 +187,7 @@ class Sysdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Sysdef.delete_Sysdef() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     def query_Sysdef(self,queryjson):
@@ -219,7 +220,7 @@ class Sysdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Sysdef.query_Sysdef() %s ' % exp)
-            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
     @property
