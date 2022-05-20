@@ -16,10 +16,12 @@ from datetime import date
 
 from arango_orm import Collection
 from arango_orm.fields import String, Date
+from jinja2 import FileSystemLoader
 
 from core.govbase import Govbase
 from core.ossbase import Ossbase
 from env.environment import Environment
+from jinja2 import Environment as genenv
 from util import log
 
 '''logging'''
@@ -226,6 +228,34 @@ class Coldef(Collection):
             if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
                 traceback.print_exc()
 
+    def genmodel(self,defjson):
+        try:
+            basepath = os.path.abspath(os.path.dirname(os.path.abspath(__file__)))
+            apppath = os.path.abspath(os.path.join(basepath, os.pardir))
+            tmplpath = os.path.abspath(os.path.join(apppath, 'tmpl'))
+            sysmodelspath = os.path.abspath(os.path.join(apppath, 'ossmodel'))
+            osskeeplist = os.getenv("OSSGPAPI_OSSMODEL_UPDATE_KEEP_LIST")
+            defobj = defjson
+            defobj['coldef'] = json.loads(defobj['coldef'])
+            if defobj['name'] not in osskeeplist:
+                log.logger.debug('Generate Model for %s ......' % defobj['name'])
+                modelfilepath = os.path.abspath(os.path.join(sysmodelspath, defobj['name'].lower() + ".py"))
+                log.logger.debug('Model will save at file: [ %s ]' % modelfilepath)
+                renderenv = genenv(loader=FileSystemLoader(tmplpath), trim_blocks=True, lstrip_blocks=True)
+                template = renderenv.get_template('ossmodel_gen_tmpl.py')
+                gencode = template.render({'defobj':defobj})
+                log.logger.debug(gencode)
+                '''
+                with open(modelfilepath, 'w', encoding='utf-8') as gencodefile:
+                    gencodefile.write(gencode)
+                    gencodefile.close()
+                '''
+                log.logger.debug('Model file: [ %s ] saved !' % modelfilepath)
+        except Exception as exp:
+            log.logger.error('Exception at Coldef.genmodel() %s ' % exp)
+            if os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL"):
+                traceback.print_exc()
+
     @property
     def json(self):
         jdict = self.__dict__.copy()
@@ -269,17 +299,19 @@ if __name__ == '__main__':
                          createdate=date.today())
     log.logger.debug("userscoldef.has_Coldef_schema(userscoldef.name): %s" % userscoldef.has_Coldef_schema(userscoldef.name))
     log.logger.debug("userscoldef.existed_Coldef(): %s" % userscoldef.existed_Coldef(userscoldef.name))
+    '''
     if not userscoldef.has_Coldef_schema(userscoldef.name):
         govbase.add(userscoldef)
         if not userscoldef.existed_Coldef(userscoldef.name):
             govbase.add(userscoldef)
-
-
-
     log.logger.debug("Coldef.get_Coldef_bykey('users'): %s" % coldef.get_Coldef_bykey('users'))
     log.logger.debug("Coldef.get_Coldef_byname('users'): %s" % coldef.get_Coldef_byname('users'))
+    '''
     log.logger.debug(coldef.get_all_Coldef())
     log.logger.debug(coldef.get_all_Coldef_names())
     log.logger.debug(coldef.get_Coldef_byname('users'))
+    defobj = {'name': 'software1', 'coltype': 'document', 'keyfieldname': 'name', 'coldef': '{"__collection__":"risk","_index":"[{\'type\':\'hash\', \'fields\':[\'name\'], \'unique\':True}]","_key":"String(required=True)","name":"String(required=True, allow_none=False)","title":"String(required=True, allow_none=False)","content":"String(required=True, allow_none=False)","createdate":"Date()","type":"String(required=True, allow_none=False)","software":"String(required=True, allow_none=False)","platform":"String(required=True, allow_none=False)","level":"String(required=True, allow_none=False)","source":"String(required=True, allow_none=False)","link":"String(required=True, allow_none=False)","solution":"String(required=True, allow_none=False)"}', 'createdate': date.today()}
+    log.logger.debug(defobj)
+    coldef.genmodel(defobj)
 
 
