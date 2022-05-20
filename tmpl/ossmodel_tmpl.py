@@ -81,7 +81,7 @@ class {{ name|capitalize }}(Collection):
     def getall{{ name|capitalize }}names(self):
         try:
             count = self.get{{ name|capitalize }}count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             ossbase = Ossbase().db
             records = ossbase.query({{ name|capitalize }}).limit(querycount).all()
@@ -106,7 +106,7 @@ class {{ name|capitalize }}(Collection):
     def getall{{ name|capitalize }}(self):
         try:
             count = self.get{{ name|capitalize }}count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             ossbase = Ossbase().db
             records = ossbase.query({{ name|capitalize }}).limit(querycount).all()

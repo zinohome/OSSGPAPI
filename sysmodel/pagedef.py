@@ -82,7 +82,7 @@ class Pagedef(Collection):
     def get_all_Pagedef_names(self):
         try:
             count = self.get_Pagedef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Pagedef).limit(querycount).all()
@@ -107,7 +107,7 @@ class Pagedef(Collection):
     def get_all_Pagedef(self):
         try:
             count = self.get_Pagedef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Pagedef).limit(querycount).all()

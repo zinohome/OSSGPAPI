@@ -89,7 +89,7 @@ class Risk(Collection):
     def getallRisknames(self):
         try:
             count = self.getRiskcount()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             ossbase = Ossbase().db
             records = ossbase.query(Risk).limit(querycount).all()
@@ -114,7 +114,7 @@ class Risk(Collection):
     def getallRisk(self):
         try:
             count = self.getRiskcount()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             ossbase = Ossbase().db
             records = ossbase.query(Risk).limit(querycount).all()

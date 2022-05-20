@@ -87,7 +87,7 @@ class Adminnav(Collection):
     def get_all_Adminnav_names(self):
         try:
             count = self.get_Adminnav_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Adminnav).limit(querycount).all()
@@ -112,7 +112,7 @@ class Adminnav(Collection):
     def get_all_Adminnav(self):
         try:
             count = self.get_Adminnav_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Adminnav).limit(querycount).all()

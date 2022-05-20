@@ -74,7 +74,7 @@ class Coldef(Collection):
     def get_all_Coldef(self):
         try:
             count = self.get_Coldef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Coldef).limit(querycount).all()
@@ -90,7 +90,7 @@ class Coldef(Collection):
     def get_all_Coldef_names(self):
         try:
             count = self.get_Coldef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Coldef).limit(querycount).all()

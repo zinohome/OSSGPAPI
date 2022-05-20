@@ -83,7 +83,7 @@ class Sysdef(Collection):
     def get_all_Sysdef_names(self):
         try:
             count = self.get_Sysdef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Sysdef).limit(querycount).all()
@@ -108,7 +108,7 @@ class Sysdef(Collection):
     def get_all_Sysdef(self):
         try:
             count = self.get_Sysdef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Sysdef).limit(querycount).all()

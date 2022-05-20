@@ -305,9 +305,9 @@ if services_model >= 1:
              )
     async def query_sysdef(syscol_name: str, filter: str = Header(None), filteror: str = Header(None),
                               sort: str = Header(None),
-                              limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0,
-                                                  le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
-                              offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1)):
+                              limit: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_LIMIT')), gt=0,
+                                                  le=int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))),
+                              offset: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_OFFSET')), gt=-1)):
         """
                         Parameters
                         - **syscol_name** (path): **Required** - Name of the collection to perform operations on.
@@ -365,8 +365,8 @@ if services_model >= 1:
              summary="Retrieve one or more documents. ",
              description="",
              )
-    async def query_document(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
-                       offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1)):
+    async def query_document(collection_name: str, filter: str = Header(None),filteror: str = Header(None),sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))),
+                       offset: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_OFFSET')), gt=-1)):
         """
                                 Parameters
                                 - **collection_name** (path): **Required** - Name of the collection to perform operations on.
@@ -548,9 +548,9 @@ else:
              )
     async def query_sysdef(syscol_name: str, filter: str = Header(None), filteror: str = Header(None),
                        sort: str = Header(None),
-                       limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0,
-                                           le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
-                       offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1),
+                       limit: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_LIMIT')), gt=0,
+                                           le=int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))),
+                       offset: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_OFFSET')), gt=-1),
                        current_user: security.User = Depends(security.get_current_active_user)):
         """
                         Parameters
@@ -611,8 +611,8 @@ else:
              description="",
              )
     async def query_document(collection_name: str, filter: str = Header(None), filteror: str = Header(None),
-                       sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))),
-                       offset: int = Header(int(os.getenv('OSSGPADMIN_API_QUERY_DEFAULT_OFFSET')), gt=-1),
+                       sort: str = Header(None), limit: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_LIMIT')), gt=0, le=int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))),
+                       offset: int = Header(int(os.getenv('OSSGPAPI_QUERY_DEFAULT_OFFSET')), gt=-1),
                        current_user: security.User = Depends(security.get_current_active_user)):
         """
                         Parameters

@@ -96,7 +96,7 @@ class License(Collection):
     def getallLicensenames(self):
         try:
             count = self.getLicensecount()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             ossbase = Ossbase().db
             records = ossbase.query(License).limit(querycount).all()
@@ -121,7 +121,7 @@ class License(Collection):
     def getallLicense(self):
         try:
             count = self.getLicensecount()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             ossbase = Ossbase().db
             records = ossbase.query(License).limit(querycount).all()

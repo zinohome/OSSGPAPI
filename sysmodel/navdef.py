@@ -87,7 +87,7 @@ class Navdef(Collection):
     def get_all_Navdef_names(self):
         try:
             count = self.get_Navdef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Navdef).limit(querycount).all()
@@ -112,7 +112,7 @@ class Navdef(Collection):
     def get_all_Navdef(self):
         try:
             count = self.get_Navdef_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query(Navdef).limit(querycount).all()

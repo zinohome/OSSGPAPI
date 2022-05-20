@@ -81,7 +81,7 @@ class {{ name|capitalize }}(Collection):
     def get_all_{{ name|capitalize }}_names(self):
         try:
             count = self.get_{{ name|capitalize }}_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query({{ name|capitalize }}).limit(querycount).all()
@@ -106,7 +106,7 @@ class {{ name|capitalize }}(Collection):
     def get_all_{{ name|capitalize }}(self):
         try:
             count = self.get_{{ name|capitalize }}_count()
-            limit = int(os.getenv('OSSGPADMIN_API_QUERY_LIMIT_UPSET'))
+            limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
             govbase = Govbase().db
             records = govbase.query({{ name|capitalize }}).limit(querycount).all()
