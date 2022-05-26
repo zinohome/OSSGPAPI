@@ -219,7 +219,6 @@ class Coldef(Collection):
             sort = queryjson['sort'] if 'sort' in queryjson else None
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
-
             query = govbase.query(Coldef)
             if filter is not None:
                 for flstr in filter:

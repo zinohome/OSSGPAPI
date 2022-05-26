@@ -68,7 +68,7 @@ class Users(Collection):
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at users.getUsersbyname() %s ' % exp)
+            log.logger.error('Exception at users.getUsersbykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
