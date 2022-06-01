@@ -1,4 +1,4 @@
-ni # OSSGPAPI
+# OSSGPAPI
 OSS Governance Platform API
 
 uvicorn main:app --host 0.0.0.0 --port 6880 --reload --no-server-header --no-date-header --workers 1
