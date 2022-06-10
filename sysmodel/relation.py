@@ -8,9 +8,8 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
-import distutils
 import traceback
-
+import distutils
 import simplejson as json
 import os
 from datetime import date
@@ -19,7 +18,7 @@ from arango_orm import Collection
 from arango_orm.fields import String, Date
 from marshmallow.fields import Integer
 
-from core.ossbase import Ossbase
+from core.govbase import Govbase
 from env.environment import Environment
 from util import log
 
@@ -27,181 +26,176 @@ from util import log
 env = Environment()
 log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
-class Risk(Collection):
-    __collection__ = 'risk'
-    _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
+class Relation(Collection):
+    __collection__ = 'relation'
+    _index = [{"type":"hash", "fields":["name"],"unique":True}]
     _key = String(required=True)
     name = String(required=True, allow_none=False)
-    title = String(required=True, allow_none=False)
-    type = String(required=True, allow_none=False)
-    software = String(required=True, allow_none=False)
-    platform = String(required=True, allow_none=False)
-    level = String(required=True, allow_none=False)
-    source = String(required=True, allow_none=False)
-    link = String(required=True, allow_none=False)
-    content = String(required=True, allow_none=False)
-    solution = String(required=True, allow_none=False)
-    createdate = Date()
+    frommodel = String(required=True, allow_none=False)
+    fromkey = String(required=True, allow_none=False)
+    tomodel = String(required=True, allow_none=False)
+    tokey = String(required=True, allow_none=False)
+    createdate = String(required=True, allow_none=False)
 
-    def hasRiskCollection(self):
+    def has_Relation_Collection(self):
         try:
-            ossbase = Ossbase().db
-            if ossbase.has_collection(Risk):
+            govbase = Govbase().db
+            if govbase.has_collection(Relation):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Risk.hasRisk() %s ' % exp)
+            log.logger.error('Exception at Relation.has_Relation_schema() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False;
 
-    def existedRisk(self, document_name):
+    def existed_Relation(self, document_name):
         try:
-            ossbase = Ossbase().db
-            if ossbase.has(Risk, document_name):
+            govbase = Govbase().db
+            if govbase.has(Relation, document_name):
                 return True
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at Risk.existedRisk() %s ' % exp)
+            log.logger.error('Exception at Relation.existed_Relation() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False
 
-    def createRisk(self, jsonobj):
+    def create_Relation(self, jsonobj):
         try:
-            ossbase = Ossbase().db
+            govbase = Govbase().db
             addjson = jsonobj
             if not addjson.__contains__('_key'):
                 addjson['_key'] = addjson['name']
-            if not ossbase.has(Risk, addjson['_key']):
-                addobj = Risk._load(addjson)
-                ossbase.add(addobj)
+            if not govbase.has(Relation, addjson['_key']):
+                addobj = Relation._load(addjson)
+                govbase.add(addobj)
                 return addobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Risk.createRisk() %s ' % exp)
+            log.logger.error('Exception at Relation.create_Relation() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
 
-    def getallRisknames(self):
+    def get_all_Relation_names(self):
         try:
-            count = self.getRiskcount()
+            count = self.get_Relation_count()
             limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
-            ossbase = Ossbase().db
-            records = ossbase.query(Risk).limit(querycount).all()
+            govbase = Govbase().db
+            records = govbase.query(Relation).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.name)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at Risk.getallRisknames() %s ' % exp)
+            log.logger.error('Exception at Relation.get_all_Relation_names() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getRiskcount(self):
+    def get_Relation_count(self):
         try:
-            ossbase = Ossbase().db
-            return ossbase.query(Risk).count()
+            govbase = Govbase().db
+            return govbase.query(Relation).count()
         except Exception as exp:
-            log.logger.error('Exception at Risk.getRiskcount() %s ' % exp)
+            log.logger.error('Exception at Relation.get_Relation_count() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getallRisk(self):
+    def get_all_Relation(self):
         try:
-            count = self.getRiskcount()
+            count = self.get_Relation_count()
             limit = int(os.getenv('OSSGPAPI_QUERY_LIMIT_UPSET'))
             querycount = count if count <= limit else limit
-            ossbase = Ossbase().db
-            records = ossbase.query(Risk).limit(querycount).all()
+            govbase = Govbase().db
+            records = govbase.query(Relation).limit(querycount).all()
             resultlist = []
             for record in records:
                 resultlist.append(record.json)
             return resultlist
         except Exception as exp:
-            log.logger.error('Exception at Risk.getallRisk() %s ' % exp)
+            log.logger.error('Exception at Relation.get_all_Relation() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getRiskbykey(self,keystr):
+    def get_Relation_bykey(self,keystr):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
-            ossbase = Ossbase().db
-            if ossbase.has(Risk,keystr):
-                record = ossbase.query(Risk).by_key(keystr)
+            govbase = Govbase().db
+            if govbase.has(Relation,keystr):
+                record = govbase.query(Relation).by_key(keystr)
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Risk.getRiskbykey() %s ' % exp)
+            log.logger.error('Exception at Relation.get_Relation_bykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getRiskbyname(self,name):
+    def get_Relation_byname(self,name):
         try:
             returnjson = {}
             returnjson['count'] = 0
             returnjson['data'] = []
-            ossbase = Ossbase().db
-            if ossbase.has(Risk,name):
-                records = ossbase.query(Risk).filter("name=='"+name+"'").all()
+            govbase = Govbase().db
+            if govbase.has(Relation,name):
+                records = govbase.query(Relation).filter("name=='"+name+"'").all()
                 if len(records) >= 1:
                     #returnjson['count'] = 1
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Risk.getRiskbyname() %s ' % exp)
+            log.logger.error('Exception at Relation.get_Relation_bykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def updateRisk(self, jsonobj):
+    def update_Relation(self, jsonobj):
         try:
-            ossbase = Ossbase().db
+            govbase = Govbase().db
             updatejson = jsonobj
             if not updatejson.__contains__('_key'):
                 updatejson['_key'] = updatejson['name']
-            if ossbase.has(Risk, updatejson['_key']):
-                updobj = Risk._load(updatejson)
-                ossbase.update(updobj)
+            if govbase.has(Relation, updatejson['_key']):
+                updobj = Relation._load(updatejson)
+                govbase.update(updobj)
                 return updobj.json
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Risk.updateRisk() %s ' % exp)
+            log.logger.error('Exception at Relation.update_Relation() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def deleteRisk(self,keystr):
+    def delete_Relation(self,keystr):
         try:
-            ossbase = Ossbase().db
-            if ossbase.has(Risk, keystr):
-                return ossbase.delete(ossbase.query(Risk).by_key(keystr))
+            govbase = Govbase().db
+            if govbase.has(Relation, keystr):
+                return govbase.delete(govbase.query(Relation).by_key(keystr))
             else:
                 return None
         except Exception as exp:
-            log.logger.error('Exception at Risk.deleteRisk() %s ' % exp)
+            log.logger.error('Exception at Relation.delete_Relation() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def queryRisk(self,queryjson):
+    def query_Relation(self,queryjson):
         try:
-            ossbase = Ossbase().db
+            govbase = Govbase().db
             filter = queryjson['filter'] if 'filter' in queryjson else None
             filteror = queryjson['filteror'] if 'filteror' in queryjson else None
             sort = queryjson['sort'] if 'sort' in queryjson else None
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
 
-            query = ossbase.query(Risk)
+            query = govbase.query(Relation)
             if filter is not None:
                 for flstr in filter:
                     query.filter(flstr)
@@ -221,10 +215,9 @@ class Risk(Collection):
                 returnjson['data'].append(obj.json)
             return returnjson
         except Exception as exp:
-            log.logger.error('Exception at Risk.queryRisk() %s ' % exp)
+            log.logger.error('Exception at Relation.query_Relation() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
-
 
     @property
     def json(self):
@@ -245,23 +238,39 @@ class Risk(Collection):
         return jdict
 
 if __name__ == '__main__':
-    ossbase = Ossbase().db
-    torisk = Risk(name='CVE-2022-29885',
-                  title='CVE-2022-29885',
-                  type='CVE',
-                  software='Apache Tomcat',
-                  platform='Linux,Windows,Mac,AIX',
-                  level='High',
-                  source='CVE',
-                  link='https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-29885',
-                  content='The documentation of Apache Tomcat 10.1.0-M1 to 10.1.0-M14, 10.0.0-M1 to 10.0.20, 9.0.13 to 9.0.62 and 8.5.38 to 8.5.78 for the EncryptInterceptor incorrectly stated it enabled Tomcat clustering to run over an untrusted network. This was not correct. While the EncryptInterceptor does provide confidentiality and integrity protection, it does not protect against all risks associated with running over any untrusted network, particularly DoS risks.',
-                  solution='None',
-                  createdate='2022-04-28')
-    log.logger.debug(torisk.hasRiskCollection())
-    tljson = torisk.json
-    log.logger.debug(tljson)
-    log.logger.debug(json.dumps(tljson))
-    log.logger.debug("================================ create ================================")
-    log.logger.debug(torisk.createRisk(tljson))
-    log.logger.debug("================================ get_all_Risk_names ================================")
-    log.logger.debug(torisk.getallRisknames())
+    govbase = Govbase().db
+    '''
+    torelation= Relation(name = 'home-alt',
+                       title = '首页',
+                       level = '1',
+                       order = '1',
+                       segment = 'index',
+                       liclass = 'nav-item',
+                       hrefclass = 'nav-link',
+                       navclass = '',
+                       href = 'index.html',
+                       icon = 'typcn typcn-chart-area-outline',
+                       createdate = str(date.today())
+                       )
+    #log.logger.debug("torelation.has_Relation_Collection(): %s" % torelation.has_Relation_Collection())
+    #log.logger.debug("torelation.existed_Relation(): %s" % torelation.existed_Relation())
+    log.logger.debug('torelation.json: %s' % torelation.json)
+    if not torelation.has_Relation_Collection():
+        govbase.create_collection(Relation)
+    if not torelation.existed_Relation():
+        resultstr = torelation.create_Relation(torelation.json)
+        log.logger.debug('resultstr: %s' % resultstr)
+    count = torelation.get_Relation_count()
+    log.logger.debug('count: %s' % count)
+    resultstr = torelation.get_all_Relation()
+    log.logger.debug('resultstr: %s' % resultstr)
+    resultstr = torelation.get_Relation_bykey('home')
+    log.logger.debug('resultstr: %s' % resultstr)
+    resultstr = torelation.get_Relation_byname('home-alt')
+    log.logger.debug('resultstr: %s' % resultstr)
+    torelation.title = '首页二'
+    resultstr = torelation.delete_Relation(torelation.json)
+    log.logger.debug('resultstr: %s' % resultstr)
+    #resultstr = torelation.update_Relation('home-alt')
+    #log.logger.debug('resultstr: %s' % resultstr)
+    '''

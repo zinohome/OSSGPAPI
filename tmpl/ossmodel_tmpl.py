@@ -15,8 +15,7 @@ import os
 from datetime import date
 
 from arango_orm import Collection
-from arango_orm.fields import String, Date
-from marshmallow.fields import Integer
+from marshmallow.fields import *
 
 from core.ossbase import Ossbase
 from env.environment import Environment
