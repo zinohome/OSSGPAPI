@@ -34,7 +34,7 @@ class Systembase:
 
     @property
     def db(self):
-        return Database(self._cp._db)
+        return self._cp._db
 
     def initgovbase(self):
         if not self._noPooldb.has_database(os.getenv('ARANGODB_GOVDATABASE')):

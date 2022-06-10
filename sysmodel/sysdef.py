@@ -197,7 +197,8 @@ class Sysdef(Collection):
                     log.logger.debug('===================== delete sys model [ %s ] =====================' % keystr)
                     sysmodelcls = importlib.import_module('sysmodel.' + keystr.lower())
                     sysmodel = getattr(sysmodelcls, keystr.capitalize())()
-                    govbase.drop_collection(sysmodel)
+                    if govbase.has_collection(keystr):
+                        govbase.drop_collection(sysmodel)
                     #delete model
                     log.logger.debug('===================== delete sys model file [ %s ] =====================' % keystr)
                     self.delmodel(keystr)

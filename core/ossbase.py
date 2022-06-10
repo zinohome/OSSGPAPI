@@ -31,4 +31,4 @@ class Ossbase:
 
     @property
     def db(self):
-        return Database(self._cp._db)
+        return self._cp._db

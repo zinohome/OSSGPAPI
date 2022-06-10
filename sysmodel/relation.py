@@ -33,6 +33,7 @@ class Relation(Collection):
     name = String(required=True, allow_none=False)
     frommodel = String(required=True, allow_none=False)
     fromkey = String(required=True, allow_none=False)
+    relation = String(required=True, allow_none=False)
     tomodel = String(required=True, allow_none=False)
     tokey = String(required=True, allow_none=False)
     createdate = String(required=True, allow_none=False)
