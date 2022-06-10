@@ -199,7 +199,8 @@ class Coldef(Collection):
                     ossmodelcls = importlib.import_module('ossmodel.' + keystr.lower())
                     ossmodel = getattr(ossmodelcls, keystr.capitalize())()
                     ossbase = Ossbase().db
-                    ossbase.drop_collection(ossmodel)
+                    if ossbase.has_collection(keystr):
+                        ossbase.drop_collection(ossmodel)
                     #delete model
                     log.logger.debug('===================== delete model file [ %s ] =====================' % keystr)
                     self.delmodel(keystr)
