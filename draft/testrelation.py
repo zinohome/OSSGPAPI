@@ -8,7 +8,12 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
+import importlib
 import os
+
+from arango_orm import GraphConnection, Graph, Collection
+from marshmallow.fields import String
+
 from core.ossbase import Ossbase
 import simplejson as json
 from env.environment import Environment
@@ -28,9 +33,9 @@ if __name__ == '__main__':
     tst = Student()
     tsu = Subject()
     ttc = Teacher()
-    newtst1 = '{"name": "stu1","age": 18,"subjects":"[subject1,subject2]","teachers":"[teacher1,teacher2]"}'
-    newtst2 = '{"name": "stu2","age": 19,"subjects":"[subject2,subject3]","teachers":"[teacher2,teacher3]"}'
-    newtst3 = '{"name": "stu3","age": 20,"subjects":"[subject1,subject3]","teachers":"[teacher1,teacher3]"}'
+    newtst1 = '{"name": "student1","age": 18,"subjects":"[subject1,subject2]","teachers":"[teacher1,teacher2]"}'
+    newtst2 = '{"name": "student2","age": 19,"subjects":"[subject2,subject3]","teachers":"[teacher2,teacher3]"}'
+    newtst3 = '{"name": "student3","age": 20,"subjects":"[subject1,subject3]","teachers":"[teacher1,teacher3]"}'
     newtsu1 = '{"name": "subject1","credit_hours": 40,"has_labs":false}'
     newtsu2 = '{"name": "subject2","credit_hours": 40,"has_labs":true}'
     newtsu3 = '{"name": "subject3","credit_hours": 40,"has_labs":false}'
@@ -47,7 +52,25 @@ if __name__ == '__main__':
     ttc2 = ttc.createTeacher(json.loads(newttc2))
     ttc3 = ttc.createTeacher(json.loads(newttc3))
 
-    tre = Relation()
-    allre = tre.get_all_Relation()
-    log.logger.debug(allre)
+    allrelation = Relation().get_all_Relation()
+    graph_connections = []
+    for relation in allrelation:
+        log.logger.debug(relation)
+        fromclsimport = importlib.import_module('ossmodel.' + relation['frommodel'].lower())
+        fromcls = getattr(fromclsimport, relation['frommodel'].capitalize())()
+        toclsimport = importlib.import_module('ossmodel.' + relation['tomodel'].lower())
+        tocls = getattr(fromclsimport, relation['frommodel'].capitalize())()
+        graph_connections.append(GraphConnection(fromcls, Relation(relation['name']), tocls))
+    tgraph = Graph('new_graph',graph_connections,ossbase)
+    if not ossbase.has_graph('new_graph'):
+        ossbase.create_graph(tgraph)
+    log.logger.debug(tgraph)
+    ossbase.add(tgraph.relation(bruce, Relation("teaches"), barry))
+
+
+
+
+
+
+
 

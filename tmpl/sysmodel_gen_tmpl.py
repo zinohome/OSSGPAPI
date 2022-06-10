@@ -216,6 +216,22 @@ class {{ defobj['name']|capitalize }}(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
+
+    def loadfromjson(self, jsonobj):
+        try:
+            govbase = Govbase().db
+            if not jsonobj.__contains__('_key'):
+                jsonobj['_key'] = jsonobj['name']
+            if govbase.has({{defobj['name'] | capitalize}}, jsonobj['_key']):
+                obj = {{defobj['name'] | capitalize}}._load(jsonobj)
+                return obj
+            else:
+                return None
+        except Exception as exp:
+            log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
     @property
     def json(self):
         jdict = self.__dict__.copy()
