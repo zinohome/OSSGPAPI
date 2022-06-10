@@ -221,7 +221,7 @@ class {{ name|capitalize }}(Collection):
             if not jsonobj.__contains__('_key'):
                 jsonobj['_key'] = jsonobj['name']
             if govbase.has({{defobj['name'] | capitalize}}, jsonobj['_key']):
-                obj = {{defobj['name'] | capitalize}}._load(jsonobj)
+                obj = govbase.query({{defobj['name'] | capitalize}}).by_key(jsonobj['_key'])
                 return obj
             else:
                 return None

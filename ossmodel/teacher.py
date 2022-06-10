@@ -222,7 +222,7 @@ class Teacher(Collection):
             if not jsonobj.__contains__('_key'):
                 jsonobj['_key'] = jsonobj['name']
             if ossbase.has(Teacher, jsonobj['_key']):
-                obj = Teacher._load(jsonobj)
+                obj = ossbase.query(Teacher).by_key(jsonobj['_key'])
                 return obj
             else:
                 return None

@@ -221,7 +221,7 @@ class Subject(Collection):
             if not jsonobj.__contains__('_key'):
                 jsonobj['_key'] = jsonobj['name']
             if ossbase.has(Subject, jsonobj['_key']):
-                obj = Subject._load(jsonobj)
+                obj = ossbase.query(Subject).by_key(jsonobj['_key'])
                 return obj
             else:
                 return None

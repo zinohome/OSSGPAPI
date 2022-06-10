@@ -11,7 +11,7 @@
 import importlib
 import os
 
-from arango_orm import GraphConnection, Graph, Collection
+from arango_orm import GraphConnection, Graph, Collection, Relation
 from marshmallow.fields import String
 
 from core.ossbase import Ossbase
@@ -21,7 +21,7 @@ from util import log
 from ossmodel.student import Student
 from ossmodel.teacher import Teacher
 from ossmodel.subject import Subject
-from sysmodel.relation import Relation
+from sysmodel.relation import Relation as OssRelation
 
 '''logging'''
 env = Environment()
@@ -51,8 +51,18 @@ if __name__ == '__main__':
     ttc1 = ttc.createTeacher(json.loads(newttc1))
     ttc2 = ttc.createTeacher(json.loads(newttc2))
     ttc3 = ttc.createTeacher(json.loads(newttc3))
+    log.logger.debug(ttc.loadfromjson(ttc.getTeacherbykey('teacher3')))
 
-    allrelation = Relation().get_all_Relation()
+    allrelation = OssRelation().get_all_Relation()
+    for relation in allrelation:
+        fromclsimport = importlib.import_module('ossmodel.' + relation['frommodel'].lower())
+        fromcls = getattr(fromclsimport, relation['frommodel'].capitalize())()
+        toclsimport = importlib.import_module('ossmodel.' + relation['tomodel'].lower())
+        tocls = getattr(fromclsimport, relation['frommodel'].capitalize())()
+        ra = Relation(collection_name=relation['name'],_collections_from=fromcls,_collections_to=tocls)
+        if not ossbase.has_collection(relation['name']):
+            ossbase.create_collection(ra, edge=True)
+
     graph_connections = []
     for relation in allrelation:
         log.logger.debug(relation)
@@ -64,9 +74,13 @@ if __name__ == '__main__':
     tgraph = Graph('new_graph',graph_connections,ossbase)
     if not ossbase.has_graph('new_graph'):
         ossbase.create_graph(tgraph)
-    log.logger.debug(tgraph)
-    ossbase.add(tgraph.relation(bruce, Relation("teaches"), barry))
-
+        ossbase.create_collection()
+    ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst1)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu1))),if_present='update')
+    ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst1)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu2))),if_present='update')
+    ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst2)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu2))),if_present='update')
+    ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst2)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu3))),if_present='update')
+    ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst3)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu1))),if_present='update')
+    ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst3)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu3))),if_present='update')
 
 
 
