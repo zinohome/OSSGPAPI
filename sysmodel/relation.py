@@ -8,6 +8,7 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
+import importlib
 import traceback
 import distutils
 import simplejson as json
@@ -19,6 +20,7 @@ from arango_orm.fields import String, Date
 from marshmallow.fields import Integer
 
 from core.govbase import Govbase
+from core.ossbase import Ossbase
 from env.environment import Environment
 from util import log
 
@@ -73,6 +75,7 @@ class Relation(Collection):
             if not govbase.has(Relation, addjson['_key']):
                 addobj = Relation._load(addjson)
                 govbase.add(addobj)
+                self.create_Relation_Collection(jsonobj)
                 return addobj.json
             else:
                 return None
@@ -179,6 +182,7 @@ class Relation(Collection):
         try:
             govbase = Govbase().db
             if govbase.has(Relation, keystr):
+                self.delete_Relation_Collection(keystr)
                 return govbase.delete(govbase.query(Relation).by_key(keystr))
             else:
                 return None
@@ -217,6 +221,46 @@ class Relation(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Relation.query_Relation() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
+    def create_Relation_Collection(self,jsonobj):
+        try:
+            ossbase = Ossbase().db
+            fromclsimport = importlib.import_module('ossmodel.' + jsonobj['frommodel'].lower())
+            fromcls = getattr(fromclsimport, jsonobj['frommodel'].capitalize())()
+            toclsimport = importlib.import_module('ossmodel.' + jsonobj['tomodel'].lower())
+            tocls = getattr(fromclsimport, jsonobj['frommodel'].capitalize())()
+            ra = Relation(collection_name=jsonobj['name'], _collections_from=fromcls, _collections_to=tocls)
+            if not ossbase.has_collection(jsonobj['name']):
+                ossbase.create_collection(ra, edge=True)
+        except Exception as exp:
+            log.logger.error('Exception at Student.create_Relation_Collection() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
+    def delete_Relation_Collection(self,keystr):
+        try:
+            ossbase = Ossbase().db
+            if ossbase.has_collection(keystr):
+                ossbase.delete_collection(keystr)
+        except Exception as exp:
+            log.logger.error('Exception at Student.delete_Relation_Collection() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
+    def loadfromjson(self, jsonobj):
+        try:
+            govbase = Govbase().db
+            if not jsonobj.__contains__('_key'):
+                jsonobj['_key'] = jsonobj['name']
+            if govbase.has(Relation, jsonobj['_key']):
+                obj = govbase.query(Relation).by_key(jsonobj['_key'])
+                return obj
+            else:
+                return None
+        except Exception as exp:
+            log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 

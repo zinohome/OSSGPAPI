@@ -62,6 +62,8 @@ if __name__ == '__main__':
         ra = Relation(collection_name=relation['name'],_collections_from=fromcls,_collections_to=tocls)
         if not ossbase.has_collection(relation['name']):
             ossbase.create_collection(ra, edge=True)
+        #if ossbase.has_collection(relation['name']):
+        #    ossbase.delete_collection(relation['name'])
 
     graph_connections = []
     for relation in allrelation:
