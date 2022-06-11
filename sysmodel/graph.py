@@ -251,6 +251,14 @@ class Graph(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
+    def reload_DB_Graph(self,keystr):
+        try:
+            pass
+        except Exception as exp:
+            log.logger.error('Exception at Graph.reload_DB_Graph() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
     def loadfromjson(self, jsonobj):
         try:
             govbase = Govbase().db

@@ -11,3 +11,4 @@ arango-orm==0.7.0
 python-dotenv==0.20.0
 passlib==1.7.4
 python-multipart==0.0.5
+celery==5.2.7
