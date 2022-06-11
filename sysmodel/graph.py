@@ -8,17 +8,21 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
+import importlib
 import traceback
 import distutils
 import simplejson as json
 import os
 from datetime import date
 
-from arango_orm import Collection
+from arango_orm import Collection, GraphConnection, Relation
+from arango_orm import Graph as ArangoGraph
 from marshmallow.fields import *
 
 from core.govbase import Govbase
+from core.ossbase import Ossbase
 from env.environment import Environment
+from sysmodel.relation import Relation as OssRelation
 from util import log
 
 '''logging'''
@@ -69,6 +73,7 @@ class Graph(Collection):
             if not govbase.has(Graph, addjson['_key']):
                 addobj = Graph._load(addjson)
                 govbase.add(addobj)
+                self.create_DB_Graph(jsonobj)
                 return addobj.json
             else:
                 return None
@@ -175,6 +180,7 @@ class Graph(Collection):
         try:
             govbase = Govbase().db
             if govbase.has(Graph, keystr):
+                self.delete_DB_Graph(keystr)
                 return govbase.delete(govbase.query(Graph).by_key(keystr))
             else:
                 return None
@@ -191,7 +197,6 @@ class Graph(Collection):
             sort = queryjson['sort'] if 'sort' in queryjson else None
             limit = queryjson['limit'] if 'limit' in queryjson else None
             offset = queryjson['offset'] if 'offset' in queryjson else None
-
             query = govbase.query(Graph)
             if filter is not None:
                 for flstr in filter:
@@ -216,6 +221,35 @@ class Graph(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
+    def create_DB_Graph(self,jsonobj):
+        try:
+            ossbase = Ossbase().db
+            relationlist = jsonobj['relations'].strip('[').strip(']').split(',')
+            graph_connections = []
+            for restr in relationlist:
+                relation = OssRelation().get_Relation_bykey(restr.strip())
+                fromclsimport = importlib.import_module('ossmodel.' + relation['frommodel'].lower())
+                fromcls = getattr(fromclsimport, relation['frommodel'].capitalize())()
+                toclsimport = importlib.import_module('ossmodel.' + relation['tomodel'].lower())
+                tocls = getattr(toclsimport, relation['tomodel'].capitalize())()
+                graph_connections.append(GraphConnection(fromcls, Relation(relation['name']), tocls))
+            dbgraph = ArangoGraph(jsonobj['name'], graph_connections, ossbase)
+            if not ossbase.has_graph(jsonobj['name']):
+                ossbase.create_graph(dbgraph)
+        except Exception as exp:
+            log.logger.error('Exception at Graph.create_DB_Graph() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
+    def delete_DB_Graph(self,keystr):
+        try:
+            ossbase = Ossbase().db
+            if ossbase.has_graph(keystr):
+                ossbase.delete_graph(keystr)
+        except Exception as exp:
+            log.logger.error('Exception at Graph.delete_DB_Graph() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
 
     def loadfromjson(self, jsonobj):
         try:
