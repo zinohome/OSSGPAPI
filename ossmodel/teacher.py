@@ -17,6 +17,7 @@ from datetime import date
 from arango_orm import Collection
 from marshmallow.fields import *
 
+from core import reloadrelation
 from core.ossbase import Ossbase
 from env.environment import Environment
 from util import log
@@ -69,6 +70,7 @@ class Teacher(Collection):
             if not ossbase.has(Teacher, addjson['_key']):
                 addobj = Teacher._load(addjson)
                 ossbase.add(addobj)
+                reloadrelation.create_relation('teacher', addjson['_key'], 'graph', True)
                 return addobj.json
             else:
                 return None
@@ -162,7 +164,9 @@ class Teacher(Collection):
                 updatejson['_key'] = updatejson['name']
             if ossbase.has(Teacher, updatejson['_key']):
                 updobj = Teacher._load(updatejson)
+                reloadrelation.del_relation('teacher', updatejson['_key'], 'graph', True)
                 ossbase.update(updobj)
+                reloadrelation.create_relation('teacher', updatejson['_key'], 'graph', True)
                 return updobj.json
             else:
                 return None
@@ -175,6 +179,7 @@ class Teacher(Collection):
         try:
             ossbase = Ossbase().db
             if ossbase.has(Teacher, keystr):
+                reloadrelation.del_relation('teacher', keystr, 'graph', True)
                 return ossbase.delete(ossbase.query(Teacher).by_key(keystr))
             else:
                 return None

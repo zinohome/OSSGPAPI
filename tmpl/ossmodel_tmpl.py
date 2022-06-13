@@ -17,6 +17,7 @@ from datetime import date
 from arango_orm import Collection
 from marshmallow.fields import *
 
+from core import reloadrelation
 from core.ossbase import Ossbase
 from env.environment import Environment
 from util import log
@@ -68,6 +69,7 @@ class {{ name|capitalize }}(Collection):
             if not ossbase.has({{ name|capitalize }}, addjson['_key']):
                 addobj = {{ name|capitalize }}._load(addjson)
                 ossbase.add(addobj)
+                reloadrelation.create_relation('{{ defobj['name'] }}', addjson['_key'], 'graph', True)
                 return addobj.json
             else:
                 return None
@@ -161,7 +163,9 @@ class {{ name|capitalize }}(Collection):
                 updatejson['_key'] = updatejson['name']
             if ossbase.has({{ name|capitalize }}, updatejson['_key']):
                 updobj = {{ name|capitalize }}._load(updatejson)
+                reloadrelation.del_relation('{{ defobj['name'] }}', updatejson['_key'], 'graph', True)
                 ossbase.update(updobj)
+                reloadrelation.create_relation('{{ defobj['name'] }}', updatejson['_key'], 'graph', True)
                 return updobj.json
             else:
                 return None
@@ -174,6 +178,7 @@ class {{ name|capitalize }}(Collection):
         try:
             ossbase = Ossbase().db
             if ossbase.has({{ name|capitalize }}, keystr):
+                reloadrelation.del_relation('{{ defobj['name'] }}', keystr, 'graph', True)
                 return ossbase.delete(ossbase.query({{ name|capitalize }}).by_key(keystr))
             else:
                 return None
