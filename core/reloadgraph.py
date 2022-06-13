@@ -88,7 +88,7 @@ def rebuild_relation(graphmodels):
                         ossbase.add(ra, if_present='update')
         log.logger.debug('Refresh OSS Relations complete, %s relation documents rebuild' % total )
     except Exception as exp:
-        log.logger.error('Exception at Graph.refresh_relation() %s ' % exp)
+        log.logger.error('Exception at reloadgraph.rebuild_relation() %s ' % exp)
         if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
             traceback.print_exc()
 
@@ -108,7 +108,7 @@ def clear_relation(graphname):
                 racollection = ossbase.collection(ra['name'])
                 racollection.truncate()
     except Exception as exp:
-        log.logger.error('Exception at Graph.clear_relation() %s ' % exp)
+        log.logger.error('Exception at reloadgraph.clear_relation() %s ' % exp)
         if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
             traceback.print_exc()
 
@@ -131,7 +131,7 @@ def get_model_from_graph(graphname):
                 returnjson[ra['frommodel']].append(ra)
         return returnjson
     except Exception as exp:
-        log.logger.error('Exception at Graph.get_model_from_graph() %s ' % exp)
+        log.logger.error('Exception at reloadgraph.get_model_from_graph() %s ' % exp)
         if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
             traceback.print_exc()
 
