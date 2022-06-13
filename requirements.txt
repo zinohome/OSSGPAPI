@@ -5,7 +5,7 @@ simplejson==3.17.6
 loguru==0.6.0
 PyJwt==2.3.0
 hypercorn[trio]==0.13.2
-python-arango==7.3.3
+python-arango==7.3.4
 jinja2==3.1.1
 arango-orm==0.7.0
 python-dotenv==0.20.0

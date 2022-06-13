@@ -71,12 +71,26 @@ if __name__ == '__main__':
         fromclsimport = importlib.import_module('ossmodel.' + relation['frommodel'].lower())
         fromcls = getattr(fromclsimport, relation['frommodel'].capitalize())()
         toclsimport = importlib.import_module('ossmodel.' + relation['tomodel'].lower())
-        tocls = getattr(fromclsimport, relation['frommodel'].capitalize())()
+        tocls = getattr(toclsimport, relation['tomodel'].capitalize())()
         graph_connections.append(GraphConnection(fromcls, Relation(relation['name']), tocls))
-    tgraph = Graph('new_graph',graph_connections,ossbase)
-    if not ossbase.has_graph('new_graph'):
+    tgraph = Graph('university',graph_connections,ossbase)
+    if not ossbase.has_graph('university'):
         ossbase.create_graph(tgraph)
-        ossbase.create_collection()
+
+    ra1 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student1', _to = 'subject/subject1', _key = 'kra_student_student1_subject_subject1')
+    ra2 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student1', _to = 'subject/subject2', _key = 'kra_student_student1_subject_subject2')
+    ra3 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student2', _to = 'subject/subject2', _key = 'kra_student_student2_subject_subject2')
+    ra4 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student2', _to = 'subject/subject3', _key = 'kra_student_student2_subject_subject3')
+    ra5 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student3', _to = 'subject/subject1', _key = 'kra_student_student3_subject_subject1')
+    ra6 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student3', _to = 'subject/subject3', _key = 'kra_student_student3_subject_subject3')
+'''
+    ossbase.add(ra1,if_present='update')
+    ossbase.add(ra2,if_present='update')
+    ossbase.add(ra3,if_present='update')
+    ossbase.add(ra4,if_present='update')
+    ossbase.add(ra5,if_present='update')
+    ossbase.add(ra6,if_present='update')
+    
     ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst1)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu1))),if_present='update')
     ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst1)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu2))),if_present='update')
     ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst2)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu2))),if_present='update')
@@ -84,7 +98,7 @@ if __name__ == '__main__':
     ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst3)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu1))),if_present='update')
     ossbase.add(tgraph.relation(tst.loadfromjson(json.loads(newtst3)), Relation("ra_student_subject_study"), tsu.loadfromjson(json.loads(newtsu3))),if_present='update')
 
-
+'''
 
 
 
