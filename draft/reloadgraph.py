@@ -45,27 +45,34 @@ def refresh_relation(graphmodels):
                 graphrelation = relationdef['relation']
                 toclsimport = importlib.import_module('ossmodel.' + relationdef['tomodel'].lower())
                 tocls = getattr(toclsimport, relationdef['tomodel'].capitalize())()
+                redocqrystr = ''
                 if graphrelation.lower() == 'equal':
                     #check Equal
-                    pass
+                    redocqrystr = 'FOR doc IN ' + relationdef['tomodel'] + ' FILTER doc.' + relationdef[
+                        'tokey'] + ' == "' + graphfromkey.strip() + '" RETURN doc'
+                    log.logger.debug('redocqrystr is : %s' % redocqrystr)
                 elif graphrelation.lower() == 'contains':
                     #check Contains
                     docvallist = graphfromkey.strip().strip('[').strip(']').split(',')
                     docvalliststr = '['+','.join('"' + li.strip() + '"' for li in docvallist)+']'
-                    redocqrystr = 'FOR doc IN '+ relationdef['tomodel'] +' FILTER doc.' + relationdef['tokey'] + ' IN ' + docvalliststr + ' RETURN doc'
+                    redocqrystr = 'FOR doc IN ' + relationdef['tomodel'] + ' FILTER doc.' + relationdef[
+                        'tokey'] + ' IN ' + docvalliststr + ' RETURN doc'
                     log.logger.debug('redocqrystr is : %s' % redocqrystr)
-                    relationdoccursor = ossbase.aql.execute(redocqrystr, batch_size=100, count=True)
-                    log.logger.debug(relationdoccursor.count())
-                    for redoc in relationdoccursor:
-                        ra = Relation(collection_name=relationdef['name'], _collections_from=fromcls,
-                                       _collections_to=tocls, _from=relationdef['frommodel']+'/'+doc['_key'], _to=relationdef['tomodel']+'/'+redoc['_key'],
-                                       _key='kra_'+relationdef['frommodel']+'_'+doc['_key']+'_'+relationdef['tomodel']+'_'+redoc['_key'])
-                        log.logger.debug(ra)
-                        ossbase.add(ra, if_present='update')
-
                 else:
                     #check Belongs
-                    pass
+                    redocqrystr = 'FOR doc IN ' + relationdef['tomodel'] + ' FILTER doc.' + relationdef[
+                        'tokey'] + ' LIKE "%' + graphfromkey.strip() + ',%" or doc.' + relationdef[
+                        'tokey'] + ' LIKE "%,' + graphfromkey.strip() + '%"  RETURN doc'
+                    log.logger.debug('redocqrystr is : %s' % redocqrystr)
+                relationdoccursor = ossbase.aql.execute(redocqrystr, batch_size=100, count=True)
+                log.logger.debug('redoc count is : %s' % relationdoccursor.count())
+                for redoc in relationdoccursor:
+                    ra = Relation(collection_name=relationdef['name'], _collections_from=fromcls,
+                                  _collections_to=tocls, _from=relationdef['frommodel'] + '/' + doc['_key'],
+                                  _to=relationdef['tomodel'] + '/' + redoc['_key'],
+                                  _key='kra_' + relationdef['frommodel'] + '_' + doc['_key'] + '_' + relationdef[
+                                      'tomodel'] + '_' + redoc['_key'])
+                    ossbase.add(ra, if_present='update')
 
 
 def get_model_from_graph(graphname):
