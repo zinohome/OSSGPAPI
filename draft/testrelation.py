@@ -36,23 +36,28 @@ if __name__ == '__main__':
     newtst1 = '{"name": "student1","age": 18,"subjects":"[subject1,subject2]","teachers":"[teacher1,teacher2]"}'
     newtst2 = '{"name": "student2","age": 19,"subjects":"[subject2,subject3]","teachers":"[teacher2,teacher3]"}'
     newtst3 = '{"name": "student3","age": 20,"subjects":"[subject1,subject3]","teachers":"[teacher1,teacher3]"}'
+    newtst4 = '{"name": "student4","age": 21,"subjects":"[subject2,subject3]","teachers":"[teacher1,teacher4]"}'
     newtsu1 = '{"name": "subject1","credit_hours": 40,"has_labs":false}'
     newtsu2 = '{"name": "subject2","credit_hours": 40,"has_labs":true}'
     newtsu3 = '{"name": "subject3","credit_hours": 40,"has_labs":false}'
     newttc1 = '{"name": "teacher1","age": 36,"subjects":"[subject1]","expertsubs":"[subject1,subject3]"}'
     newttc2 = '{"name": "teacher2","age": 46,"subjects":"[subject2]","expertsubs":"[subject2,subject1]"}'
     newttc3 = '{"name": "teacher3","age": 51,"subjects":"[subject3]","expertsubs":"[subject3,subject2]"}'
+    newttc4 = '{"name": "teacher4","age": 35,"subjects":"[subject3,subject1]","expertsubs":"[subject1,subject3]"}'
     tst1 = tst.createStudent(json.loads(newtst1))
     tst2 = tst.createStudent(json.loads(newtst2))
     tst3 = tst.createStudent(json.loads(newtst3))
+    tst4 = tst.createStudent(json.loads(newtst4))
     tsu1 = tsu.createSubject(json.loads(newtsu1))
     tsu1 = tsu.createSubject(json.loads(newtsu2))
     tsu1 = tsu.createSubject(json.loads(newtsu3))
     ttc1 = ttc.createTeacher(json.loads(newttc1))
     ttc2 = ttc.createTeacher(json.loads(newttc2))
     ttc3 = ttc.createTeacher(json.loads(newttc3))
-    log.logger.debug(ttc.loadfromjson(ttc.getTeacherbykey('teacher3')))
+    ttc4 = ttc.createTeacher(json.loads(newttc4))
+    #log.logger.debug(ttc.loadfromjson(ttc.getTeacherbykey('teacher3')))
 
+    '''
     allrelation = OssRelation().get_all_Relation()
     for relation in allrelation:
         fromclsimport = importlib.import_module('ossmodel.' + relation['frommodel'].lower())
@@ -83,7 +88,7 @@ if __name__ == '__main__':
     ra4 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student2', _to = 'subject/subject3', _key = 'kra_student_student2_subject_subject3')
     ra5 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student3', _to = 'subject/subject1', _key = 'kra_student_student3_subject_subject1')
     ra6 = Relation(collection_name='ra_student_subject_study', _collections_from=Student, _collections_to=Subject, _from = 'student/student3', _to = 'subject/subject3', _key = 'kra_student_student3_subject_subject3')
-'''
+
     ossbase.add(ra1,if_present='update')
     ossbase.add(ra2,if_present='update')
     ossbase.add(ra3,if_present='update')
