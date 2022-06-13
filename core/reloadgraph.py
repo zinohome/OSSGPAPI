@@ -27,11 +27,20 @@ from util import log
 env = Environment()
 log = log.Logger(level=os.getenv('OSSGPAPI_APP_LOG_LEVEL'))
 
-def refresh_relation(graphmodels):
+def refresh_relations(graphname):
+    log.logger.debug('Refresh OSS Relations: 1. Check Graph information:')
+    graphmodels = get_model_from_graph(graphname)
+    log.logger.debug('Refresh OSS Relations: 2. Clear old relations:')
+    clear_relation(graphname)
+    log.logger.debug('Refresh OSS Relations: 3. Rebuild relation: Starting')
+    rebuild_relation(graphmodels)
+
+def rebuild_relation(graphmodels):
     try:
         ossbase = Ossbase().db
+        total = 0
         for modelname in graphmodels.keys():
-            #log.logger.debug('modelname is: %s' % modelname)
+            log.logger.debug('Refresh OSS Relations: 3. Rebuild relation: for Model [ %s ]' % modelname)
             fromclsimport = importlib.import_module('ossmodel.' + modelname.strip().lower())
             fromcls = getattr(fromclsimport, modelname.strip().capitalize())()
             docqrystr = 'FOR doc IN ' + modelname + ' RETURN doc'
@@ -40,7 +49,7 @@ def refresh_relation(graphmodels):
             for doc in maindoccursor:
                 #log.logger.debug('doc is: %s' % doc)
                 for relationdef in graphmodels[modelname]:
-                    #log.logger.debug('relationdef is: %s' % relationdef)
+                    log.logger.debug('Refresh OSS Relations: 3. Rebuild relation: for Model document [ %s ] - Relation [ %s ]' % (doc['_key'],relationdef['name']))
                     graphfromkey = doc[relationdef['fromkey']]
                     graphrelation = relationdef['relation']
                     toclsimport = importlib.import_module('ossmodel.' + relationdef['tomodel'].lower())
@@ -66,6 +75,10 @@ def refresh_relation(graphmodels):
                         #log.logger.debug('redocqrystr is : %s' % redocqrystr)
                     relationdoccursor = ossbase.aql.execute(redocqrystr, batch_size=100, count=True)
                     #log.logger.debug('redoc count is : %s' % relationdoccursor.count())
+                    log.logger.debug(
+                        'Refresh OSS Relations: 3. Rebuild relation: for Model document [ %s ] - Relation [ %s ], rebuild %s relation documents' % (
+                        doc['_key'], relationdef['name'], relationdoccursor.count()))
+                    total = total + relationdoccursor.count()
                     for redoc in relationdoccursor:
                         ra = Relation(collection_name=relationdef['name'], _collections_from=fromcls,
                                       _collections_to=tocls, _from=relationdef['frommodel'] + '/' + doc['_key'],
@@ -73,6 +86,7 @@ def refresh_relation(graphmodels):
                                       _key='kra_' + relationdef['frommodel'] + '_' + doc['_key'] + '_' + relationdef[
                                           'tomodel'] + '_' + redoc['_key'])
                         ossbase.add(ra, if_present='update')
+        log.logger.debug('Refresh OSS Relations complete, %s relation documents rebuild' % total )
     except Exception as exp:
         log.logger.error('Exception at Graph.refresh_relation() %s ' % exp)
         if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
@@ -123,7 +137,8 @@ def get_model_from_graph(graphname):
 
 
 if __name__ == '__main__':
-    graphmodels = get_model_from_graph('university')
+    refresh_relations('university')
+    #graphmodels = get_model_from_graph('university')
     #log.logger.debug(graphmodels)
-    clear_relation('university')
-    refresh_relation(graphmodels)
+    #clear_relation('university')
+    #rebuild_relation(graphmodels)
