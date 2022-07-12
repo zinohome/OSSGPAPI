@@ -110,6 +110,15 @@ async def get_current_active_user(current_user: User = Depends(get_current_user)
         raise HTTPException(status_code=400, detail="Inactive user")
     return current_user
 
+async def get_read_permission(current_user: User = Depends(get_current_user)):
+    if not distutils.util.strtobool(current_user.active):
+        raise HTTPException(status_code=400, detail="Inactive user")
+    else:
+        rolelist = current_user.role.strip().replace('[','').replace(']','').split(',')
+        if ('admin' in set(rolelist)) or ('reader' in set(rolelist)):
+            return True
+        else:
+            raise HTTPException(status_code=400, detail="Permission denied")
 
 async def get_write_permission(current_user: User = Depends(get_current_user)):
     if not distutils.util.strtobool(current_user.active):
