@@ -449,7 +449,7 @@ async def query_document_post(collection_name: str, querybody: apimodel.Collecti
          summary="Retrieve one Document by key.",
          description="",
          )
-async def get_document_by_key(collection_name: str, key: str, relation: str = Header(None),
+async def get_document_by_key(collection_name: str, key: str, relation: str = Header('false'),
                               current_user_role: bool = True if services_model >= 1 else Depends(
     security.get_read_permission)):
     log.logger.debug(
