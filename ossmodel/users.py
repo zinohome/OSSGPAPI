@@ -155,7 +155,7 @@ class Users(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getUsersbyname(self,username):
+    def getUsersbyname(self,username,relation='false'):
         try:
             ossbase = Ossbase().db
             if ossbase.has(Users,username):
