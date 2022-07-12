@@ -173,14 +173,40 @@ def get_all_relations(modelname, graphname, getallmodel):
             traceback.print_exc()
 
 if __name__ == '__main__':
-    #ralist = get_all_relations('student','university',True)
+    ralist = get_all_relations('teacher','university',True)
+    log.logger.debug(ralist)
+    ossbase = Ossbase().db
+    graphs = Graph().get_all_Graph()
+    log.logger.debug(graphs)
+    graph = ossbase.graph('university')
+    clasname = 'student'
+    fromclsimport = importlib.import_module('ossmodel.' + clasname.lower())
+    fromcls = getattr(fromclsimport, clasname.capitalize())()
+    st1 = ossbase.query(fromcls).by_key("student1")
+    log.logger.debug(st1._id)
+    results = graph.traverse(start_vertex=st1._id,
+                             direction='outbound',
+                             strategy='dfs',
+                             edge_uniqueness='global',
+                             vertex_uniqueness='global',)
+    log.logger.debug(results)
+    log.logger.debug(results.keys())
+    log.logger.debug(len(results['vertices']))
+    log.logger.debug(len(results['paths']))
+    for vert in results['vertices']:
+        log.logger.debug(vert)
+        #log.logger.debug(vert['_id'].split("/")[0])
+    for path in results['paths']:
+        log.logger.debug(path)
+    #log.logger.debug(results['paths'])
+
     #create_relation('student', 'student1', 'university', True)
-    del_relation('student', 'student2', 'university', True)
-    del_relation('subject', 'subject2', 'university', True)
-    del_relation('teacher', 'teacher2', 'university', True)
-    create_relation('student', 'student2', 'university', True)
-    create_relation('subject', 'subject2', 'university', True)
-    create_relation('teacher', 'teacher2', 'university', True)
+    #del_relation('student', 'student2', 'university', True)
+    #del_relation('subject', 'subject2', 'university', True)
+    #del_relation('teacher', 'teacher2', 'university', True)
+    #create_relation('student', 'student2', 'university', True)
+    #create_relation('subject', 'subject2', 'university', True)
+    #create_relation('teacher', 'teacher2', 'university', True)
     #create_relation('subject', 'subject1', 'university', True)
     #create_relation('subject', 'subject2', 'university', True)
     #create_relation('subject', 'subject4', 'university', True)

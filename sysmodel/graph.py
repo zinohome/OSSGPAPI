@@ -241,6 +241,28 @@ class Graph(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
+    def get_DB_Graph(self,keystr):
+        try:
+            jsonobj = self.get_Graph_bykey(keystr)
+            ossbase = Ossbase().db
+            relationlist = jsonobj['relations'].strip('[').strip(']').split(',')
+            graph_connections = []
+            for restr in relationlist:
+                relation = OssRelation().get_Relation_bykey(restr.strip())
+                fromclsimport = importlib.import_module('ossmodel.' + relation['frommodel'].lower())
+                fromcls = getattr(fromclsimport, relation['frommodel'].capitalize())()
+                toclsimport = importlib.import_module('ossmodel.' + relation['tomodel'].lower())
+                tocls = getattr(toclsimport, relation['tomodel'].capitalize())()
+                graph_connections.append(GraphConnection(fromcls, Relation(relation['name']), tocls))
+            dbgraph = ArangoGraph(jsonobj['name'], graph_connections, ossbase)
+            if not ossbase.has_graph(jsonobj['name']):
+                ossbase.create_graph(dbgraph)
+            return dbgraph
+        except Exception as exp:
+            log.logger.error('Exception at Graph.get_DB_Graph() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
     def delete_DB_Graph(self,keystr):
         try:
             ossbase = Ossbase().db
@@ -248,14 +270,6 @@ class Graph(Collection):
                 ossbase.delete_graph(keystr)
         except Exception as exp:
             log.logger.error('Exception at Graph.delete_DB_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
-                traceback.print_exc()
-
-    def reload_DB_Graph(self,keystr):
-        try:
-            pass
-        except Exception as exp:
-            log.logger.error('Exception at Graph.reload_DB_Graph() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 

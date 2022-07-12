@@ -449,11 +449,11 @@ async def query_document_post(collection_name: str, querybody: apimodel.Collecti
          summary="Retrieve one Document by key.",
          description="",
          )
-async def get_document_by_key(collection_name: str, key: str,
+async def get_document_by_key(collection_name: str, key: str, relation: str = Header(None),
                               current_user_role: bool = True if services_model >= 1 else Depends(
     security.get_read_permission)):
     log.logger.debug(
-        'Access \'/_collection/{collection_name}/{key}\' : run in get_document_by_key(), input data collection_name: [%s]' % collection_name)
+        'Access \'/_collection/{collection_name}/{key}\' : run in get_document_by_key(), input data collection_name: [%s] with relation :[%s]' % (collection_name,relation))
     log.logger.debug('key: [%s]' % key)
     if not coldef.has_Coldef_schema(collection_name):
         raise HTTPException(
@@ -462,7 +462,7 @@ async def get_document_by_key(collection_name: str, key: str,
         )
     ossmodelcls = importlib.import_module('ossmodel.' + collection_name.strip().lower())
     ossmodel = getattr(ossmodelcls, collection_name.strip().capitalize())()
-    return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key)
+    return getattr(ossmodel, 'get' + collection_name.strip().capitalize() + 'bykey')(key,relation)
 
 
 '''Write API'''

@@ -137,8 +137,8 @@ def get_model_from_graph(graphname):
 
 
 if __name__ == '__main__':
-    refresh_relations('university')
-    #graphmodels = get_model_from_graph('university')
-    #log.logger.debug(graphmodels)
+    #refresh_relations('university')
+    graphmodels = get_model_from_graph('university')
+    log.logger.debug(graphmodels)
     #clear_relation('university')
     #rebuild_relation(graphmodels)
