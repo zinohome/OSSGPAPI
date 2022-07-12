@@ -20,6 +20,7 @@ from marshmallow.fields import *
 from core import reloadrelation
 from core.ossbase import Ossbase
 from env.environment import Environment
+from sysmodel.graph import Graph
 from util import log
 
 '''logging'''
@@ -120,7 +121,7 @@ class {{ name|capitalize }}(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def get{{ name|capitalize }}bykey(self,keystr):
+    def get{{ name|capitalize }}bykey(self,keystr,relation='false'):
         try:
             returnjson = {}
             returnjson['count'] = 0
@@ -131,13 +132,24 @@ class {{ name|capitalize }}(Collection):
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
+                if not relation.strip().lower() == 'false':
+                    sysgraphs = Graph().get_all_Graph()
+                    for sysgra in sysgraphs:
+                        graph = ossbase.graph(sysgra['name'])
+                        results = graph.traverse(start_vertex=record._id,
+                                                 direction='outbound',
+                                                 strategy='dfs',
+                                                 edge_uniqueness='global',
+                                                 vertex_uniqueness='global',)
+                        graphjson = {sysgra['name']:results}
+                        returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.get{{ name|capitalize }}bykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def get{{ name|capitalize }}byname(self,name):
+    def get{{ name|capitalize }}byname(self,name,relation='false'):
         try:
             returnjson = {}
             returnjson['count'] = 0
@@ -149,6 +161,17 @@ class {{ name|capitalize }}(Collection):
                     #returnjson['count'] = 1
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
+                    if not relation.strip().lower() == 'false':
+                        sysgraphs = Graph().get_all_Graph()
+                        for sysgra in sysgraphs:
+                            graph = ossbase.graph(sysgra['name'])
+                            results = graph.traverse(start_vertex=records[0]._id,
+                                                     direction='outbound',
+                                                     strategy='dfs',
+                                                     edge_uniqueness='global',
+                                                     vertex_uniqueness='global', )
+                            graphjson = {sysgra['name']: results}
+                            returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ name|capitalize }}.get{{ name|capitalize }}byname() %s ' % exp)

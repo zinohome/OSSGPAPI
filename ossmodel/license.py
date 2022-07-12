@@ -8,18 +8,19 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
-import distutils
 import traceback
-
+import distutils
 import simplejson as json
 import os
 from datetime import date
 
 from arango_orm import Collection
-from arango_orm.fields import String, Date
-from marshmallow.fields import Integer, Bool
+from marshmallow.fields import *
+
+from core import reloadrelation
 from core.ossbase import Ossbase
 from env.environment import Environment
+from sysmodel.graph import Graph
 from util import log
 
 '''logging'''
@@ -32,10 +33,10 @@ class License(Collection):
     _key = String(required=True)
     name = String(required=True, allow_none=False)
     title = String(required=True, allow_none=False)
+    content = String(required=False, allow_none=True)
     version = String(required=True, allow_none=False)
     homepage = String(required=False, allow_none=True)
     introduce = String(required=False, allow_none=True)
-    content = String(required=False, allow_none=True)
     chncontent = String(required=False, allow_none=True)
     licenseinclude = Bool(required=False, allow_none=True)
     sourceinclude = Bool(required=False, allow_none=True)
@@ -58,7 +59,7 @@ class License(Collection):
             else:
                 return False
         except Exception as exp:
-            log.logger.error('Exception at License.hasLicenseCollection() %s ' % exp)
+            log.logger.error('Exception at License.hasLicense() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
             return False;
@@ -85,6 +86,7 @@ class License(Collection):
             if not ossbase.has(License, addjson['_key']):
                 addobj = License._load(addjson)
                 ossbase.add(addobj)
+                reloadrelation.create_relation('license', addjson['_key'], 'graph', True)
                 return addobj.json
             else:
                 return None
@@ -135,7 +137,7 @@ class License(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getLicensebykey(self,keystr):
+    def getLicensebykey(self,keystr,relation='false'):
         try:
             returnjson = {}
             returnjson['count'] = 0
@@ -146,13 +148,24 @@ class License(Collection):
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
+                if not relation.strip().lower() == 'false':
+                    sysgraphs = Graph().get_all_Graph()
+                    for sysgra in sysgraphs:
+                        graph = ossbase.graph(sysgra['name'])
+                        results = graph.traverse(start_vertex=record._id,
+                                                 direction='outbound',
+                                                 strategy='dfs',
+                                                 edge_uniqueness='global',
+                                                 vertex_uniqueness='global',)
+                        graphjson = {sysgra['name']:results}
+                        returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at License.getLicensebykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getLicensebyname(self,name):
+    def getLicensebyname(self,name,relation='false'):
         try:
             returnjson = {}
             returnjson['count'] = 0
@@ -164,6 +177,17 @@ class License(Collection):
                     #returnjson['count'] = 1
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
+                    if not relation.strip().lower() == 'false':
+                        sysgraphs = Graph().get_all_Graph()
+                        for sysgra in sysgraphs:
+                            graph = ossbase.graph(sysgra['name'])
+                            results = graph.traverse(start_vertex=records[0]._id,
+                                                     direction='outbound',
+                                                     strategy='dfs',
+                                                     edge_uniqueness='global',
+                                                     vertex_uniqueness='global', )
+                            graphjson = {sysgra['name']: results}
+                            returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at License.getLicensebyname() %s ' % exp)
@@ -178,7 +202,9 @@ class License(Collection):
                 updatejson['_key'] = updatejson['name']
             if ossbase.has(License, updatejson['_key']):
                 updobj = License._load(updatejson)
+                reloadrelation.del_relation('license', updatejson['_key'], 'graph', True)
                 ossbase.update(updobj)
+                reloadrelation.create_relation('license', updatejson['_key'], 'graph', True)
                 return updobj.json
             else:
                 return None
@@ -191,6 +217,7 @@ class License(Collection):
         try:
             ossbase = Ossbase().db
             if ossbase.has(License, keystr):
+                reloadrelation.del_relation('license', keystr, 'graph', True)
                 return ossbase.delete(ossbase.query(License).by_key(keystr))
             else:
                 return None
@@ -232,6 +259,21 @@ class License(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
+    def loadfromjson(self, jsonobj):
+        try:
+            ossbase = Ossbase().db
+            if not jsonobj.__contains__('_key'):
+                jsonobj['_key'] = jsonobj['name']
+            if ossbase.has(License, jsonobj['_key']):
+                obj = ossbase.query(License).by_key(jsonobj['_key'])
+                return obj
+            else:
+                return None
+        except Exception as exp:
+            log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
+
     @property
     def json(self):
         jdict = self.__dict__.copy()
@@ -252,32 +294,3 @@ class License(Collection):
 
 if __name__ == '__main__':
     ossbase = Ossbase().db
-    tolicense = License(name = 'ApacheLicense-v2',
-                        title = 'Apache许可证',
-                        version = 'v2',
-                        homepage = '',
-                        introduce = 'Apache许可证',
-                        content = 'Apache许可证',
-                        chncontent = 'Apache许可证',
-                        licenseinclude = True,
-                        sourceinclude = False,
-                        linked = False,
-                        statuschange = True,
-                        businessuse = True,
-                        distribution = True,
-                        modification = True,
-                        patentauth = True,
-                        privateuse = True,
-                        authresell = True,
-                        unsecuredliability = True,
-                        notrademark = True)
-    log.logger.debug(tolicense.hasLicenseCollection())
-    tljson = tolicense.json
-    log.logger.debug(tljson)
-    log.logger.debug(json.dumps(tljson))
-    log.logger.debug("================================ create ================================")
-    log.logger.debug(tolicense.createLicense(tljson))
-    log.logger.debug("================================ get_all_License_names ================================")
-    log.logger.debug(tolicense.getallLicensenames())
-
-

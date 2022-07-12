@@ -8,19 +8,19 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
-import distutils
 import traceback
-
+import distutils
 import simplejson as json
 import os
 from datetime import date
 
 from arango_orm import Collection
-from arango_orm.fields import String, Date
-from marshmallow.fields import Integer
+from marshmallow.fields import *
 
+from core import reloadrelation
 from core.ossbase import Ossbase
 from env.environment import Environment
+from sysmodel.graph import Graph
 from util import log
 
 '''logging'''
@@ -32,16 +32,16 @@ class Risk(Collection):
     _index = [{'type':'hash', 'fields':['name'], 'unique':True}]
     _key = String(required=True)
     name = String(required=True, allow_none=False)
+    createdate = Date()
     title = String(required=True, allow_none=False)
+    content = String(required=True, allow_none=False)
     type = String(required=True, allow_none=False)
     software = String(required=True, allow_none=False)
     platform = String(required=True, allow_none=False)
     level = String(required=True, allow_none=False)
     source = String(required=True, allow_none=False)
     link = String(required=True, allow_none=False)
-    content = String(required=True, allow_none=False)
     solution = String(required=True, allow_none=False)
-    createdate = Date()
 
     def hasRiskCollection(self):
         try:
@@ -78,6 +78,7 @@ class Risk(Collection):
             if not ossbase.has(Risk, addjson['_key']):
                 addobj = Risk._load(addjson)
                 ossbase.add(addobj)
+                reloadrelation.create_relation('risk', addjson['_key'], 'graph', True)
                 return addobj.json
             else:
                 return None
@@ -128,7 +129,7 @@ class Risk(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getRiskbykey(self,keystr):
+    def getRiskbykey(self,keystr,relation='false'):
         try:
             returnjson = {}
             returnjson['count'] = 0
@@ -139,13 +140,24 @@ class Risk(Collection):
                 #returnjson['count'] = 1
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
+                if not relation.strip().lower() == 'false':
+                    sysgraphs = Graph().get_all_Graph()
+                    for sysgra in sysgraphs:
+                        graph = ossbase.graph(sysgra['name'])
+                        results = graph.traverse(start_vertex=record._id,
+                                                 direction='outbound',
+                                                 strategy='dfs',
+                                                 edge_uniqueness='global',
+                                                 vertex_uniqueness='global',)
+                        graphjson = {sysgra['name']:results}
+                        returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Risk.getRiskbykey() %s ' % exp)
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
-    def getRiskbyname(self,name):
+    def getRiskbyname(self,name,relation='false'):
         try:
             returnjson = {}
             returnjson['count'] = 0
@@ -157,6 +169,17 @@ class Risk(Collection):
                     #returnjson['count'] = 1
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
+                    if not relation.strip().lower() == 'false':
+                        sysgraphs = Graph().get_all_Graph()
+                        for sysgra in sysgraphs:
+                            graph = ossbase.graph(sysgra['name'])
+                            results = graph.traverse(start_vertex=records[0]._id,
+                                                     direction='outbound',
+                                                     strategy='dfs',
+                                                     edge_uniqueness='global',
+                                                     vertex_uniqueness='global', )
+                            graphjson = {sysgra['name']: results}
+                            returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Risk.getRiskbyname() %s ' % exp)
@@ -171,7 +194,9 @@ class Risk(Collection):
                 updatejson['_key'] = updatejson['name']
             if ossbase.has(Risk, updatejson['_key']):
                 updobj = Risk._load(updatejson)
+                reloadrelation.del_relation('risk', updatejson['_key'], 'graph', True)
                 ossbase.update(updobj)
+                reloadrelation.create_relation('risk', updatejson['_key'], 'graph', True)
                 return updobj.json
             else:
                 return None
@@ -184,6 +209,7 @@ class Risk(Collection):
         try:
             ossbase = Ossbase().db
             if ossbase.has(Risk, keystr):
+                reloadrelation.del_relation('risk', keystr, 'graph', True)
                 return ossbase.delete(ossbase.query(Risk).by_key(keystr))
             else:
                 return None
@@ -225,6 +251,20 @@ class Risk(Collection):
             if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
                 traceback.print_exc()
 
+    def loadfromjson(self, jsonobj):
+        try:
+            ossbase = Ossbase().db
+            if not jsonobj.__contains__('_key'):
+                jsonobj['_key'] = jsonobj['name']
+            if ossbase.has(Risk, jsonobj['_key']):
+                obj = ossbase.query(Risk).by_key(jsonobj['_key'])
+                return obj
+            else:
+                return None
+        except Exception as exp:
+            log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
+            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+                traceback.print_exc()
 
     @property
     def json(self):
@@ -246,22 +286,3 @@ class Risk(Collection):
 
 if __name__ == '__main__':
     ossbase = Ossbase().db
-    torisk = Risk(name='CVE-2022-29885',
-                  title='CVE-2022-29885',
-                  type='CVE',
-                  software='Apache Tomcat',
-                  platform='Linux,Windows,Mac,AIX',
-                  level='High',
-                  source='CVE',
-                  link='https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-29885',
-                  content='The documentation of Apache Tomcat 10.1.0-M1 to 10.1.0-M14, 10.0.0-M1 to 10.0.20, 9.0.13 to 9.0.62 and 8.5.38 to 8.5.78 for the EncryptInterceptor incorrectly stated it enabled Tomcat clustering to run over an untrusted network. This was not correct. While the EncryptInterceptor does provide confidentiality and integrity protection, it does not protect against all risks associated with running over any untrusted network, particularly DoS risks.',
-                  solution='None',
-                  createdate='2022-04-28')
-    log.logger.debug(torisk.hasRiskCollection())
-    tljson = torisk.json
-    log.logger.debug(tljson)
-    log.logger.debug(json.dumps(tljson))
-    log.logger.debug("================================ create ================================")
-    log.logger.debug(torisk.createRisk(tljson))
-    log.logger.debug("================================ get_all_Risk_names ================================")
-    log.logger.debug(torisk.getallRisknames())
