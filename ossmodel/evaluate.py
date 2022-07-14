@@ -149,15 +149,15 @@ class Evaluate(Collection):
                 #returnjson['data'].append(record.json)
                 returnjson = record.json
                 if not relation.strip().lower() == 'false':
-                    sysgraphs = Graph().get_all_Graph()
-                    for sysgra in sysgraphs:
-                        graph = ossbase.graph(sysgra['name'])
+                    graphname = relation.strip()
+                    if ossbase.has_graph(graphname):
+                        graph = ossbase.graph(graphname)
                         results = graph.traverse(start_vertex=record._id,
                                                  direction='outbound',
                                                  strategy='dfs',
                                                  edge_uniqueness='global',
                                                  vertex_uniqueness='global',)
-                        graphjson = {sysgra['name']:results}
+                        graphjson = {graphname:results}
                         returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
@@ -178,15 +178,15 @@ class Evaluate(Collection):
                     #returnjson['data'].append(records[0].json)
                     returnjson = records[0].json
                     if not relation.strip().lower() == 'false':
-                        sysgraphs = Graph().get_all_Graph()
-                        for sysgra in sysgraphs:
-                            graph = ossbase.graph(sysgra['name'])
+                        graphname = relation.strip()
+                        if ossbase.has_graph(graphname):
+                            graph = ossbase.graph(graphname)
                             results = graph.traverse(start_vertex=records[0]._id,
                                                      direction='outbound',
                                                      strategy='dfs',
                                                      edge_uniqueness='global',
                                                      vertex_uniqueness='global', )
-                            graphjson = {sysgra['name']: results}
+                            graphjson = {graphname:results}
                             returnjson['relation'] = graphjson
             return returnjson
         except Exception as exp:
