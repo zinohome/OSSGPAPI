@@ -39,7 +39,7 @@ class Users(Collection):
             return ossbase.query(Users).count()
         except Exception as exp:
             log.logger.error('Exception at users.getuserscount() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def createUsers(self, jsonstr):
@@ -56,7 +56,7 @@ class Users(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at users.createUsers() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getUsersbykey(self,keystr,relation='false'):
@@ -69,7 +69,7 @@ class Users(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at users.getUsersbykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def updateUsers(self, jsonstr):
@@ -86,7 +86,7 @@ class Users(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at users.updateUsers() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def deleteUsers(self,keystr):
@@ -99,7 +99,7 @@ class Users(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at users.deleteUsers() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def queryUsers(self,queryjson):
@@ -132,7 +132,7 @@ class Users(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at users.queryUsers() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def userlogin(self,username,password):
@@ -152,7 +152,7 @@ class Users(Collection):
                 return {"Authentication":False}
         except Exception as exp:
             log.logger.error('Exception at users.userlogin() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getUsersbyname(self,username,relation='false'):
@@ -173,7 +173,7 @@ class Users(Collection):
                 return {"Authentication":False}
         except Exception as exp:
             log.logger.error('Exception at users.getUsersbyname() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def initsysUsers(self):
@@ -187,7 +187,7 @@ class Users(Collection):
                 ossbase.add(adminuser)
         except Exception as exp:
             log.logger.error('Exception at users.initsysUsers() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def __str__(self):

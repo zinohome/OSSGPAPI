@@ -107,7 +107,7 @@ def create_relation(modelname, key, graphname, getallmodel):
                     ossbase.add(ra, if_present='update')
     except Exception as exp:
         log.logger.error('Exception at reloadrelation.create_relation() %s ' % exp)
-        if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+        if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
             traceback.print_exc()
 
 def del_relation(modelname, key, graphname, getallmodel):
@@ -131,7 +131,7 @@ def del_relation(modelname, key, graphname, getallmodel):
                 ossbase.aql.execute(redocqrystr, batch_size=100, count=True)
     except Exception as exp:
         log.logger.error('Exception at reloadrelation.del_relation() %s ' % exp)
-        if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+        if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
             traceback.print_exc()
 
 def get_all_relations(modelname, graphname, getallmodel):
@@ -169,7 +169,7 @@ def get_all_relations(modelname, graphname, getallmodel):
         return returnjson
     except Exception as exp:
         log.logger.error('Exception at reloadrelation.get_all_relations() %s ' % exp)
-        if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+        if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
             traceback.print_exc()
 
 if __name__ == '__main__':

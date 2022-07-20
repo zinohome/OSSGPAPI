@@ -49,7 +49,7 @@ class Sysdef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Sysdef.has_Sysdef_schema() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -62,7 +62,7 @@ class Sysdef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Sysdef.existed_Sysdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -87,7 +87,7 @@ class Sysdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Sysdef.create_Sysdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -104,7 +104,7 @@ class Sysdef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_all_Sysdef_names() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Sysdef_count(self):
@@ -113,7 +113,7 @@ class Sysdef(Collection):
             return govbase.query(Sysdef).count()
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_Sysdef_count() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_all_Sysdef(self):
@@ -129,7 +129,7 @@ class Sysdef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_all_Sysdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Sysdef_bykey(self,keystr):
@@ -146,7 +146,7 @@ class Sysdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_Sysdef_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Sysdef_byname(self,name):
@@ -164,7 +164,7 @@ class Sysdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Sysdef.get_Sysdef_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def update_Sysdef(self, jsonobj):
@@ -177,21 +177,21 @@ class Sysdef(Collection):
                 updobj = Sysdef._load(updatejson)
                 govbase.update(updobj)
                 log.logger.debug('===================== update sysdef [ %s ] =====================' % updobj.name)
-                if distutils.util.strtobool(os.getenv("OSSGPAPI_SYSMODEL_UPDATE_SYNC")):
+                if str(os.getenv("OSSGPAPI_SYSMODEL_UPDATE_SYNC")).strip().lower() == 'true':
                     self.genmodel(updobj.json)
                 return updobj.json
             else:
                 return None
         except Exception as exp:
             log.logger.error('Exception at Sysdef.update_Sysdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_Sysdef(self,keystr):
         try:
             govbase = Govbase().db
             if govbase.has(Sysdef, keystr):
-                if not distutils.util.strtobool(os.getenv("OSSGPAPI_SYSMODEL_SAFETY_DELETE")):
+                if not str(os.getenv("OSSGPAPI_SYSMODEL_SAFETY_DELETE")).strip().lower() == 'true':
                     log.logger.debug('===================== delete sysdef [ %s ] =====================' % keystr)
                     #delete collection
                     log.logger.debug('===================== delete sys model [ %s ] =====================' % keystr)
@@ -207,7 +207,7 @@ class Sysdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Sysdef.delete_Sysdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def query_Sysdef(self,queryjson):
@@ -240,7 +240,7 @@ class Sysdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Sysdef.query_Sysdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def genmodel(self,defjson):
@@ -265,7 +265,7 @@ class Sysdef(Collection):
                     log.logger.debug('Model file: [ %s ] saved !' % modelfilepath)
         except Exception as exp:
             log.logger.error('Exception at Sysdef.genmodel() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delmodel(self,modelname):
@@ -283,7 +283,7 @@ class Sysdef(Collection):
                     log.logger.error('The file [ %s ] does not exist' % modelfilepath)
         except Exception as exp:
             log.logger.error('Exception at Sysdef.delmodel() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

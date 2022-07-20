@@ -47,7 +47,7 @@ class Graph(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Graph.has_Graph_schema() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -60,7 +60,7 @@ class Graph(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Graph.existed_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -79,7 +79,7 @@ class Graph(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Graph.create_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -96,7 +96,7 @@ class Graph(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Graph.get_all_Graph_names() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Graph_count(self):
@@ -105,7 +105,7 @@ class Graph(Collection):
             return govbase.query(Graph).count()
         except Exception as exp:
             log.logger.error('Exception at Graph.get_Graph_count() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_all_Graph(self):
@@ -121,7 +121,7 @@ class Graph(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Graph.get_all_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Graph_bykey(self,keystr):
@@ -138,7 +138,7 @@ class Graph(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Graph.get_Graph_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Graph_byname(self,name):
@@ -156,7 +156,7 @@ class Graph(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Graph.get_Graph_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def update_Graph(self, jsonobj):
@@ -173,7 +173,7 @@ class Graph(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Graph.update_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_Graph(self,keystr):
@@ -186,7 +186,7 @@ class Graph(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Graph.delete_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def query_Graph(self,queryjson):
@@ -218,7 +218,7 @@ class Graph(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Graph.query_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def create_DB_Graph(self,jsonobj):
@@ -238,7 +238,7 @@ class Graph(Collection):
                 ossbase.create_graph(dbgraph)
         except Exception as exp:
             log.logger.error('Exception at Graph.create_DB_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_DB_Graph(self,keystr):
@@ -260,7 +260,7 @@ class Graph(Collection):
             return dbgraph
         except Exception as exp:
             log.logger.error('Exception at Graph.get_DB_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_DB_Graph(self,keystr):
@@ -270,7 +270,7 @@ class Graph(Collection):
                 ossbase.delete_graph(keystr)
         except Exception as exp:
             log.logger.error('Exception at Graph.delete_DB_Graph() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def loadfromjson(self, jsonobj):
@@ -285,7 +285,7 @@ class Graph(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

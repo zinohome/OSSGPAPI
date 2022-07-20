@@ -60,7 +60,7 @@ class Evaluate(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Evaluate.hasEvaluate() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -73,7 +73,7 @@ class Evaluate(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Evaluate.existedEvaluate() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -92,7 +92,7 @@ class Evaluate(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Evaluate.createEvaluate() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -109,7 +109,7 @@ class Evaluate(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Evaluate.getallEvaluatenames() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getEvaluatecount(self):
@@ -118,7 +118,7 @@ class Evaluate(Collection):
             return ossbase.query(Evaluate).count()
         except Exception as exp:
             log.logger.error('Exception at Evaluate.getEvaluatecount() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getallEvaluate(self):
@@ -134,7 +134,7 @@ class Evaluate(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Evaluate.getallEvaluate() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getEvaluatebykey(self,keystr,relation='false'):
@@ -162,7 +162,7 @@ class Evaluate(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Evaluate.getEvaluatebykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getEvaluatebyname(self,name,relation='false'):
@@ -191,7 +191,7 @@ class Evaluate(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Evaluate.getEvaluatebyname() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def updateEvaluate(self, jsonobj):
@@ -210,7 +210,7 @@ class Evaluate(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Evaluate.updateEvaluate() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def deleteEvaluate(self,keystr):
@@ -223,7 +223,7 @@ class Evaluate(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Evaluate.deleteEvaluate() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def queryEvaluate(self,queryjson):
@@ -256,7 +256,7 @@ class Evaluate(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Evaluate.queryEvaluate() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def loadfromjson(self, jsonobj):
@@ -271,7 +271,7 @@ class Evaluate(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

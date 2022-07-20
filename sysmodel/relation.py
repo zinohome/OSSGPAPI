@@ -49,7 +49,7 @@ class Relation(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Relation.has_Relation_schema() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -62,7 +62,7 @@ class Relation(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Relation.existed_Relation() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -81,7 +81,7 @@ class Relation(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Relation.create_Relation() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -98,7 +98,7 @@ class Relation(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Relation.get_all_Relation_names() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Relation_count(self):
@@ -107,7 +107,7 @@ class Relation(Collection):
             return govbase.query(Relation).count()
         except Exception as exp:
             log.logger.error('Exception at Relation.get_Relation_count() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_all_Relation(self):
@@ -123,7 +123,7 @@ class Relation(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Relation.get_all_Relation() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Relation_bykey(self,keystr):
@@ -140,7 +140,7 @@ class Relation(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Relation.get_Relation_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Relation_byname(self,name):
@@ -158,7 +158,7 @@ class Relation(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Relation.get_Relation_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def update_Relation(self, jsonobj):
@@ -175,7 +175,7 @@ class Relation(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Relation.update_Relation() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_Relation(self,keystr):
@@ -188,7 +188,7 @@ class Relation(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Relation.delete_Relation() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def query_Relation(self,queryjson):
@@ -221,7 +221,7 @@ class Relation(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Relation.query_Relation() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def create_Relation_Collection(self,jsonobj):
@@ -236,7 +236,7 @@ class Relation(Collection):
                 ossbase.create_collection(ra, edge=True)
         except Exception as exp:
             log.logger.error('Exception at Student.create_Relation_Collection() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_Relation_Collection(self,keystr):
@@ -246,7 +246,7 @@ class Relation(Collection):
                 ossbase.delete_collection(keystr)
         except Exception as exp:
             log.logger.error('Exception at Student.delete_Relation_Collection() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def loadfromjson(self, jsonobj):
@@ -261,7 +261,7 @@ class Relation(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

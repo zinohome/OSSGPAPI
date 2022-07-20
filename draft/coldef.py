@@ -46,7 +46,7 @@ class Coldef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at coldef.has_Coldef_schema() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -59,7 +59,7 @@ class Coldef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at coldef.existed_Coldef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -69,7 +69,7 @@ class Coldef(Collection):
             return govbase.query(Coldef).count()
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_Coldef_count() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_all_Coldef(self):
@@ -85,7 +85,7 @@ class Coldef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_all_Coldef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_all_Coldef_names(self):
@@ -101,7 +101,7 @@ class Coldef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_all_Coldef_names() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def create_Coldef(self, jsonobj):
@@ -118,7 +118,7 @@ class Coldef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Coldef.create_Coldef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Coldef_bykey(self,keystr):
@@ -134,7 +134,7 @@ class Coldef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_Coldef_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Coldef_byname(self,name):
@@ -151,7 +151,7 @@ class Coldef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Coldef.get_Coldef_byname() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def update_Coldef(self, jsonobj):
@@ -168,7 +168,7 @@ class Coldef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Coldef.update_Coldef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_Coldef(self,keystr):
@@ -181,7 +181,7 @@ class Coldef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Coldef.delete_Coldef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def query_Coldef(self,queryjson):
@@ -214,7 +214,7 @@ class Coldef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Coldef.query_Coldef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

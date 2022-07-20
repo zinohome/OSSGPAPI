@@ -45,7 +45,7 @@ class Pagedef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Pagedef.has_Pagedef_schema() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -58,7 +58,7 @@ class Pagedef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Pagedef.existed_Pagedef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -76,7 +76,7 @@ class Pagedef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Pagedef.create_Pagedef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -93,7 +93,7 @@ class Pagedef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Pagedef.get_all_Pagedef_names() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Pagedef_count(self):
@@ -102,7 +102,7 @@ class Pagedef(Collection):
             return govbase.query(Pagedef).count()
         except Exception as exp:
             log.logger.error('Exception at Pagedef.get_Pagedef_count() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_all_Pagedef(self):
@@ -118,7 +118,7 @@ class Pagedef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Pagedef.get_all_Pagedef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Pagedef_bykey(self,keystr):
@@ -135,7 +135,7 @@ class Pagedef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Pagedef.get_Pagedef_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Pagedef_byname(self,name):
@@ -153,7 +153,7 @@ class Pagedef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Pagedef.get_Pagedef_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def update_Pagedef(self, jsonobj):
@@ -170,7 +170,7 @@ class Pagedef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Pagedef.update_Pagedef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_Pagedef(self,keystr):
@@ -182,7 +182,7 @@ class Pagedef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Pagedef.delete_Pagedef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def query_Pagedef(self,queryjson):
@@ -215,7 +215,7 @@ class Pagedef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Pagedef.query_Pagedef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

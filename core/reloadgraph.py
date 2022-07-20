@@ -89,7 +89,7 @@ def rebuild_relation(graphmodels):
         log.logger.debug('Refresh OSS Relations complete, %s relation documents rebuild' % total )
     except Exception as exp:
         log.logger.error('Exception at reloadgraph.rebuild_relation() %s ' % exp)
-        if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+        if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
             traceback.print_exc()
 
 def clear_relation(graphname):
@@ -109,7 +109,7 @@ def clear_relation(graphname):
                 racollection.truncate()
     except Exception as exp:
         log.logger.error('Exception at reloadgraph.clear_relation() %s ' % exp)
-        if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+        if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
             traceback.print_exc()
 
 def get_model_from_graph(graphname):
@@ -132,7 +132,7 @@ def get_model_from_graph(graphname):
         return returnjson
     except Exception as exp:
         log.logger.error('Exception at reloadgraph.get_model_from_graph() %s ' % exp)
-        if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+        if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
             traceback.print_exc()
 
 

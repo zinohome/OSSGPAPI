@@ -50,7 +50,7 @@ class Navdef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Navdef.has_Navdef_schema() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -63,7 +63,7 @@ class Navdef(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at Navdef.existed_Navdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -81,7 +81,7 @@ class Navdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Navdef.create_Navdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -98,7 +98,7 @@ class Navdef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Navdef.get_all_Navdef_names() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Navdef_count(self):
@@ -107,7 +107,7 @@ class Navdef(Collection):
             return govbase.query(Navdef).count()
         except Exception as exp:
             log.logger.error('Exception at Navdef.get_Navdef_count() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_all_Navdef(self):
@@ -123,7 +123,7 @@ class Navdef(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at Navdef.get_all_Navdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Navdef_bykey(self,keystr):
@@ -140,7 +140,7 @@ class Navdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Navdef.get_Navdef_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get_Navdef_byname(self,name):
@@ -158,7 +158,7 @@ class Navdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Navdef.get_Navdef_bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def update_Navdef(self, jsonobj):
@@ -175,7 +175,7 @@ class Navdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Navdef.update_Navdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete_Navdef(self,keystr):
@@ -187,7 +187,7 @@ class Navdef(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Navdef.delete_Navdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def query_Navdef(self,queryjson):
@@ -220,7 +220,7 @@ class Navdef(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at Navdef.query_Navdef() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

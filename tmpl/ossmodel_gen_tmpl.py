@@ -45,7 +45,7 @@ class {{ defobj['name']|capitalize }}(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.has{{ defobj['name']|capitalize }}() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -58,7 +58,7 @@ class {{ defobj['name']|capitalize }}(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.existed{{ defobj['name']|capitalize }}() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -77,7 +77,7 @@ class {{ defobj['name']|capitalize }}(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.create{{ defobj['name']|capitalize }}() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -94,7 +94,7 @@ class {{ defobj['name']|capitalize }}(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.getall{{ defobj['name']|capitalize }}names() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get{{ defobj['name']|capitalize }}count(self):
@@ -103,7 +103,7 @@ class {{ defobj['name']|capitalize }}(Collection):
             return ossbase.query({{ defobj['name']|capitalize }}).count()
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.get{{ defobj['name']|capitalize }}count() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getall{{ defobj['name']|capitalize }}(self):
@@ -119,7 +119,7 @@ class {{ defobj['name']|capitalize }}(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.getall{{ defobj['name']|capitalize }}() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get{{ defobj['name']|capitalize }}bykey(self,keystr,relation='false'):
@@ -147,7 +147,7 @@ class {{ defobj['name']|capitalize }}(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.get{{ defobj['name']|capitalize }}bykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def get{{ defobj['name']|capitalize }}byname(self,name,relation='false'):
@@ -176,7 +176,7 @@ class {{ defobj['name']|capitalize }}(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.get{{ defobj['name']|capitalize }}byname() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def update{{ defobj['name']|capitalize }}(self, jsonobj):
@@ -195,7 +195,7 @@ class {{ defobj['name']|capitalize }}(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.update{{ defobj['name']|capitalize }}() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def delete{{ defobj['name']|capitalize }}(self,keystr):
@@ -208,7 +208,7 @@ class {{ defobj['name']|capitalize }}(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.delete{{ defobj['name']|capitalize }}() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def query{{ defobj['name']|capitalize }}(self,queryjson):
@@ -241,7 +241,7 @@ class {{ defobj['name']|capitalize }}(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at {{ defobj['name']|capitalize }}.query{{ defobj['name']|capitalize }}() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def loadfromjson(self, jsonobj):
@@ -256,7 +256,7 @@ class {{ defobj['name']|capitalize }}(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property

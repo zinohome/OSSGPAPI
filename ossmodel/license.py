@@ -60,7 +60,7 @@ class License(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at License.hasLicense() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False;
 
@@ -73,7 +73,7 @@ class License(Collection):
                 return False
         except Exception as exp:
             log.logger.error('Exception at License.existedLicense() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
             return False
 
@@ -92,7 +92,7 @@ class License(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at License.createLicense() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
 
@@ -109,7 +109,7 @@ class License(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at License.getallLicensenames() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getLicensecount(self):
@@ -118,7 +118,7 @@ class License(Collection):
             return ossbase.query(License).count()
         except Exception as exp:
             log.logger.error('Exception at License.getLicensecount() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getallLicense(self):
@@ -134,7 +134,7 @@ class License(Collection):
             return resultlist
         except Exception as exp:
             log.logger.error('Exception at License.getallLicense() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getLicensebykey(self,keystr,relation='false'):
@@ -162,7 +162,7 @@ class License(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at License.getLicensebykey() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def getLicensebyname(self,name,relation='false'):
@@ -191,7 +191,7 @@ class License(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at License.getLicensebyname() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def updateLicense(self, jsonobj):
@@ -210,7 +210,7 @@ class License(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at License.updateLicense() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def deleteLicense(self,keystr):
@@ -223,7 +223,7 @@ class License(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at License.deleteLicense() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def queryLicense(self,queryjson):
@@ -256,7 +256,7 @@ class License(Collection):
             return returnjson
         except Exception as exp:
             log.logger.error('Exception at License.queryLicense() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     def loadfromjson(self, jsonobj):
@@ -271,7 +271,7 @@ class License(Collection):
                 return None
         except Exception as exp:
             log.logger.error('Exception at Student.loadfromjson() %s ' % exp)
-            if distutils.util.strtobool(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")):
+            if str(os.getenv("OSSGPAPI_APP_EXCEPTION_DETAIL")).strip().lower() == 'true':
                 traceback.print_exc()
 
     @property
