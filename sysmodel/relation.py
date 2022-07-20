@@ -10,7 +10,7 @@
 #  @Software: OSSGPAPI
 import importlib
 import traceback
-import distutils
+
 import simplejson as json
 import os
 from datetime import date

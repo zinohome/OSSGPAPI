@@ -8,7 +8,7 @@
 #  @Author  : Zhang Jun
 #  @Email   : ibmzhangjun@139.com
 #  @Software: OSSGPAPI
-import distutils
+
 import os
 import traceback
 import simplejson as json
