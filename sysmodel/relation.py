@@ -170,6 +170,8 @@ class Relation(Collection):
             if govbase.has(Relation, updatejson['_key']):
                 updobj = Relation._load(updatejson)
                 govbase.update(updobj)
+                self.delete_Relation_Collection(updatejson['_key'])
+                self.create_Relation_Collection(jsonobj)
                 return updobj.json
             else:
                 return None

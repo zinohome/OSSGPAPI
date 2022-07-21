@@ -168,6 +168,10 @@ class Graph(Collection):
             if govbase.has(Graph, updatejson['_key']):
                 updobj = Graph._load(updatejson)
                 govbase.update(updobj)
+                log.logger.debug('======================= I will delete the graph : %s' % updatejson['_key'])
+                self.delete_DB_Graph(updatejson['_key'])
+                log.logger.debug('======================= I will create the graph : %s' % updobj)
+                self.create_DB_Graph(jsonobj)
                 return updobj.json
             else:
                 return None
